@@ -49,7 +49,14 @@ button:hover
 
 </style>
 -->
-
+<?php
+	$page='RAHIN Login';
+	$path="./";
+	include($path."./templates/header.php");
+?>
+<!--
+	include($path."./templates/nav.php");
+-->
 <form action="">
 <h2>RSA Login</h2>
 	<div class="container">
@@ -64,3 +71,6 @@ button:hover
 		<button type="submit">Request Account</button>
 	</div>
 </form>
+<?php
+	include($path."./templates/footer.php");
+?>

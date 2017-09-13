@@ -16,13 +16,14 @@ body
 }
 </style>
 -->
+	
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>RAHIN</title>
-<link href="css/default.css" type="text/css" rel="stylesheet" />
-<script src="js/default.js" type="text/javascript"></script>
+<title><?php echo $page; ?></title>
+<link href="<?php echo $path; ?>css/default.css" rel="stylesheet">
+<script src="<?php echo $path; ?>js/default.js" type="text/javascript"></script>
 </head>
 	<body>
 	<div class="header">
