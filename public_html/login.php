@@ -1,5 +1,6 @@
 <!--
 <style>
+<style>
 form 
 {
     border: 3px solid #F1F1F1;
@@ -7,9 +8,9 @@ form
 
 input[type=text], input[type=password] 
 {
-    width: 100%;
+    width: 445px;
     padding: 12px 20px;
-    margin: 8px 0;
+    margin-left: 25px;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -22,7 +23,8 @@ h2
     color: white;
     text-align: center;
     height: 60px;
-    font-size: 50px;
+    font-size: 52px;
+    width: 495px;
 }
 
 button 
@@ -34,7 +36,8 @@ button
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 495px;
+    
 }
 
 button:hover 
@@ -45,6 +48,9 @@ button:hover
 .container 
 {
     padding: 16px;
+    margin-right:auto; 
+    margin-left:auto;
+    width: 500px;
 }
 
 </style>
@@ -58,19 +64,18 @@ button:hover
 	include($path."./templates/nav.php");
 -->
 <form action="">
-<h2>RSA Login</h2>
 	<div class="container">
+	<form action="">
+	<h2>RSA Login</h2>
 
-		<label><b>Username</b></label>
 		<input type="text" placeholder="Enter Username" name="username" required>
-
-		<label><b>Password</b></label>
+		<br><br>
 		<input type="password" placeholder="Enter Password" name="pw" required>
-        
+        <br><br>
 		<button type="submit">Login</button>
 		<button type="submit">Request Account</button>
+	</form>
 	</div>
-</form>
 <?php
 	include($path."./templates/footer.php");
 ?>
