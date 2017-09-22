@@ -1,11 +1,5 @@
 <!--
 <style>
-<style>
-form 
-{
-    border: 3px solid #F1F1F1;
-}
-
 input[type=text], input[type=password] 
 {
     width: 445px;
@@ -22,9 +16,9 @@ h2
 	background-color: #0E6AA8;
     color: white;
     text-align: center;
-    height: 60px;
-    font-size: 52px;
-    width: 495px;
+    height: 80px;
+    font-size: 65px;
+    width: 500px;
 }
 
 button 
@@ -33,10 +27,11 @@ button
     font-size: 30px;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+	margin-left: 25px;
+	margin-bottom: 10px;
     border: none;
     cursor: pointer;
-    width: 495px;
+    width: 450px;
     
 }
 
@@ -47,10 +42,12 @@ button:hover
 
 .container 
 {
-    padding: 16px;
+	margin-top: 35px;
+	margin-bottom: 35px;
     margin-right:auto; 
     margin-left:auto;
     width: 500px;
+	border: 3px solid #A9A9A9;
 }
 
 </style>
