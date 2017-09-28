@@ -1,9 +1,10 @@
 <?php
-	$page='RAHIN Login';
+	$page='RAHIN Home';
 	$path="./";
-	include($path."./templates/header.php");
+	include("header.php");
 ?>
 
+<!-- The login form should only appear if the user has not logge din yet. Otherwise, we can show some basic information. -->
 <form action="">
 	<div class="container">
 	<form action="">
@@ -18,5 +19,5 @@
 	</form>
 	</div>
 <?php
-	include($path."./templates/footer.php");
+	include("footer.php");
 ?>

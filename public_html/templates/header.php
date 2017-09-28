@@ -1,22 +1,3 @@
-<!--
-<style>
-body 
-{
-    background-color:#F6F6F6;
-}
-
-.header
-{
-	background-color:#0E6AA8;
-}
-
-.logo
-{
-	margin: auto; align: middle;
-}
-</style>
--->
-	
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +7,19 @@ body
 <script src="<?php echo $path; ?>js/default.js" type="text/javascript"></script>
 </head>
 	<body>
-	<div class="header">
-	<img src="../img/logo.png" alt="RAHIN Logo" class="logo">
-	</div>
+		<div id="header">
+			<div id="img_container">
+				<img src="../img/logo.png" alt="RAIHN Logo" class="logo">
+			<nav>
+				<ul>
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Schedules</a>
+						<ul>
+							<li><a href="#">Congregation Schedule</a></li>
+							<li><a href="#">Bus Driver Schedule</a></li>
+						</ul>
+					</li>
+					<li><a href="#">raihn.org</a></li>
+				</ul>
+			</nav>
+		</div>
