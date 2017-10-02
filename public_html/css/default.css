@@ -1,32 +1,180 @@
+/**
+ * Default CSS for RAIHN Scheduling Application
+ *
+ * @author     Kristen Merritt
+ * @author     Chevy 
+ * @date       9/30/2017
+ */
+
+
+/***************************
+ * * * * * COLORS * * * * * 
+ *************************/
+/*
+    light-gray:      #d7d9dd
+    background-gray: #F6F6F6
+    light-blue:      ##0E6AA8
+    dark-blue:       #095487
+ */
+
+
+
+/***************************
+ * * * * * GENERAL * * * * *
+ ***************************/
 body 
 {
     background-color:#F6F6F6;
+    font-family: Arial;
+    padding: 0;
+    margin: 0;
 }
 
-.header
+#container 
 {
-	background-color:#0E6AA8;
+    position: relative;
+    width: 70vw;
+    margin: 0;
+    margin: 0 auto;
+    min-height: 76vh;  
+    background: white;
+}
+
+#main_content {
+    min-height: 60vh;
+}
+
+.clearfix:after {
+   content: " "; /* Older browser do not support empty content */
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
+}
+
+/**************************
+ * * * * * HEADER * * * * *
+ **************************/
+#header
+{
+	width: 100vw;
+    min-height: 20vh;
+    background-color:#0E6AA8;
+    z-index: 99;
+}
+
+#logo_container {
+    width: 275px;
+    margin: 0 auto;
 }
 
 .logo
 {
-	margin: auto; align: middle;
+    height: 100px;
+    width: 275px;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
 }
 
+nav {
+    height: 5vh;
+    z-index: 100;
+    width: 100vw;
+    background-color: #095487;
+}
+
+#hidden_nav {
+    display: none;
+}
+
+nav ul {
+    width: 25vw;
+    margin: 0 auto;
+}
+
+nav ul li {
+    position: relative;
+    display: block;
+    width: 32.5%;
+    float: left;
+    line-height: 5vh;
+    margin-left: 0;
+}
+
+nav ul li a { 
+    width: 100%;
+    color: white; 
+    margin: 0 auto;
+    text-decoration: none;
+}
+
+/**************************
+ * * * * * FOOTER * * * * *
+ **************************/
 #footer
 {
-    list-style: none;
+    position: relative;
+    width: 100%;
+    height: 15vh;
 }
 
-#footer li
-{
-	display:inline;
+#footer ul {
+    list-style-type: none;
+}
+
+#footer h1 {
+    color: #d7d9dd;
+}
+
+#footer ul li a {
+    text-decoration: none;
+    margin-bottom: 2px;
 }
 
 #footer a
 {
-	margin: 2%;
+    font-size: 15pt;
+    margin-bottom: 5px;
+    color: #d7d9dd;
 }
+
+#footer_container {
+    position: relative;
+    width: 60%;
+    margin: 0 auto;
+    border-top: 1pt solid #d7d9dd;
+}
+
+.footer_section {
+    color: gray;
+    float: left;
+    margin-top: 10px;
+    min-width: 20%;
+}
+
+.footer_section > h1 {
+    text-align: center;
+    font-size: 30pt;
+}
+
+#links {
+    width: 60%;
+}
+
+#links_1, #links_2, #links_3 {
+    width: 32.5%;
+    margin: 0 auto;
+    float: left;
+}
+
+
+
+
+
+
+
+
+
 
 input[type=text], input[type=password] 
 {
@@ -68,12 +216,3 @@ button:hover
     opacity: 0.8;
 }
 
-.container 
-{
-	margin-top: 35px;
-	margin-bottom: 35px;
-    margin-right:auto; 
-    margin-left:auto;
-    width: 500px;
-	border: 3px solid #A9A9A9;
-}
