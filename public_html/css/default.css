@@ -34,13 +34,13 @@ body
 {
     position: relative;
     width: 70vw;
-    margin: 0;
     margin: 0 auto;
     min-height: 76vh;  
     background: white;
 }
 
 #main_content {
+    position: relative;
     min-height: 60vh;
 }
 
@@ -168,15 +168,76 @@ nav ul li a {
 }
 
 
+/******************************
+ * * * * * LOGIN FORM * * * * *
+ ******************************/
+#login_form {
+    position: absolute;
+    width: 20vw;
+    min-height: 38vh;
+    top: 50%;
+    left: 50%;
+    margin: -18vh 0 0 -10vw;
+    border: 1pt solid #d7d9dd;
+    border-radius: 10px;
+
+}
+
+#login_form input[type=text],
+#login_form input[type=password] {
+    display: block;
+    width: 80%;
+    height: 4vh;
+    border-radius: 5px;
+    border: 1pt solid #d7d9dd;
+    margin: 0 auto;
+    padding-left: 10px;
+}
+
+#login_form input:first-of-type {
+    margin-top: 7vh;
+}
 
 
+.form_header {
+    position: absolute;
+    width: 20vw;
+    height: 7vh;
+    top: 50%;
+    left: 50%;
+    margin: -22vh 0 0 -10vw;
+    z-index: 98;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    margin-bottom: -1vh;
+    background-color: #0E6AA8;
+}
 
+.form_header h1 {
+    color: white;
+    font-size: 20pt;
+    text-align: center;
+}
 
+#login_form button, #request_href {
+    width: 15vw;
+    display: block;
+    height: 5vh;
+    font-size: 15pt;
+    border: none;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-bottom: 0.75vh;
+    background-color: #0E6AA8;
+    color: white;
+}
 
+#login_form button:hover {
+    cursor: pointer;
+    background-color: #0E6AA8;
+}
 
-
-
-input[type=text], input[type=password] 
+/*input[type=text], input[type=password] 
 {
     width: 445px;
     padding: 12px 20px;
@@ -184,9 +245,9 @@ input[type=text], input[type=password]
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-}
+}*/
 
-h2
+/*h2
 {
 	margin-top: 0px;
 	background-color: #0E6AA8;
@@ -195,9 +256,9 @@ h2
     height: 80px;
     font-size: 65px;
     width: 500px;
-}
+}*/
 
-button 
+/*button 
 {
     background-color: #0E6AA8;
     font-size: 30px;
@@ -209,10 +270,5 @@ button
     cursor: pointer;
     width: 450px;
     
-}
-
-button:hover 
-{
-    opacity: 0.8;
-}
+}*/
 
