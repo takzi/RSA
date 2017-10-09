@@ -1,0 +1,95 @@
+/**
+ * Login Form CSS for RAIHN Scheduling Application
+ *
+ * @author     Kristen Merritt
+ * @date       10/7/2017
+ */
+
+
+/***************************
+ * * * * * COLORS * * * * * 
+ *************************/
+/*
+    light-gray:      #d7d9dd
+    background-gray: #F6F6F6
+    light-blue:      ##0E6AA8
+    dark-blue:       #095487
+ */
+
+
+
+/******************************
+ * * * * * LOGIN FORM * * * * *
+ ******************************/
+#login_form {
+    position: absolute;
+    width: 20vw;
+    min-height: 38vh;
+    top: 50%;
+    left: 50%;
+    margin: -18vh 0 0 -10vw;
+    border: 1pt solid #d7d9dd;
+    border-radius: 10px;
+
+}
+
+#login_form input[type=text],
+#login_form input[type=password] {
+    display: block;
+    width: 80%;
+    height: 4vh;
+    border-radius: 5px;
+    border: 1pt solid #d7d9dd;
+    margin: 0 auto;
+    padding-left: 10px;
+}
+
+#login_form input:first-of-type {
+    margin-top: 7vh;
+}
+
+
+.form_header {
+    position: absolute;
+    width: 20.1vw;
+    height: 7vh;
+    top: 50%;
+    left: 50%;
+    margin: -22vh 0 0 -10vw;
+    z-index: 98;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    margin-bottom: -1vh;
+    background-color: #0E6AA8;
+}
+
+.form_header h1 {
+    color: white;
+    font-size: 20pt;
+    text-align: center;
+}
+
+#login_form button, 
+#request_href {
+    width: 15vw;
+    display: block;
+    height: 5vh;
+    font-size: 15pt;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-bottom: 0.75vh;
+    background-color: #0E6AA8;
+    color: white;
+}
+
+#request_href{
+    text-decoration: none;
+    line-height: 5vh;
+}
+
+#login_form button:hover {
+    cursor: pointer;
+    background-color: #0E6AA8;
+}
