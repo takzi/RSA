@@ -1,0 +1,55 @@
+/**
+ * Bus Driver/Congregation CSS for RAIHN Scheduling Application
+ *
+ * @author     Chevy Mac
+ * @date       10/7/2017
+ */
+
+
+/***************************
+ * * * * * COLORS * * * * * 
+ ***************************/
+/*
+    light-gray:      #D7D9DD
+    background-gray: #F6F6F6
+    light-blue:      #0E6AA8
+    dark-blue:       #095487
+	light-blue (v2): #B2D6EF
+ */
+
+
+
+/*****************************
+ * * * * * SCHEDULES * * * * *
+ *****************************/
+#schedule 
+{
+	background: #0E6AA8;
+	width: 650px;
+}
+
+#cong
+{
+	background: #B2D6EF;
+}
+    
+h1 
+{
+	color: white;
+	font-size: 20pt;
+	text-align: center;
+}
+
+table 
+{
+	background: white;
+	border-collapse: collapse;
+	width: 650px;
+}
+
+td 
+{
+	border: 1px solid #ccc;
+	line-height: 80px;
+	text-align: center;
+}
