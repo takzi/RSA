@@ -4,10 +4,6 @@
  * @auth Anthony Perez
  * @date 09/11/17
  **/
- 
- /**
- * 
- */
  class DB{
  	function __construct(){
  		require_once("availability.class.php");
@@ -987,8 +983,8 @@
 		$_congregationID,$_rotationDateFrom,$_rotationDateTo){
 		try{
 			$stmt = $this->db->prepare("UPDATE rotation  
-				SET rotation_date_from:rotation_date_from,
-					rotation_date_to:rotation_date_to
+				SET rotation_date_from=:rotation_date_from,
+					rotation_date_to=:rotation_date_to
 				WHERE id=:rotationID
 				AND rotation_number=:rotation_number
 				AND congregation_ID=:congregation_ID");
@@ -1129,12 +1125,13 @@
 		try{
 			if($_congregation != ""){
 				$stmt = $this->db->prepare("UPDATE supporting_congregation  
-				(name) VALUES (:name)");
+				name=:name WHERE id=:id");
 				$stmt->bindParam(":name",$_name,PDO::PARAM_STR);
+				$stmt->bindParam(":id",$_id,PDO::PARAM_STR);
 				$stmt->execute();
 
 				$stmt = $this->db->prepare("UPDATE congregation_supporting
-				(congregation_ID) VALUES (:congregation_ID)
+				SET congregation_ID=:congregation_ID
 				WHERE congregation_ID=:congregation_ID
 				AND supporting_ID=:supporting_ID");
 				$stmt->bindParam(":congregation_ID",$_congregation,PDO::PARAM_INT);
@@ -1148,7 +1145,7 @@
 			}
 		}
 		catch(PDOException $e){
-			echo "insertNewAvailability - ".$e->getMessage();
+			echo "updateSupportingCongregation - ".$e->getMessage();
 			die();
 		}
 	}
@@ -1261,7 +1258,27 @@
 			die();
 		}
 	}
-	function updateAvailability(){}
+	function updateAvailability($_busDriverID,$_availability,
+								$_oldAvailability,$_time_of_day){
+		try{
+			$stmt = $this->db->prepare("UPDATE availability  
+				SET availability=:availability,
+					time_of_day=:time_of_day
+				WHERE bus_driver_ID=:bus_driver_ID
+				AND availability=:old_availability");
+			$stmt->bindParam(":bus_driver_ID",$_busDriverID,PDO::PARAM_INT);
+			$stmt->bindParam(":availability",$_availability,PDO::PARAM_STR);
+			$stmt->bindParam(":old_availability",$_oldAvailability,PDO::PARAM_STR);
+			$stmt->bindParam(":time_of_day",$_time_of_day,PDO::PARAM_STR);
+			$stmt->execute();
+
+			print $this->db->lastInsertId();
+		}
+		catch(PDOException $e){
+			echo "insertNewRotation - ".$e->getMessage();
+			die();
+		}
+	}
 	function deleteAvailability(){
 		try{
 			$stmt = $this->db->prepare("DELETE FROM availability WHERE id = :id");
@@ -1278,13 +1295,13 @@
 
 	// SCHEDULE ===============================================================
 
-	function insertNewSchedule($date,$time_of_day,$busDriverID){
+	function insertNewSchedule($_date,$_timeOfDay,$_busDriverID){
 		try{
 			$stmt = $this->db->prepare("INSERT INTO schedule  
 			VALUES (:date,:time_of_day,:busDriverID)");
-			$stmt->bindParam(":date",$date,PDO::PARAM_STR);
-			$stmt->bindParam(":time_of_day",$time_of_day,PDO::PARAM_INT);
-			$stmt->bindParam(":busDriverID",$busDriverID,PDO::PARAM_INT);
+			$stmt->bindParam(":date",$_date,PDO::PARAM_STR);
+			$stmt->bindParam(":time_of_day",$_timeOfDay,PDO::PARAM_INT);
+			$stmt->bindParam(":busDriverID",$_busDriverID,PDO::PARAM_INT);
 			$stmt->execute();
 
 			print $this->db->lastInsertId();
@@ -1294,7 +1311,26 @@
 			die();
 		}
 	}
-	function updateSchedule(){}
+	function updateSchedule($_date,$_oldDate,$_timeOfDay,$_busDriverID){
+		try{
+			$stmt = $this->db->prepare("UPDATE schedule s
+				SET s.date=:date,
+					time_of_day=:time_of_day
+				WHERE bus_driver_ID=:bus_driver_ID
+				AND s.date=:old_date");
+			$stmt->bindParam(":date",$_date,PDO::PARAM_STR);
+			$stmt->bindParam(":old_date",$_oldDate,PDO::PARAM_STR);
+			$stmt->bindParam(":time_of_day",$_timeOfDay,PDO::PARAM_INT);
+			$stmt->bindParam(":busDriverID",$_busDriverID,PDO::PARAM_INT);
+			$stmt->execute();
+
+			print $this->db->lastInsertId();
+		}
+		catch(PDOException $e){
+			echo "insertNewRotation - ".$e->getMessage();
+			die();
+		}
+	}
 	function deleteSchedule(){
 		try{
 			$stmt = $this->db->prepare("DELETE FROM schedule WHERE id = :id");
