@@ -5,7 +5,7 @@ USE RSA_DB;
 
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE role (
-	`id` INT(11) NOT NULL,
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(35) NOT NULL,
 	PRIMARY KEY (`id`)
 );
@@ -16,12 +16,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE user (
-	`id` INT(11) NOT NULL,
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`first_name` VARCHAR(30) NOT NULL,
 	`last_name` VARCHAR(30) NOT NULL,
 	`role_ID` INT(11) NOT NULL,
-	`email` VARCHAR(40) DEFAULT NULL,
-	`password` VARCHAR(75) NOT NULL,
+	`email` VARCHAR(40) NOT NULL UNIQUE,
+	`password` VARCHAR(255) NOT NULL,
 	PRIMARY KEY (`id`),
 	KEY `fk_user_role` (`role_ID`),
 	CONSTRAINT `fk_user_role` FOREIGN KEY (`role_ID`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -29,7 +29,7 @@ CREATE TABLE user (
 
 DROP TABLE IF EXISTS `bus_driver`;
 CREATE TABLE bus_driver (
-	`id` INT(11) NOT NULL,
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`contact_ID` INT(11) NOT NULL,
 	`contact_number` VARCHAR(15) NULL,
 	PRIMARY KEY (`id`),
@@ -59,7 +59,7 @@ CREATE TABLE schedule (
 
 DROP TABLE IF EXISTS `congregation`;
 CREATE TABLE congregation (
-	`id` INT(11) NOT NULL,
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`contact_ID` INT(11) NOT NULL,
 	`name` VARCHAR(45) NOT NULL,
 	PRIMARY KEY (`id`),
@@ -101,7 +101,7 @@ CREATE TABLE holidays (
 
 DROP TABLE IF EXISTS `supporting_congregation`;
 CREATE TABLE supporting_congregation (
-	`id` INT(11) NOT NULL,
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(35) NOT NULL,
 	PRIMARY KEY (`id`)
 );

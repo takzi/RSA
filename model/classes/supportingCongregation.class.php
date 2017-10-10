@@ -4,7 +4,7 @@
  * @date 09/24/17
  **/
 
-class suportingCongregation{
+class supportingCongregation{
 
 	private $id, $name;
 
