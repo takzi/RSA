@@ -1,7 +1,8 @@
 <?php
 	$page='RAHIN Home';
-	$path="./";
-	include("header.php");
+	$path="./../";
+	require_once($path."header.php");
+	echo '<link href="'.$path.'../css/profile.css" rel="stylesheet">';
 ?>
 
 <div class="container">
@@ -42,5 +43,5 @@
 	</div>
 </div> 
 <?php
-	include("footer.php");
+	require_once($path."footer.php");
 ?>

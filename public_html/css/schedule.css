@@ -25,15 +25,12 @@
 #schedule 
 {
 	background: #0E6AA8;
-	width: 826px;
+	width: 650px;
 }
 
 #cong
 {
 	background: #B2D6EF;
-    text-align: center;
-    color: #666666;
-    font-size: 38px;
 }
     
 h1 
@@ -47,12 +44,12 @@ table
 {
 	background: white;
 	border-collapse: collapse;
-	width: 826px;
+	width: 650px;
 }
 
 td 
 {
-	border: 3px solid #BEBEBE;
-	text-align: left;
-	white-space:pre
+	border: 1px solid #ccc;
+	line-height: 80px;
+	text-align: center;
 }
