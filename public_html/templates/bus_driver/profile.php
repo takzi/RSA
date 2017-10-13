@@ -9,8 +9,10 @@
 	<h1 id ="profile_h1">Congegation Name</h1>
 	<div id="profile_container">
 		<div align="left"> 
-			<button id ="profile_button">Action Required</button>
+			<button id ="profile_button">No Action Required</button>
+			<br>
 			<button id ="profile_button">View/Request Blackout Dates</button>
+			<br>
 			<button id ="profile_button">Request Schedule Change</button>
 		</div>
 		<div align="right"> 
