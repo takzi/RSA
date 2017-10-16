@@ -1,0 +1,75 @@
+/**
+ * Default CSS for RAIHN Scheduling Application Profiles
+ *
+ * @author     Chevy Mac
+ * @date       10/12/2017
+ */
+
+
+/***************************
+ * * * * * COLORS * * * * * 
+ *************************/
+/*
+    light-gray:      #d7d9dd
+    background-gray: #F6F6F6
+    light-blue:      ##0E6AA8
+    dark-blue:       #095487
+ */
+
+/***************************
+ * * * * * PROFILE * * * * *
+ ***************************/
+
+#profile_h1
+{
+    width: 60%;
+	padding-top: 30px;
+    margin: 0 auto;
+	border-bottom: 1pt solid #d7d9dd;
+}
+
+#profile_container
+{
+    width: 60%;
+    margin: 0 auto;
+}
+
+button
+{
+	font-family: 'Arial';
+	border-radius: 12px;
+    background: white;
+    font-size: 16px;
+    margin-top: 10px;
+	height: 50px;
+	width: 200px;
+    border: 2px solid #e7e7e7;
+}
+
+#required
+{
+    background: red;
+	color: white;
+}
+
+table 
+{
+	background: white;
+	border-collapse: collapse;
+    text-align: center;
+	margin-top: -170px;
+    width: 350px;
+}
+
+td 
+{
+	height: 70px;
+	border: 3px solid #BEBEBE;
+    font-size: 20px;
+}
+
+#title
+{
+	background: #0E6AA8;
+	color: white;
+}

@@ -1,0 +1,59 @@
+/**
+ * Request Account Form CSS for RAIHN Scheduling Application
+ *
+ * @author     Kristen Merritt
+ * @date       10/14/2017
+ */
+
+
+/***************************
+ * * * * * COLORS * * * * * 
+ *************************/
+/*
+    light-gray:      #d7d9dd
+    background-gray: #F6F6F6
+    light-blue:      ##0E6AA8
+    dark-blue:       #095487
+ */
+
+#title {
+	margin: 0;
+	margin-left: 18.5vw;
+	padding-top: 5vh;
+}
+
+#request_account_form {
+	position: absolute;
+    width: 40vw;
+    min-height: 30vh;
+    top: 50%;
+    left: 50%;
+    margin: -18vh 0 0 -20vw;
+    border-radius: 10px;
+}
+
+#request_account_form input[type=text],
+#request_account_form input[type=password],
+#role {
+    display: block;
+    width: 80%;
+    height: 4vh;
+    border-radius: 5px;
+    border: 1pt solid #d7d9dd;
+    margin: 0 auto;
+    padding-left: 10px;
+}
+
+#request_account_form button {
+    width: 15vw;
+    display: block;
+    height: 5vh;
+    font-size: 15pt;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-bottom: 0.75vh;
+    background-color: #0E6AA8;
+    color: white;
+}
