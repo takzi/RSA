@@ -65,11 +65,16 @@ td
 {
 	height: 70px;
 	border: 3px solid #BEBEBE;
-    font-size: 20px;
+    font-size: 24px;
 }
 
 #title
 {
 	background: #0E6AA8;
 	color: white;
+}
+
+#cong_tb
+{
+	height: 295px;
 }
