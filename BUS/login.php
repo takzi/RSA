@@ -1,20 +1,75 @@
 <?php
 
-function getUserByEmail($db, $_email){
-	$users = $db->getUserByEmail($_email);
+class LoginChecker(){
+	private $db;
 
-	if(count($users) == 0){
-		return null;
-	} 
+	private $id;
+	private $firstName;
+	private $lastName;
+	private $email;
+	private $password;
+	private $role;
 
-	$user = $users[0];
-	$id = $user->getId();
-	$firstName = $user->getFirstName();
-	$lastName = $user->getLastName();
-	$email = $user->getEmail();
-	$password = $user->getPassword();
-	$role = $user->getRole();	
-	return [$id, $firstName, $lastName, $email, $password, $role];
+	public __construct($path_to_root){
+		require_once($path_to_root.'../models/DB.class.php');
+		$this->db = new DB();
+	}
+
+
+	function attemptLogin($_email, $_password){
+		$userExists = $this->checkForUser($_email);
+
+		if($userExists){
+			if(password_verify($password, $this->password)){
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	function checkForUser($_email){
+		$users = $this->db->getUserByEmail($_email);
+
+		if(count($users) == 0){
+			return false;
+		} 
+
+		$user = $users[0];
+		$this->$id = $user->getId();
+		$this->$firstName = $user->getFirstName();
+		$this->$lastName = $user->getLastName();
+		$this->$email = $user->getEmail();
+		$this->$password = $user->getPassword();
+		$this->$role = $user->getRole();
+
+		return true;
+	}
+
+	function getUserId(){
+		return $this->id;
+	}
+
+	function getFirstName(){
+		return $this->firstName;
+	}
+
+	function getLastName(){
+		return $this->lastName;
+	}
+
+	function getEmail(){
+		return $this->email;
+	}
+
+	function getPassword(){
+		return $this->password;
+	}
+
+	function getRole(){
+		return $this->role;
+	}
+
 }
 
 ?>

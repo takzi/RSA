@@ -14,81 +14,103 @@
  * ========================================================================
  */
 
-function insertHeader(){
-	echo '<!DOCTYPE html>
-	<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<title><?php echo $page; ?></title>
-		<link href="<?php echo $path_to_root; ?>css/default.css" rel="stylesheet">
-		<script src="<?php echo $path_to_root; ?>js/default.js" type="text/javascript"></script>
-	</head>
-		<?php require_once($path_to_root.\'../BUS/sanitation_validation.php\') ?>
-		<body>
-			<div id="header">
-				<div id="logo_container">
-					<img src="<?php echo $path_to_root ?>img/logo.png" alt="RAIHN Logo" class="logo">
-				</div>
-				<nav>
-					<ul class="clearfix">
-						<li><a href="<?php echo $path_to_root.\'index.php\' ?>">Home</a></li>
-						<li><a href="#">Schedules</a>
-							<ul id="hidden_nav">
-								<li><a href="#">Congregation Schedule</a></li>
-								<li><a href="#">Bus Driver Schedule</a></li>
-							</ul>
-						</li>
-						<li><a href="#">Profile</a></li>
-						<li><a href="http://www.raihn.org/">raihn.org</a></li>
-					</ul>
-				</nav>
-			</div>
-			<div id="container">
-				<div id="main_content">';
+
+class GeneralTemplate {
+	private $page;
+	private $path_to_root;
+
+	public function __construct($page, $path_to_root){
+		$this->$path_to_root = $path_to_root;
+		$this->$page = $page;
+	}
+
+	function insertHeader(){
+		return "<!DOCTYPE html>\n
+		<html lang='en'>\n
+		<head>\n
+			<meta charset='utf-8' />\n
+			<title>".$this->page."</title>\n
+			<link href='".$this->path_to_root."css/default.css' rel='stylesheet'>\n
+			<script src='".$this->path_to_root."js/default.js' type='text/javascript'></script>\n
+		</head>\n
+			<?php require_once('".$this->path_to_root."../BUS/sanitation_validation.php\') ?>\n
+			<body>\n
+				<div id='header'>\n
+					<div id='logo_container'>\n
+						<img src='".$this->path_to_root."img/logo.png' alt='RAIHN Logo' class='logo'>\n
+					</div>\n
+					<nav>\n
+						<ul class='clearfix'>\n
+							<li><a href='".$this->path_to_root."index.php\'>Home</a></li>\n
+							<li><a href='#''>Schedules</a>\n
+								<ul id='hidden_nav'>\n
+									<li><a href='#'>Congregation Schedule</a></li>\n
+									<li><a href='#'>Bus Driver Schedule</a></li>\n
+								</ul>\n
+							</li>\n
+							<li><a href='#'>Profile</a></li>\n
+							<li><a href='http://www.raihn.org/'>raihn.org</a></li>\n
+						</ul>\n
+					</nav>\n
+				</div>\n
+				<div id='container'>\n
+					<div id='main_content'>\n";
+	}
+
+	function insertFooter(){
+		echo 	"</div> <!-- end main_content -->\n
+				<footer id='footer'>\n
+					<div id='footer_container'>\n
+						<section id='RSA' class='footer_section'>\n
+							<h1> RSA </h1>\n
+						</section>\n
+						<section id='links' class='footer_section'>\n
+							<article id='links_1'>\n
+								<ul>\n
+									<li><a href='#'>Contact</a></li>\n
+									<li><a href='#'>Login</a></li>\n
+									<li><a href='#'>Facebook</a></li>\n
+								</ul>\n
+							</article>\n
+							<article id='links_2'>\n
+								<ul>\n
+									<li><a href='#'>About</a></li>\n
+									<li><a href='#'>Schedules</a></li>\n
+									<li><a href='#'>Twitter</a></li>\n
+								</ul>\n
+							</article>\n
+							<article id='links_3'>\n
+								<ul>\n
+									<li><a href='#'>Help</a></li>\n
+									<li><a href='#'>raihn.org</a></li>\n
+									<li><a href='#''>rit.edu</a></li>\n
+								</ul>\n
+							</article>\n
+						</section>\n
+						<section id='RIT' class='footer_section'>\n
+							<h1> RIT </h1>\n
+						</section>\n
+					</div>\n
+				</footer>\n
+			</div> <!-- end container -->\n
+			</body>\n
+		</html>\n";
+	}
+
+	function insertLoginForm(){
+	return "<link href='".$this->path_to_root."css/login.css' rel='stylesheet'>\n
+		<div class='form_header clearfix'>\n
+				<h1>RSA Login</h1>\n
+			</div>\n
+		<form id='login_form' method='POST'>\n
+			<input type='text' placeholder='email' name='email' required>\n
+			<br><br>
+			<input type='password' placeholder='password' name='password' required>\n
+			<br><br>
+			<button type='submit'>Login</button>\n
+			<a id='request_href' href='request_account.php'>Request Account</a>\n
+		</form>";
+	}
 }
-
-function insertFooter(){
-	echo 	'</div> <!-- end main_content -->
-			<footer id="footer">
-				<div id="footer_container">
-					<section id="RSA" class="footer_section">
-						<h1> RSA </h1>
-					</section>
-					<section id="links" class="footer_section">
-						<article id="links_1">
-							<ul>
-								<li><a href="#">Contact</a></li>
-								<li><a href="#">Login</a></li>
-								<li><a href="#">Facebook</a></li>
-							</ul>
-						</article>
-						<article id="links_2">
-							<ul>
-								<li><a href="#">About</a></li>
-								<li><a href="#">Schedules</a></li>
-								<li><a href="#">Twitter</a></li>
-							</ul>
-						</article>
-						<article id="links_3">
-							<ul>
-								<li><a href="#">Help</a></li>
-								<li><a href="#">raihn.org</a></li>
-								<li><a href="#">rit.edu</a></li>
-							</ul>
-						</article>
-					</section>
-					<section id="RIT" class="footer_section">
-						<h1> RIT </h1>
-					</section>
-				</div>
-			</footer>
-		</div> <!-- end container -->
-		</body>
-	</html>';
-}
-
-
-
-
 
 ?>
