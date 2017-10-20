@@ -5,18 +5,18 @@
  * @date 09/11/17
  **/
  class DB{
- 	function __construct(){
- 		require_once("availability.class.php");
- 		require_once("blackoutDates.class.php");
- 		require_once("busDriver.class.php");
-		require_once("congregation.class.php");
-		require_once("holiday.class.php");
-		require_once("role.class.php");
-		require_once("rotation.class.php");
-		require_once("supportingCongregation.class.php");
-		require_once("user.class.php");
+ 	function __construct($path_to_root){
+ 		require_once("classes/availability.class.php");
+ 		require_once("classes/blackoutDates.class.php");
+ 		require_once("classes/busDriver.class.php");
+		require_once("classes/congregation.class.php");
+		require_once("classes/holiday.class.php");
+		require_once("classes/role.class.php");
+		require_once("classes/rotation.class.php");
+		require_once("classes/supportingCongregation.class.php");
+		require_once("classes/user.class.php");
 
- 		require_once("dbInfo.php");
+ 		require_once($path_to_root."../dbInfo.php");
 
 		try{
 			//initiate PDO connection to the database

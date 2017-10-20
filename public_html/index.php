@@ -5,7 +5,7 @@
 	// ==========================================================
 	// ============== SETTING TEMPLATE SYSTEM ===================
 	// ==========================================================
-	require_once($path_to_root.'../BUS/general.php');
+	require_once($path_to_root.'../BUS/GeneralTemplate.class.php');
 	$generalTemplate = new GeneralTemplate($page, $path_to_root);
 
 	// Inserting header and navigation onto page via template system
@@ -41,10 +41,9 @@
 		} else {
 			echo '<script>alert("Invalid login attempt.");</script>';
 			echo $generalTemplate->insertLoginForm();
-			require_once($path_to_root.'templates/login_form.php');
 		} 
 	} else {
-		require_once($path_to_root.'templates/login_form.php');
+		echo $generalTemplate->insertLoginForm();
 	}
 
 

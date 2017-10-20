@@ -20,8 +20,8 @@ class GeneralTemplate {
 	private $path_to_root;
 
 	public function __construct($page, $path_to_root){
-		$this->$path_to_root = $path_to_root;
-		$this->$page = $page;
+		$this->path_to_root = $path_to_root;
+		$this->page = $page;
 	}
 
 	function insertHeader(){
@@ -33,7 +33,6 @@ class GeneralTemplate {
 			<link href='".$this->path_to_root."css/default.css' rel='stylesheet'>\n
 			<script src='".$this->path_to_root."js/default.js' type='text/javascript'></script>\n
 		</head>\n
-			<?php require_once('".$this->path_to_root."../BUS/sanitation_validation.php\') ?>\n
 			<body>\n
 				<div id='header'>\n
 					<div id='logo_container'>\n
@@ -108,8 +107,31 @@ class GeneralTemplate {
 			<input type='password' placeholder='password' name='password' required>\n
 			<br><br>
 			<button type='submit'>Login</button>\n
-			<a id='request_href' href='request_account.php'>Request Account</a>\n
+			<a id='request_href' href='templates/request_account.php'>Request Account</a>\n
 		</form>";
+	}
+
+	function insertCreateAccountForm(){
+		return "<link href='".$this->path_to_root."css/request_account_form.css' type='text/css' rel='stylesheet'>\n
+				<h1 id='title'> Request Account </h1>\n
+				<form id='request_account_form' method='POST'>\n
+					<input id='fname' type='text' placeholder='first name' name='fname' required>\n
+					<br>
+					<input id='lname' type='text' placeholder='last name' name='lname' required>\n
+					<br>
+					<input id='email' type='text' placeholder='email' name='email' required>\n
+					<br>
+					<input id='pass' type='password' placeholder='password' name='password' required>\n
+					<br>
+					<select id='role' name='role'>\n
+						<option value='default'>Select a Role</option>\n
+						<option value='bus_driver'>Bus Driver</option>\n
+						<option value='congregation'>Congregation</option>\n
+						<option value='admin'>Admin</option>\n
+					</select>\n
+					<br>
+					<button type='submit'>Request Account</button>\n
+				</form>\n";
 	}
 }
 

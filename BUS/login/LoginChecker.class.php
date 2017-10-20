@@ -12,7 +12,7 @@ class LoginChecker(){
 
 	public __construct($path_to_root){
 		require_once($path_to_root.'../models/DB.class.php');
-		$this->db = new DB();
+		$this->db = new DB($path_to_root);
 	}
 
 
