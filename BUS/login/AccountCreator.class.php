@@ -31,9 +31,7 @@ class AccountCreator{
 				
 				if($roleId != -1){
 					// Create new account
-					//$this->db->insertNewUser($_fname, $_lname, $roleId, $_email, $_pass);
-
-					// redirect upon success
+					$this->db->insertNewUser($_fname, $_lname, $roleId, $_email, $_pass);
 					return "Account created";
 				} else {
 					return "Invalid role selected.";
