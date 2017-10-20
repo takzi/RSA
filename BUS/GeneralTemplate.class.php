@@ -40,7 +40,7 @@ class GeneralTemplate {
 					</div>\n
 					<nav>\n
 						<ul class='clearfix'>\n
-							<li><a href='".$this->path_to_root."index.php\'>Home</a></li>\n
+							<li><a href='".$this->path_to_root."index.php'>Home</a></li>\n
 							<li><a href='#''>Schedules</a>\n
 								<ul id='hidden_nav'>\n
 									<li><a href='#'>Congregation Schedule</a></li>\n
