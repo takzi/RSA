@@ -1,6 +1,6 @@
 <?php
 
-class LoginChecker(){
+class LoginChecker {
 	private $db;
 
 	private $id;
@@ -10,8 +10,8 @@ class LoginChecker(){
 	private $password;
 	private $role;
 
-	public __construct($path_to_root){
-		require_once($path_to_root.'../models/DB.class.php');
+	public function __construct($path_to_root){
+		require_once($path_to_root.'../model/DB.class.php');
 		$this->db = new DB($path_to_root);
 	}
 
@@ -20,7 +20,7 @@ class LoginChecker(){
 		$userExists = $this->checkForUser($_email);
 
 		if($userExists){
-			if(password_verify($password, $this->password)){
+			if(password_verify($_password, $this->password)){
 				return true;
 			}
 		}
@@ -36,12 +36,12 @@ class LoginChecker(){
 		} 
 
 		$user = $users[0];
-		$this->$id = $user->getId();
-		$this->$firstName = $user->getFirstName();
-		$this->$lastName = $user->getLastName();
-		$this->$email = $user->getEmail();
-		$this->$password = $user->getPassword();
-		$this->$role = $user->getRole();
+		$this->id = $user->getId();
+		$this->firstName = $user->getFirstName();
+		$this->lastName = $user->getLastName();
+		$this->email = $user->getEmail();
+		$this->password = $user->getPassword();
+		$this->role = $user->getRole();
 
 		return true;
 	}

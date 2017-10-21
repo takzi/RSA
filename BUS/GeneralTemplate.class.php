@@ -25,6 +25,11 @@ class GeneralTemplate {
 	}
 
 	function insertHeader(){
+		$logout = "<li><a href='".$this->path_to_root."index.php'>Login</a></li>\n";
+
+		if(!empty($_SESSION['id'])) { 
+			$logout = "<li><a href='".$this->path_to_root."templates/logout.php'>Logout</a></li>\n"; 
+		}
 		return "<!DOCTYPE html>\n
 		<html lang='en'>\n
 		<head>\n
@@ -48,7 +53,8 @@ class GeneralTemplate {
 								</ul>\n
 							</li>\n
 							<li><a href='#'>Profile</a></li>\n
-							<li><a href='http://www.raihn.org/'>raihn.org</a></li>\n
+							<li><a href='http://raihn.org'>raihn.org</a></li>\n
+							".$logout."
 						</ul>\n
 					</nav>\n
 				</div>\n

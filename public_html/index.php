@@ -1,33 +1,33 @@
 <?php
+	/**
+	 * Home / Index page for RSA
+	 * 
+	 * @author     Original Author: Kristen Merritt
+	 * @version    Release: 1.0
+	 * @date       10/21/17
+	 */
+
 	$page='RAHIN Home';
 	$path_to_root="./";
 
-	// ==========================================================
-	// ============== SETTING TEMPLATE SYSTEM ===================
-	// ==========================================================
+	// Setting template system
 	require_once($path_to_root.'../BUS/GeneralTemplate.class.php');
 	$generalTemplate = new GeneralTemplate($page, $path_to_root);
-
-	// Inserting header and navigation onto page via template system
-	echo $generalTemplate->insertHeader();
 
 	// Starting the session
 	session_start();
 
+	// Inserting header and navigation onto page via template system
+	echo $generalTemplate->insertHeader();
+
 	// Checking to see if any session is currently active
 	if(isset($_SESSION['fullname']) && isset($_SESSION['id']) && isset($_SESSION['role'])){
-		// ==========================================================
-		// ============== SESSION IS CURRENTLY RUNNING ==============
-		// ==========================================================
+		echo "<h1> Welcome ".$_SESSION['fullname']."</h1>";
 	} else if(!empty($_POST['email']) && !empty($_POST['password'])){
-		// ==========================================================
-		// ========= THEY SUBMITTED A USERNAME AND PASSWORD =========
-		// ==========================================================
-		
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 
-		require_once($path_to_root.'../BUS/login.php');
+		require_once($path_to_root.'../BUS/login/LoginChecker.class.php');
 		$loginChecker = new LoginChecker($path_to_root);
 
 		if($loginChecker->attemptLogin($email, $password)){
@@ -37,7 +37,8 @@
 			$_SESSION['email'] = $loginChecker->getEmail();
 			$_SESSION['role'] = $loginChecker->getRole();
 			$_SESSION['fullname'] = $_SESSION['first'] . ' ' . $_SESSION['last'];
-			echo "Welcome " . $_SESSION['fullname'];
+
+			header("Location:".$path_to_root."/index.php");
 		} else {
 			echo '<script>alert("Invalid login attempt.");</script>';
 			echo $generalTemplate->insertLoginForm();
@@ -45,7 +46,5 @@
 	} else {
 		echo $generalTemplate->insertLoginForm();
 	}
-
-
 	echo $generalTemplate->insertFooter();
 ?>
