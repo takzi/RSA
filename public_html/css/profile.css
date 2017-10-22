@@ -52,13 +52,36 @@ button
 	color: white;
 }
 
-table 
+#admin
+{
+	border-radius: 0px;
+	margin-top: 20px;
+	height: 125px;
+	margin-left: 50px;
+}
+
+#admin:hover
+{
+	color: white;
+	background: #0E6AA8;
+}
+
+#adminDiv
+{
+	text-align:right;
+	margin-top: -310px;
+	margin-bottom: 50px;
+	width: 520px;
+}
+
+table
 {
 	background: white;
 	border-collapse: collapse;
     text-align: center;
 	margin-top: -170px;
     width: 350px;
+	margin-bottom: 50px;
 }
 
 td 
