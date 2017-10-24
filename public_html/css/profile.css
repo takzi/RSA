@@ -54,11 +54,12 @@ button
 
 a.admin
 {
+	width: 60%;
+	margin: 0 auto;
 	font-size: 12px;
     padding-top:20px;
 	margin-bottom: -20px;
 	display: block;
-	margin-left: 270px;
 }
 
 #admin
