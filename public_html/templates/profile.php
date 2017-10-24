@@ -11,7 +11,9 @@
 		// Will check if user's role is admin, else it will display normal profile page.
 		if($role == "admin")
 		{
-			echo '<h1 id ="profile_h1">Administrator Home</h1>';
+			echo '
+			<a href="#" class = "admin">Admin Home</a>
+			<h1 id ="profile_h1">Administrator Home</h1>';
 		}
 		else
 		{

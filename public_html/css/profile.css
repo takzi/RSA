@@ -52,6 +52,15 @@ button
 	color: white;
 }
 
+a.admin
+{
+	font-size: 12px;
+    padding-top:20px;
+	margin-bottom: -20px;
+	display: block;
+	margin-left: 270px;
+}
+
 #admin
 {
 	border-radius: 0px;
