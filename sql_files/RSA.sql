@@ -10,10 +10,6 @@ CREATE TABLE role (
 	PRIMARY KEY (`id`)
 );
 
-LOCK TABLES `role` WRITE;
-INSERT INTO `role` VALUES (0,'Administrator'),(1,'Congregation Scheduler'),(2,'Bus Driver Scheduler'),(3,'Congregation Leader'),(4,'Bus Driver');
-UNLOCK TABLES;
-
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE user (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -41,7 +37,7 @@ DROP TABLE IF EXISTS `availability`;
 CREATE TABLE availability (
 	`bus_driver_ID` INT(11) NOT NULL,
 	`availability` DATE NOT NULL,
-	`time_of_day` ENUM('ANY','MORNING','AFTERNOON'),
+	`time_of_day` ENUM('Any','Morning','Afternoon') NOT NULL,
 	PRIMARY KEY (`bus_driver_ID`,`availability`),
 	KEY `fk_availability_bus_driver` (`bus_driver_ID`),
 	CONSTRAINT `fk_availability_bus_driver` FOREIGN KEY (`bus_driver_ID`) REFERENCES `bus_driver` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -49,10 +45,12 @@ CREATE TABLE availability (
 
 DROP TABLE IF EXISTS `schedule`;
 CREATE TABLE schedule (
+	`id` INT(11) NOT NULL,
 	`date` DATE NOT NULL,
-	`time_of_day` ENUM('ANY','MORNING','AFTERNOON') NOT NULL,
+	`time_of_day` ENUM('Any','Morning','Afternoon') NOT NULL,
 	`bus_driver_ID` INT(11),
-	PRIMARY KEY (`date`,`time_of_day`),
+	`status` ENUM('Pending Approval','Approved','In Progress','Finalized'),
+	PRIMARY KEY (`id`,`date`,`time_of_day`),
 	KEY `fk_schedule_bus_driver` (`bus_driver_ID`),
 	CONSTRAINT `fk_schedule_bus_driver` FOREIGN KEY (`bus_driver_ID`) REFERENCES `bus_driver` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
@@ -74,7 +72,8 @@ CREATE TABLE rotation (
 	`congregation_ID` INT(11) NOT NULL,
 	`rotation_date_from` DATE NOT NULL,
 	`rotation_date_to` DATE NOT NULL,
-	PRIMARY KEY (`id`),
+	`status` ENUM('Pending Approval','Approved','In Progress','Finalized'),
+	PRIMARY KEY (`id`,`rotation_number`),
 	KEY `fk_rotation_congregation` (`congregation_ID`),
 	CONSTRAINT `fk_rotation_congregation` FOREIGN KEY (`congregation_ID`) REFERENCES `congregation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
@@ -89,8 +88,8 @@ CREATE TABLE blackout_dates (
 	CONSTRAINT `fk_blackout_congregation` FOREIGN KEY (`congregation_ID`) REFERENCES `congregation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-DROP TABLE IF EXISTS `holidays`;
-CREATE TABLE holidays (
+DROP TABLE IF EXISTS `holiday`;
+CREATE TABLE holiday (
 	`name` VARCHAR(20) NOT NULL,
 	`date` DATE NOT NULL,
 	`last_congregation` INT(11) NULL,
@@ -108,9 +107,9 @@ CREATE TABLE supporting_congregation (
 
 DROP TABLE IF EXISTS `congregation_supporting`;
 CREATE TABLE congregation_supporting (
-	`supporting_ID` INT(11) NOT NULL,
 	`congregation_ID` INT(11) NOT NULL,
-	PRIMARY KEY(`supporting_ID`,`congregation_ID`),
+	`supporting_ID` INT(11) NOT NULL,
+	PRIMARY KEY(`congregation_ID`,`supporting_ID`),
 	KEY `fk_congregation_supporting_supporting_ID` (`supporting_ID`),
 	KEY `fk_congregation_supporting_congregation_ID` (`congregation_ID`),
 	CONSTRAINT `fk_congregation_supporting_supporting_ID` FOREIGN KEY (`supporting_ID`) REFERENCES `supporting_congregation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
