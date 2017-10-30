@@ -6,9 +6,9 @@
  **/
  class DB{
  	function __construct($path_to_root){
-		require_once("classes/availability.class.php");
-		require_once("classes/blackoutDates.class.php");
-		require_once("classes/busDriver.class.php");
+ 		require_once("classes/availability.class.php");
+ 		require_once("classes/blackoutDates.class.php");
+ 		require_once("classes/busDriver.class.php");
 		require_once("classes/congregation.class.php");
 		require_once("classes/holiday.class.php");
 		require_once("classes/role.class.php");

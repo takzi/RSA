@@ -88,14 +88,14 @@ nav {
 }
 
 nav ul {
-    width: 30vw;
+    width: 40vw;
     margin: 0 auto;
 }
 
 nav ul li {
     position: relative;
     display: block;
-    width: 25%;
+    width: 20%;
     float: left;
     line-height: 5vh;
     margin-left: 0;
