@@ -27,7 +27,7 @@ class GeneralTemplate {
 	function insertHeader(){
 		$logout = "<li><a href='".$this->path_to_root."index.php'>Login</a></li>\n";
 
-		if(!empty($_SESSION['id'])) { 
+		if(isset($_SESSION['id'])) { 
 			$logout = "<li><a href='".$this->path_to_root."templates/logout.php'>Logout</a></li>\n"; 
 		}
 		return "<!DOCTYPE html>\n
@@ -52,7 +52,7 @@ class GeneralTemplate {
 									<li><a href='#'>Bus Driver Schedule</a></li>\n
 								</ul>\n
 							</li>\n
-							<li><a href='#'>Profile</a></li>\n
+							<li><a href='".$this->path_to_root."templates/profile.php'>Profile</a></li>\n
 							<li><a href='http://raihn.org'>raihn.org</a></li>\n
 							".$logout."
 						</ul>\n
@@ -63,7 +63,7 @@ class GeneralTemplate {
 	}
 
 	function insertFooter(){
-		echo 	"</div> <!-- end main_content -->\n
+		return 	"</div> <!-- end main_content -->\n
 				<footer id='footer'>\n
 					<div id='footer_container'>\n
 						<section id='RSA' class='footer_section'>\n

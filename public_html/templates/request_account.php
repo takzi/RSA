@@ -21,7 +21,8 @@
 		require_once($path_to_root.'../BUS/login/AccountCreator.class.php');
 		$accountCreator = new AccountCreator($path_to_root);
 
-		echo "<script>alert('".$accountCreator->createNewAccount($fname, $lname, $role, $email, $password)."')</script>";
+		$responseMessage = $accountCreator->createNewAccount($fname, $lname, $role, $email, $password);
+		echo "<script>alert('".$responseMessage."')</script>";
 	}
 
 	echo $generalTemplate->insertCreateAccountForm();

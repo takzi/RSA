@@ -85,9 +85,9 @@ class AccountCreator{
 
 	function getRoleId($roleName){
 		switch($roleName){
-			case "admin": return 0; 
-			case "bus_driver": return 2; 
-			case "congregation": return 3; 
+			case "admin": return 1; 
+			case "congregation": return 4;
+			case "bus_driver": return 5; 			 
 		}
 		return -1;
 	}

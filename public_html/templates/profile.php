@@ -1,64 +1,29 @@
 <?php
 	$page='RAHIN Profile';
-	$path="./";
-	require_once($path."header.php");
-	echo '<link href="'$path.'../css/profile.css" rel="stylesheet">';
-?>
-<div class="container">
-	<?php
-		$role = "test";
-		
-		// Will check if user's role is admin, else it will display normal profile page.
-		if($role == "admin")
-		{
-			echo '
-			<a href="#" class = "admin">Admin Home</a>
-			<h1 id ="profile_h1">Administrator Home</h1>';
-		}
-		else
-		{
-			echo '<h1 id ="profile_h1">Congegation Name</h1>';
-		}
-	?>
-	<div id="profile_container">
-		<div align="left">
-		<?php
-			if($role == "admin")
-			{
-				require_once($path.'templates/admin/profile.php');
-			}
-			else
-			{
-				$t1 = "test1";
-				$t2 = "test";
-				
-				// If there is any action required, it will display ACTION REQUIRED in red, else it will show regular button with no actions to take.
-				if ($t1 == "test") 
-				{
-					echo '	<button id ="required">ACTION REQUIRED</button>';
-				}
-				else
-				{
-					echo '	<button>No Action Required</button>';
-				}
-				echo '
-				<br>
-				<button>View/Request Blackout Dates</button>
-				<br>
-				<button>Request Schedule Change</button>';
-				
-				// If the profile is for bus driver, display the bus driver schedule, else it will display Congregation Schedule.
-				if($t2 == "test")
-				{
-					require_once($path.'templates/bus_driver/profile.php');
-				} 
-				else 
-				{
-					require_once($path.'templates/congregation/profile.php');
-				}
-			}
-		?>
+	$path_to_root="./../";
 
-<?php
-	require_once($path."footer.php");
+	require_once($path_to_root.'../BUS/GeneralTemplate.class.php');
+	$generalTemplate = new GeneralTemplate($page, $path_to_root);
+
+	echo $generalTemplate->insertHeader();
+	echo '<link href="'.$path_to_root.'css/profile.css" rel="stylesheet">';
+	session_start();
+
+	if(isset($_SESSION['fullname']) && isset($_SESSION['id']) && isset($_SESSION['role'])){
+		$role = $_SESSION['role'];			
+
+		if($role == 1){
+			Header("Location:".$path_to_root."/templates/admin/profile.php");
+		} elseif($role == 4){
+			require_once($path_to_root.'templates/congregation/profile.php');
+		} elseif($role == 5){
+			require_once($path_to_root.'templates/bus_driver/profile.php');
+		} else {
+			echo "Unknown account. Please log in again.";
+		}
+	} else {
+		echo "<h1>Please log in.</h1>";
+	}
+	
+	echo $generalTemplate->insertFooter();
 ?>
