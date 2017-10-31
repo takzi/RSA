@@ -1,0 +1,62 @@
+/**
+ * Default CSS for RAIHN Scheduling Application - Admin
+ *
+ * @author     Chevy Mac
+ * @date       10/30/2017
+ */
+
+
+/***************************
+ * * * * * COLORS * * * * * 
+ *************************/
+/*
+    light-gray:      #D7D9DD
+    background-gray: #F6F6F6
+    light-blue:      #0E6AA8
+    dark-blue:       #095487
+ */
+
+/***************************
+ * * * * * ADMIN * * * * *
+ ***************************/
+
+h1
+{
+    width: 60%;
+	padding-top: 30px;
+    margin: 0 auto;
+	border-bottom: 1pt solid #d7d9dd;
+}
+
+#admin_container
+{
+    width: 60%;
+    margin: 0 auto;
+}
+
+#adminLink
+{
+	width: 60%;
+	margin: 0 auto;
+	font-size: 12px;
+    padding-top:20px;
+	margin-bottom: -20px;
+	display: block;
+}
+
+table
+{
+	background: white;
+	border-collapse: collapse;
+    text-align: center;
+	margin-top: -170px;
+    width: 350px;
+	margin-bottom: 50px;
+}
+
+td 
+{
+	height: 70px;
+	border: 3px solid #BEBEBE;
+    font-size: 24px;
+}
