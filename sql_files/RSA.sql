@@ -20,7 +20,7 @@ CREATE TABLE user (
 	`password` VARCHAR(255) NOT NULL,
 	PRIMARY KEY (`id`),
 	KEY `fk_user_role` (`role_ID`),
-	CONSTRAINT `fk_user_role` FOREIGN KEY (`role_ID`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+	CONSTRAINT `fk_user_role` FOREIGN KEY (`role_ID`) REFERENCES `role` (`id`) ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `bus_driver`;
@@ -30,7 +30,7 @@ CREATE TABLE bus_driver (
 	`contact_number` VARCHAR(15) NULL,
 	PRIMARY KEY (`id`),
 	KEY `fk_bus_driver_contact` (`contact_ID`),
-	CONSTRAINT `fk_bus_driver_contact` FOREIGN KEY (`contact_ID`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+	CONSTRAINT `fk_bus_driver_contact` FOREIGN KEY (`contact_ID`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `availability`;
@@ -40,7 +40,7 @@ CREATE TABLE availability (
 	`time_of_day` ENUM('Any','Morning','Afternoon') NOT NULL,
 	PRIMARY KEY (`bus_driver_ID`,`availability`),
 	KEY `fk_availability_bus_driver` (`bus_driver_ID`),
-	CONSTRAINT `fk_availability_bus_driver` FOREIGN KEY (`bus_driver_ID`) REFERENCES `bus_driver` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+	CONSTRAINT `fk_availability_bus_driver` FOREIGN KEY (`bus_driver_ID`) REFERENCES `bus_driver` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `schedule`;
@@ -52,7 +52,7 @@ CREATE TABLE schedule (
 	`status` ENUM('Pending Approval','Approved','In Progress','Finalized'),
 	PRIMARY KEY (`id`,`date`,`time_of_day`),
 	KEY `fk_schedule_bus_driver` (`bus_driver_ID`),
-	CONSTRAINT `fk_schedule_bus_driver` FOREIGN KEY (`bus_driver_ID`) REFERENCES `bus_driver` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+	CONSTRAINT `fk_schedule_bus_driver` FOREIGN KEY (`bus_driver_ID`) REFERENCES `bus_driver` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `congregation`;
@@ -62,7 +62,7 @@ CREATE TABLE congregation (
 	`name` VARCHAR(45) NOT NULL,
 	PRIMARY KEY (`id`),
 	KEY `fk_congregation_contact` (`contact_ID`),
-	CONSTRAINT `fk_congregation_contact` FOREIGN KEY (`contact_ID`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+	CONSTRAINT `fk_congregation_contact` FOREIGN KEY (`contact_ID`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `rotation`;
@@ -75,7 +75,7 @@ CREATE TABLE rotation (
 	`status` ENUM('Pending Approval','Approved','In Progress','Finalized'),
 	PRIMARY KEY (`id`,`rotation_number`),
 	KEY `fk_rotation_congregation` (`congregation_ID`),
-	CONSTRAINT `fk_rotation_congregation` FOREIGN KEY (`congregation_ID`) REFERENCES `congregation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+	CONSTRAINT `fk_rotation_congregation` FOREIGN KEY (`congregation_ID`) REFERENCES `congregation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `blackout_dates`;
@@ -85,7 +85,7 @@ CREATE TABLE blackout_dates (
 	`blackout_date_to` DATE NOT NULL,
 	PRIMARY KEY (`congregation_ID`,`blackout_date_from`,`blackout_date_to`),
 	KEY `fk_blackout_congregation` (`congregation_ID`),
-	CONSTRAINT `fk_blackout_congregation` FOREIGN KEY (`congregation_ID`) REFERENCES `congregation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+	CONSTRAINT `fk_blackout_congregation` FOREIGN KEY (`congregation_ID`) REFERENCES `congregation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `holiday`;
@@ -95,7 +95,7 @@ CREATE TABLE holiday (
 	`last_congregation` INT(11) NULL,
 	PRIMARY KEY (`name`,`date`),
 	KEY `fk_last_congregation` (`last_congregation`),
-	CONSTRAINT `fk_last_congregation` FOREIGN KEY (`last_congregation`) REFERENCES `congregation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+	CONSTRAINT `fk_last_congregation` FOREIGN KEY (`last_congregation`) REFERENCES `congregation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `supporting_congregation`;
@@ -112,6 +112,6 @@ CREATE TABLE congregation_supporting (
 	PRIMARY KEY(`congregation_ID`,`supporting_ID`),
 	KEY `fk_congregation_supporting_supporting_ID` (`supporting_ID`),
 	KEY `fk_congregation_supporting_congregation_ID` (`congregation_ID`),
-	CONSTRAINT `fk_congregation_supporting_supporting_ID` FOREIGN KEY (`supporting_ID`) REFERENCES `supporting_congregation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-	CONSTRAINT `fk_congregation_supporting_congregation_ID` FOREIGN KEY (`congregation_ID`) REFERENCES `congregation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+	CONSTRAINT `fk_congregation_supporting_supporting_ID` FOREIGN KEY (`supporting_ID`) REFERENCES `supporting_congregation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT `fk_congregation_supporting_congregation_ID` FOREIGN KEY (`congregation_ID`) REFERENCES `congregation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
