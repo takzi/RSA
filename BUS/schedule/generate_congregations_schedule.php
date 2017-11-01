@@ -57,6 +57,9 @@ echo "The date from now and in three months is between " . $date->format('m-d-Y'
 while($startDate <= $endDate){
     $tempEndDate = getModifiedDate($startDate,'+%d days', $sixDays - getFormattedDate($startDate, 'N'));
    // echo "<tr><td>" . getFormattedDate($startDate,'l m-d-Y') . " - " . getFormattedDate($tempEndDate,'l m-d-Y') .  "</td></tr>";
+   if(allCongregationsRAssigned($congregations, $schedule)){
+
+   }
     $startDate = getModifiedDate($startDate,'+%d days', $sixDays - getFormattedDate($startDate, 'N'));
 }
 
@@ -68,7 +71,7 @@ function allCongregationsRAssigned($congregations, $rotations){
 	//$rotations = $db->getAllRotations();
 	foreach($congregations as $congregation){
 		foreach($rotations as $rotation){
-			if($rotation)
+			if($rotation->getCongregationID == $congregation->getID && ($rotation->getRotationDateFrom == $congregation->get)
 		}
 	/*	$rotations = $db->getRotation($congregation->getID);
 		$blackoutDates = $db->getBlackoutdatesForCongregations($congregation->getID);
