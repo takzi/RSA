@@ -15,7 +15,7 @@ class AccountCreator{
 		$this->sanitizer = new Sanitizer();
 	}
 
-	function createNewAccount($_fname, $_lname, $_role, $_email, $_pass){
+	function createNewAccount($_fname, $_lname, $_role, $_email, $_pass,$_acctType="",$_contactNum="",$_congName=""){
 		$sanitizerResult = $this->sanitizeValidateData($_fname, $_lname, $_role, $_email, $_pass);
 
 		if($sanitizerResult != "Clear"){
@@ -31,8 +31,20 @@ class AccountCreator{
 				
 				if($roleId != -1){
 					// Create new account
-					$this->db->insertNewUser($_fname, $_lname, $roleId, $_email, $_pass);
-					return "Account created";
+					$uid = $this->db->insertNewUser($_fname, $_lname, $roleId, $_email, $_pass);
+					switch ($_acctType) {
+						case 'bus_driver':
+							$this->db->insertNewCongregation($uid,$_congName);
+							break;
+						
+						case 'congregation':
+							$this->db->insertNewBusDriver($uid,$_contactNum);
+							break;
+
+						default:
+							return "Account created";
+							break;
+					}
 				} else {
 					return "Invalid role selected.";
 				}				
