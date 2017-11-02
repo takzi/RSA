@@ -15,6 +15,7 @@
 		require_once("classes/rotation.class.php");
 		require_once("classes/supportingCongregation.class.php");
 		require_once("classes/user.class.php");
+		require_once("classes/schedule.class.php");
 
 		require_once($path_to_root."../dbInfo.php");
 
