@@ -20,7 +20,7 @@
 	// Inserting header and navigation onto page via template system
 	echo $generalTemplate->insertHeader();
 
-	require_once($path_to_root.'../BUS/schedule/congregation_schedule.php');
+	require_once($path_to_root.'../BUS/schedule/CongregationSchedule.class.php');
 	$congregationSchedule = new CongregationSchedule($path_to_root, $page);
 
 	$rotations = $congregationSchedule->getAllCongregationRotations();

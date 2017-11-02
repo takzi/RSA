@@ -17,11 +17,13 @@
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 		$role = $_POST['role'];
+		$contactNum = $_POST['contactNum'];
+		$congName = $_POST['congName'];
 
 		require_once($path_to_root.'../BUS/login/AccountCreator.class.php');
 		$accountCreator = new AccountCreator($path_to_root);
 
-		$responseMessage = $accountCreator->createNewAccount($fname, $lname, $role, $email, $password);
+		$responseMessage = $accountCreator->createNewAccount($fname, $lname, $role, $email, $password, $contactNum, $congName);
 		echo "<script>alert('".$responseMessage."')</script>";
 	}
 
