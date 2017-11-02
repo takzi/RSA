@@ -46,10 +46,10 @@ class GeneralTemplate {
 					<nav>\n
 						<ul class='clearfix'>\n
 							<li><a href='".$this->path_to_root."index.php'>Home</a></li>\n
-							<li><a href='#''>Schedules</a>\n
+							<li id='scheduleNav'><a href='#''>Schedules</a>\n
 								<ul id='hidden_nav'>\n
-									<li><a href='#'>Congregation Schedule</a></li>\n
-									<li><a href='#'>Bus Driver Schedule</a></li>\n
+									<li><a href='".$this->path_to_root."templates/congregation_schedule.php'>Congregation Schedule</a></li>\n
+									<li><a href='".$this->path_to_root."templates/bus_driver_schedule.php'>Bus Driver Schedule</a></li>\n
 								</ul>\n
 							</li>\n
 							<li><a href='".$this->path_to_root."templates/profile.php'>Profile</a></li>\n
