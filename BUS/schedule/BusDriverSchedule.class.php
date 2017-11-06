@@ -14,7 +14,7 @@ class BusDriverSchedule {
 	}
 
 	function insertInProgressBusDriverSchedules(){
-		$rotations = $this->getInProgressBusDriverSchedules();
+		$schedules = $this->getAllInProgressSchedules();
 		$tr = "";
 
 		foreach($schedules as $schedule){

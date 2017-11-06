@@ -15,46 +15,37 @@ class AccountCreator{
 		$this->sanitizer = new Sanitizer();
 	}
 
-	function createNewAccount($_fname, $_lname, $_role, $_email, $_pass,$_acctType="",$_contactNum="",$_congName=""){
+	function createNewAccount($_fname, $_lname, $_role, $_email, $_pass,$_contactNum="",$_congName=""){
 		$sanitizerResult = $this->sanitizeValidateData($_fname, $_lname, $_role, $_email, $_pass);
 
 		if($sanitizerResult != "Clear"){
 			return $sanitizerResult;
 		}
 
-		if($_role != "default"){
+		if($_role != -1){
 			// Checking to make sure the email is not already used
-			if($this->checkUniqueEmail($_email)){
-				$roleId = -1;
-
-				$roleId = $this->getRoleId($_role);
-				
-				if($roleId != -1){
+			if($this->checkUniqueEmail($_email)){				
 					// Create new account
-					$uid = $this->db->insertNewUser($_fname, $_lname, $roleId, $_email, $_pass);
-					switch ($_acctType) {
-						case 'bus_driver':
+					$uid = $this->db->insertNewUser($_fname, $_lname, $_role, $_email, $_pass);
+					switch ($_role) {
+						case 4:
 							$this->db->insertNewCongregation($uid,$_congName);
 							break;
 						
-						case 'congregation':
+						case 5:
 							$this->db->insertNewBusDriver($uid,$_contactNum);
 							break;
 
 						default:
-							return "Account created";
 							break;
 					}
-				} else {
-					return "Invalid role selected.";
-				}				
+					return "Account created";					
 			} else {
 				return "Email already in use.";
 			}
 		} else {
 			return "Please select a role.";
-		}	
-		
+		}			
 	}
 
 	function checkUniqueEmail($_email){
@@ -93,15 +84,6 @@ class AccountCreator{
 		}
 
 		return "Clear";
-	}
-
-	function getRoleId($roleName){
-		switch($roleName){
-			case "admin": return 1; 
-			case "congregation": return 4;
-			case "bus_driver": return 5; 			 
-		}
-		return -1;
 	}
 }
 
