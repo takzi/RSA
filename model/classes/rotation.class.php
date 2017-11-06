@@ -6,11 +6,12 @@
 
 class Rotation{
 
-	private $id, $rotation_number, $congregation_ID, $rotation_date_from, $rotation_date_to;
+	private $id, $rotation_number, $congregation_ID, $rotation_date_from, $rotation_date_to, $status;
 
 	public function getID(){return $this->id;}
 	public function getRotationNumber(){return $this->rotation_number;}
 	public function getCongregationID(){return $this->congregation_ID;}
 	public function getRotationDateFrom(){return $this->rotation_date_from;}
 	public function getRotationDateTo(){return $this->rotation_date_to;}
+	public function getRotationStatus(){return $this->status;}
 }
