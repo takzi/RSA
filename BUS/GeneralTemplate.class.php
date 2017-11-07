@@ -37,6 +37,7 @@ class GeneralTemplate {
 			<title>".$this->page."</title>\n
 			<link href='".$this->path_to_root."css/default.css' rel='stylesheet'>\n
 			<script src='".$this->path_to_root."js/default.js' type='text/javascript'></script>\n
+			<script src='".$this->path_to_root."js/jquery-3.2.1.min.js' type='text/javascript'></script>\n
 		</head>\n
 			<body>\n
 				<div id='header'>\n
@@ -130,14 +131,19 @@ class GeneralTemplate {
 					<input id='pass' type='password' placeholder='password' name='password' required>\n
 					<br>
 					<select id='role' name='role'>\n
-						<option value='default'>Select a Role</option>\n
-						<option value='bus_driver'>Bus Driver</option>\n
-						<option value='congregation'>Congregation</option>\n
-						<option value='admin'>Admin</option>\n
+						<option value='-1'>Select a Role</option>\n
+						<option value='5'>Bus Driver</option>\n
+						<option value='4'>Congregation Leader</option>\n
+						<option value='1'>Admin</option>\n
 					</select>\n
 					<br>
+					<input id='congName' class='hide' type='text' placeholder='Congregation Name' name='congName'>\n
+					<br>
+					<input id='contactNum' class='hide' type='tel' placeholder='Phone Number' name='contactNum'>\n
+					<br>
 					<button type='submit'>Request Account</button>\n
-				</form>\n";
+				</form>\n
+				<script type='text/javascript' src='".$this->path_to_root."js/request_account.js'></script>";
 	}
 }
 

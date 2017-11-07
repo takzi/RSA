@@ -34,6 +34,7 @@
 
 #request_account_form input[type=text],
 #request_account_form input[type=password],
+#request_account_form input[type=tel],
 #role {
     display: block;
     width: 80%;
@@ -56,4 +57,14 @@
     margin-bottom: 0.75vh;
     background-color: #0E6AA8;
     color: white;
+}
+
+#request_account_form input[type=text] .display,
+.display {
+    display: block;
+}
+
+#request_account_form input[type=text] .hide,
+.hide {
+    display: none !important;
 }
