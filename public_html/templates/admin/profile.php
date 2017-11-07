@@ -1,21 +1,36 @@
-<a href="#" class = "admin">Admin Home</a>
-<h1 id ="profile_h1"><?php echo $_SESSION['fullname']; ?></h1>
-	<div id="profile_container">
-		<div align="left">
-			<br>
-			<button>View/Request Blackout Dates</button>
-			<br>
-			<button>Request Schedule Change</button>
-		</div>
-			<button id ="admin">Bus Drivers</button>
-			<br>
-			<br>
-			<button id ="admin">Congregations</button>
-		<div id = "adminDiv">
-			<button id ="admin">Reports</button>
-			<br>
-			<br>
-			<button id ="admin">FAQ / Guides</button>
-		</div>
-	</div>
-</div> 
+<?php 
+	$page='RAHIN Admin Congregation';
+	$path_to_root="./../../";
+
+	session_start();
+
+	require_once($path_to_root.'../BUS/GeneralTemplate.class.php');
+	require_once($path_to_root.'../BUS/admin/AdminFunctions.class.php');
+
+	$generalTemplate = new GeneralTemplate($page, $path_to_root);
+	$adminFunctions = new AdminFunctions($page, $path_to_root);
+
+	echo $generalTemplate->insertHeader();
+	echo '<link href="'.$path_to_root.'css/admin.css" rel="stylesheet">';
+
+	if(isset($_SESSION['id']) && isset($_SESSION['fullname']) && isset($_SESSION['role'])){
+		$role = $_SESSION['role'];
+		$fullname = $_SESSION['fullname'];
+		if($role == 1 || $role == 2 || $role == 3){ 
+			echo $adminFunctions->insertAdminHome($fullname, $role);
+		} else {
+			echo "<h1> Please log in with an admin account. </h1>";
+		}		
+	} else {
+		echo "<h1>Please log in to access your profile.</h1>";
+	}
+
+	echo $generalTemplate->insertFooter(); 
+
+?>
+
+<!-- Admin 1
+Congregation scheduler 2
+Bus driver scheduler 3
+Congregation leader 4
+Bus driver 5 -->

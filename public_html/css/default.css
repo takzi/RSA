@@ -182,3 +182,8 @@ nav ul li a {
 }
 
 
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}

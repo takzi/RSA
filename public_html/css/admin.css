@@ -100,3 +100,21 @@ input{
 #heighttext{
 	padding-bottom: 50px;
 }
+
+#topButtons,
+#botButtons {
+	width: 58%;
+	margin: 0 auto;
+}
+
+.admin_home_button{
+	width: 10vw;
+	height: 15vh;
+	margin: 5vh 5vw 5vh 5vw;
+	background-color: #0E6AA8;
+	color: white;
+	border-radius: 5px;
+	text-align: center;
+	line-height: 15vh;
+	float: left;
+}
