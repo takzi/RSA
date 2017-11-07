@@ -19,12 +19,12 @@ class AdminFunctions{
 		$buttons = "";
 
 		if($role == 1){
-			$buttons = "<a href='#'><div class='admin_home_button'>Bus Drivers</div></a>\n
+			$buttons = "<a href='admin_bus.php'><div class='admin_home_button'>Bus Drivers</div></a>\n
 							<a href='admin_cong.php'><div class='admin_home_button'>Congregations</div></a>\n";
 		} elseif($role == 2){
 			$buttons = "<a href='admin_cong.php'><div class='admin_home_button'>Congregations</div></a>\n";
 		} elseif($role == 3){
-			$buttons = "<a href='#'><div class='admin_home_button'>Bus Drivers</div></a>\n";
+			$buttons = "<a href='admin_bus.php'><div class='admin_home_button'>Bus Drivers</div></a>\n";
 		}
 
 
@@ -40,13 +40,13 @@ class AdminFunctions{
 					</div>\n";
 	}
 
-	function insertCongAdmin(){
+	function insertCongBusAdmin($type){
 		return "<div id='adminLink'>\n
-					<a href='#'>Admin Home</a>\n 
+					<a href='".$this->path_to_root."templates/admin/profile.php'>Admin Home</a>\n 
 					>
-					<a href='#'>Congregation</a>\n
+					<a href='#'>".$type."</a>\n
 				</div>\n
-				<h1>Congregations</h1>\n
+				<h1>".$type."</h1>\n
 				<div id='admin_container'>\n
 					<div id='form'>\n
 						<input type='text' id='text' name='cong_name' value='Congregation Name'> 
@@ -74,6 +74,28 @@ class AdminFunctions{
 				</tr>
 				<tr>
 					<td>Congregation 5 <input type='button' id='tb-right' name='Congregation 5' value='Edit'><input type='button' value='Reset Password'></td>
+				</tr>   
+			</table>";
+	}
+
+	function insertBusDriversIntoAdminPage(){
+		// CREATE THE STRING BASED OFF OF DATA FROM THE DATABASE
+		// GET ALL OF THE BUS DRIVERS AND OUTPUT THEM AS DISPLAYED BELOW
+		return "<table id='congregations'>
+				<tr>
+					<td>Bus Driver 1 <input type='button' id='tb-right' name='Bus Driver 1' value='Edit'><input type='button' value='Reset Password'></td>
+				</tr>
+				<tr>
+					<td>Bus Driver 2 <input type='button' id='tb-right' name='Bus Driver 2' value='Edit'><input type='button' value='Reset Password'></td>
+				</tr>
+				<tr>
+					<td>Bus Driver 3 <input type='button' id='tb-right' name='Bus Driver 3' value='Edit'><input type='button' value='Reset Password'></td>
+				</tr> 
+				<tr>
+					<td>Bus Driver 4 <input type='button' id='tb-right' name='Bus Driver 4' value='Edit'><input type='button' value='Reset Password'></td>
+				</tr>
+				<tr>
+					<td>Bus Driver 5 <input type='button' id='tb-right' name='Bus Driver 5' value='Edit'><input type='button' value='Reset Password'></td>
 				</tr>   
 			</table>";
 	}

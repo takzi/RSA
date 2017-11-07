@@ -1,5 +1,5 @@
 <?php
-	$page='RAHIN Admin Congregation';
+	$page='RAHIN Admin Bus Drivers';
 	$path_to_root="./../../";
 
 	session_start();
@@ -14,13 +14,12 @@
 	echo '<link href="'.$path_to_root.'css/admin.css" rel="stylesheet">';
 
 	if(isset($_SESSION['id']) && isset($_SESSION['fullname']) && isset($_SESSION['role'])){
-		if($_SESSION['role'] == 1 || $_SESSION['role'] == 2){
-			echo $adminFunctions->insertCongBusAdmin("Congregations");
-			echo $adminFunctions->insertCongregationsIntoAdminPage();
+		if($_SESSION['role'] == 1 || $_SESSION['role'] == 3){
+			echo $adminFunctions->insertCongBusAdmin("Bus Drivers");
+			echo $adminFunctions->insertBusDriversIntoAdminPage();
 		} else {
 			echo "<h1> Please log into an appropriate account. </h1>";
 		}		
-		
 	} else {
 		echo "<h1> Please log in. </h1>";
 	}
