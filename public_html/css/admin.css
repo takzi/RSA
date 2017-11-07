@@ -44,6 +44,13 @@ h1{
 
 #form{
 	width: 640px;
+	margin: 0 auto;
+}
+
+#congregations {
+	margin: 0 auto;
+	padding-top: 3vh;
+	padding-bottom: 3vh;
 }
 
 table{
@@ -117,4 +124,14 @@ input{
 	text-align: center;
 	line-height: 15vh;
 	float: left;
+}
+
+#genScheBut {
+	margin-left: 4vw;
+}
+
+#admin_container input[type="button"]{
+	border: none;
+	padding-left: 7px;
+	padding-right: 7px;
 }

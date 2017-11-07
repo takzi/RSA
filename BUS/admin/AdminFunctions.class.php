@@ -17,7 +17,7 @@ class AdminFunctions{
 
 	function insertAdminHome($name, $role){
 		$buttons = "";
-		
+
 		if($role == 1){
 			$buttons = "<a href='#'><div class='admin_home_button'>Bus Drivers</div></a>\n
 							<a href='admin_cong.php'><div class='admin_home_button'>Congregations</div></a>\n";
@@ -38,6 +38,44 @@ class AdminFunctions{
 							<a href='#'><div class='admin_home_button'>FAQ / Guides</div></a>\n
 						</div>\n
 					</div>\n";
+	}
+
+	function insertCongAdmin(){
+		return "<div id='adminLink'>\n
+					<a href='#'>Admin Home</a>\n 
+					>
+					<a href='#'>Congregation</a>\n
+				</div>\n
+				<h1>Congregations</h1>\n
+				<div id='admin_container'>\n
+					<div id='form'>\n
+						<input type='text' id='text' name='cong_name' value='Congregation Name'> 
+						<input type='button' value='Add Now'>\n
+						<input type='button' id='genScheBut' value='Generate New Schedule'>
+						<a href='".$this->path_to_root."templates/congregation_schedule.php'><input type='button' value='View Current Schedule'></a>
+					</div>";
+	}
+
+	function insertCongregationsIntoAdminPage(){
+		// CREATE THE STRING BASED OFF OF DATA FROM THE DATABASE
+		// GET ALL OF THE CONGREGATIONS AND OUTPUT THEM AS DISPLAYED BELOW
+		return "<table id='congregations'>
+				<tr>
+					<td>Congregation 1 <input type='button' id='tb-right' name='Congregation 1' value='Edit'><input type='button' value='Reset Password'></td>
+				</tr>
+				<tr>
+					<td>Congregation 2 <input type='button' id='tb-right' name='Congregation 2' value='Edit'><input type='button' value='Reset Password'></td>
+				</tr>
+				<tr>
+					<td>Congregation 3 <input type='button' id='tb-right' name='Congregation 3' value='Edit'><input type='button' value='Reset Password'></td>
+				</tr> 
+				<tr>
+					<td>Congregation 4 <input type='button' id='tb-right' name='Congregation 4' value='Edit'><input type='button' value='Reset Password'></td>
+				</tr>
+				<tr>
+					<td>Congregation 5 <input type='button' id='tb-right' name='Congregation 5' value='Edit'><input type='button' value='Reset Password'></td>
+				</tr>   
+			</table>";
 	}
 }
 
