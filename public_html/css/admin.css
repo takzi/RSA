@@ -20,22 +20,20 @@
  * * * * * ADMIN * * * * *
  ***************************/
 
-h1
-{
+h1{
     width: 60%;
 	padding-top: 30px;
     margin: 0 auto;
 	border-bottom: 1pt solid #d7d9dd;
 }
 
-#admin_container
-{
+#admin_container{
     width: 60%;
     margin: 0 auto;
+	margin-top: 20px;
 }
 
-#adminLink
-{
+#adminLink{
 	width: 60%;
 	margin: 0 auto;
 	font-size: 12px;
@@ -44,19 +42,61 @@ h1
 	display: block;
 }
 
-table
-{
+#form{
+	width: 640px;
+}
+
+table{
 	background: white;
-	border-collapse: collapse;
+	border-spacing: 0;
     text-align: center;
-	margin-top: -170px;
-    width: 350px;
+	margin-top: 10px;
+    width: 640px;
 	margin-bottom: 50px;
 }
 
-td 
-{
-	height: 70px;
-	border: 3px solid #BEBEBE;
-    font-size: 24px;
+td {
+	height: 50px;
+	border: 1px solid #BEBEBE;
+	border-radius: 5px;
+    font-size: 16px;
+	text-align:left;
+	padding-left: 20px;
+}
+
+input{
+	background: #0E6AA8;
+	color: white;
+	border: 1px solid #BEBEBE;
+	border-radius: 8px;
+	height: 30px;
+	margin-left: 3px;
+}
+
+#text, #fulltext, #heighttext{
+	padding-left: 5px;
+	background: white;
+	color: black;
+}
+
+#right{
+	margin-left: 95px;
+}
+
+#tb-right{
+	margin-left: 340px;
+}
+
+#editright{
+	margin-left: 425px;
+	margin-bottom: 250px;
+	width: 80px;
+}
+
+#fulltext{
+	width: 60%;
+}
+
+#heighttext{
+	padding-bottom: 50px;
 }

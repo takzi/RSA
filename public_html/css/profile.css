@@ -20,22 +20,19 @@
  * * * * * PROFILE * * * * *
  ***************************/
 
-#profile_h1
-{
+#profile_h1{
     width: 60%;
 	padding-top: 30px;
     margin: 0 auto;
 	border-bottom: 1pt solid #d7d9dd;
 }
 
-#profile_container
-{
+#profile_container{
     width: 60%;
     margin: 0 auto;
 }
 
-button
-{
+button{
 	font-family: 'Arial';
 	border-radius: 12px;
     background: white;
@@ -46,14 +43,12 @@ button
     border: 2px solid #e7e7e7;
 }
 
-#required
-{
+#required{
     background: red;
 	color: white;
 }
 
-a.admin
-{
+a.admin{
 	width: 60%;
 	margin: 0 auto;
 	font-size: 12px;
@@ -62,30 +57,26 @@ a.admin
 	display: block;
 }
 
-#admin
-{
+#admin{
 	border-radius: 0px;
 	margin-top: 20px;
 	height: 125px;
 	margin-left: 50px;
 }
 
-#admin:hover
-{
+#admin:hover{
 	color: white;
 	background: #0E6AA8;
 }
 
-#adminDiv
-{
+#adminDiv{
 	text-align:right;
 	margin-top: -310px;
 	margin-bottom: 50px;
 	width: 520px;
 }
 
-table
-{
+table{
 	background: white;
 	border-collapse: collapse;
     text-align: center;
@@ -94,20 +85,17 @@ table
 	margin-bottom: 50px;
 }
 
-td 
-{
+td {
 	height: 70px;
 	border: 3px solid #BEBEBE;
     font-size: 24px;
 }
 
-#title
-{
+#title{
 	background: #0E6AA8;
 	color: white;
 }
 
-#cong_tb
-{
+#cong_tb{
 	height: 295px;
 }
