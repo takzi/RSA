@@ -23,13 +23,21 @@
 				<tr>
 				<tr>
 					<td id ="cong_tb">
-						January 1 - 8, 2017
+						<?php 
+							$page='Congregation Schedule';
+							require_once($path_to_root.'../../BUS/schedule/CongregationSchedule.class.php');
+							$congregationSchedule = new CongregationSchedule($path_to_root, $page);
+
+							echo $congregationSchedule->insertCongregationSchedule();
+						?>
+
+	<!-- 					January 1 - 5, 2017
 						<br><br>
-						January 1 - 8, 2017
+						January 1 - 6, 2017
 						<br><br>
-						January 1 - 8, 2017
+						January 1 - 7, 2017
 						<br><br>
-						January 1 - 8, 2017
+						January 1 - 9, 2017 -->
 					</td>
 				<tr>
 			</table>

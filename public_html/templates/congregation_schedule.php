@@ -23,12 +23,6 @@
 	require_once($path_to_root.'../BUS/schedule/CongregationSchedule.class.php');
 	$congregationSchedule = new CongregationSchedule($path_to_root, $page);
 
-	$rotations = $congregationSchedule->getAllCongregationRotations();
-
-	foreach($rotations as $rotation){
-		
-	}
-
 	echo $congregationSchedule->insertCongregationSchedule();
 
 	echo $generalTemplate->insertFooter();
