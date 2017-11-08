@@ -20,7 +20,18 @@
 				<tr>
 					<td colspan="3" id="title">Current Schedule</td>
 				<tr>
-				<tr>
+						<?php 
+							$page='Bus Driver Schedule';
+							require_once($path_to_root."../BUS/schedule/BusDriverSchedule.class.php");
+	      						$busDriverScheduler = new BusDriverSchedule($path_to_root, $page);
+							echo 'ID: ' . $_SESSION['id'];
+							if(($schedule = $busDriverScheduler->insertInProgressBusDriverSchedulesById($_SESSION['id'])) == ""){
+								$schedule = "No schedule available";
+							}
+
+							echo $schedule;
+						?>
+			<!-- 	<tr>
 					<td>Jan 8</td>
 					<td>M</td>
 					<td>Congegation</td>
@@ -39,7 +50,7 @@
 					<td>Jan 11</td>
 					<td>EB</td>
 					<td>Congegation</td>
-				<tr>
+				<tr> -->
 			</table>
 		</div>
 	</div>

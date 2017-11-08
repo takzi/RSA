@@ -37,10 +37,11 @@ class CongregationSchedule {
 				</table>\n";
 	}
 
-	function insertCongregatonSchedule($_id){
-		$congregationName = $this->getCongregationName($rotation->getCongregationID());
+	function insertCongregationScheduleById($_id){
+		//$congregationName = $this->getCongregationName($_id);
 		$rotations = $this->getSingleCongregationRotation($_id);
 		$tr = "";
+		
 		foreach($rotations as $rotation){
 			$startDate = $rotation->getRotationDateFrom();
 			$endDate = $rotation->getRotationDateTo();
@@ -52,6 +53,8 @@ class CongregationSchedule {
 			}
 			$tr .= "<br><br>";
 		}
+
+		return $tr;
 	}
 
 	function getAllCongregationRotations(){
@@ -83,7 +86,7 @@ class CongregationSchedule {
 	}
 
 	function formatDate($date,$format){
-		//return $date
+		return date($format, $date);
 	}
 
 }

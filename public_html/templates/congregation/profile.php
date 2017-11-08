@@ -25,13 +25,17 @@
 					<td id ="cong_tb">
 						<?php 
 							$page='Congregation Schedule';
-							require_once($path_to_root.'../../BUS/schedule/CongregationSchedule.class.php');
+							require_once($path_to_root.'../BUS/schedule/CongregationSchedule.class.php');
 							$congregationSchedule = new CongregationSchedule($path_to_root, $page);
+							//echo 'ID: ' . $_SESSION['id'];
+							if(($schedule = $congregationSchedule->insertCongregationScheduleById($_SESSION['id'])) == ""){
+								$schedule = "No schedule available";
+							}
 
-							echo $congregationSchedule->insertCongregationSchedule();
+							echo $schedule;
 						?>
-
-	<!-- 					January 1 - 5, 2017
+<!-- 
+						January 1 - 5, 2017
 						<br><br>
 						January 1 - 6, 2017
 						<br><br>

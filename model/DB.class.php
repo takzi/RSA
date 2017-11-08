@@ -216,7 +216,7 @@
 			$stmt->bindParam(":role_ID",$_roleID,PDO::PARAM_INT);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "insertNewUser - ".$e->getMessage();
@@ -252,7 +252,7 @@
 			$stmt->bindParam(":role_ID",$_roleID,PDO::PARAM_INT);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "updateUser - ".$e->getMessage();
@@ -1292,14 +1292,15 @@
 			$stmt = $this->db->prepare("SELECT * 
 										FROM rotation
 										WHERE id = :id");
+			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
 			$stmt->execute();
 
-			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'blackoutDates');
+			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'rotation');
 
 			return $data;
 		}
 		catch(PDOException $e){
-			echo "getRotationNumber - ".$e->getMessage();
+			echo "getRotation - ".$e->getMessage();
 			die();
 		}
 		return $data;

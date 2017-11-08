@@ -8,5 +8,10 @@ $('#role').change(function(){
 		$('#congName').removeClass("display").addClass("hide");
 		$('#contactNum').removeClass("hide").addClass("display");
 	}
+
+	if(role == -1 || role == 1){
+		$('#contactNum').removeClass("display").addClass("hide");
+		$('#congName').removeClass("display").addClass("hide");
+	}
 });
 

@@ -37,12 +37,35 @@ class BusDriverSchedule {
 				</table>\n";
 	}
 
+	function insertInProgressBusDriverSchedulesById($_id){
+		$schedules = $this->getDriverInProgressSchedule($_id);
+		$tr = "";
+
+		foreach($schedules as $schedule){
+			$date = $schedule->getScheduleDate();
+			$timeOfDay = $schedule->getScheduleTime();
+			//$congregation = $schedule->get // need to know how to get the specific congregation for the bus driver.
+			$tr .= "<tr>\n
+						<td>".$date."</td>\n
+						<td>".$timeOfDay."</td>\n
+					</tr>\n";
+		}
+
+		return $tr;
+	}
+
 	function getAllInProgressSchedules(){
 		return $this->db->getSchedulesByStatus("In Progress");
 	}
 
+	// unsure what to do with this
 	function getDriverInProgressSchedule($_id){
 		return $this->db->getRotation($_id);
+	}
+
+	// unsure what to do with this, I wrote this. added backup to avoid the cannot redeclare error.
+	function getDriverInProgressScheduleBackup($_id){
+		return $this->db->getSchedulesByDriver($_id);
 	}
 
 	function addNewSchedule($_date,$_timeOfDay,$_busDriverID,$_status){
