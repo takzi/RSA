@@ -1098,7 +1098,7 @@
 										FROM blackout_dates");
 			$stmt->execute();
 
-			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'blackoutDates');
+			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'blackOutDate');
 
 			return $data;
 		}
@@ -1119,7 +1119,7 @@
 			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
 			$stmt->execute();
 
-			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'blackoutDates');
+			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'blackOutDate');
 
 			return $data;
 		}
@@ -1139,7 +1139,7 @@
 			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
 			$stmt->execute();
 
-			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'blackoutDates');
+			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'blackOutDate');
 
 			return $data;
 		}
@@ -1159,7 +1159,7 @@
 			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
 			$stmt->execute();
 
-			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'blackoutDates');
+			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'blackOutDate');
 
 			return $data;
 		}
