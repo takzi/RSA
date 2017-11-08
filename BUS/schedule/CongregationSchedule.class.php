@@ -38,10 +38,10 @@ class CongregationSchedule {
 	}
 
 	function insertCongregationScheduleById($_id){
-		//$congregationName = $this->getCongregationName($_id);
-		$rotations = $this->getSingleCongregationRotation($_id);
+		$congregation = $this->db->getCongregationByContactID($_id)[0];
+		$rotations = $this->getSingleCongregationRotationBackup($congregation->getID());
 		$tr = "";
-		
+
 		foreach($rotations as $rotation){
 			$startDate = $rotation->getRotationDateFrom();
 			$endDate = $rotation->getRotationDateTo();
@@ -65,6 +65,10 @@ class CongregationSchedule {
 		return $this->db->getRotation($_id);
 	}
 
+	function getSingleCongregationRotationBackup($_id){
+		return $this->db->getRotationByCongregationId($_id);
+	}
+
 	function addNewRotation($_rotationID,$_rotationNumber,
 		$_congregationID,$_rotationDateFrom,$_rotationDateTo){
 		$this->db->insertNewRotation($_rotationID,$_rotationNumber,
@@ -85,8 +89,12 @@ class CongregationSchedule {
 		return $this->db->getCongregationName($_id);
 	}
 
+	function getCongregationNameByContactID($_id){
+		return $this->db->getCongregationNameByContactID($_id)["name"];
+	}
+
 	function formatDate($date,$format){
-		return date($format, $date);
+		return date($format, strtotime($date));
 	}
 
 }

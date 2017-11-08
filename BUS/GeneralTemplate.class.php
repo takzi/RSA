@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('UTC');
 /* 
  * Containers functions that are used
  * on most if not all pages in the RSA.

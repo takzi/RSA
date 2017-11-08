@@ -38,7 +38,8 @@ class BusDriverSchedule {
 	}
 
 	function insertInProgressBusDriverSchedulesById($_id){
-		$schedules = $this->getDriverInProgressSchedule($_id);
+		$currentBusDriver = $this->db->getBusDriverByContactID($_id)[0];
+		$schedules = $this->getDriverInProgressScheduleBackup($currentBusDriver->getID());
 		$tr = "";
 
 		foreach($schedules as $schedule){

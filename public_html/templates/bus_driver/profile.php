@@ -24,9 +24,9 @@
 							$page='Bus Driver Schedule';
 							require_once($path_to_root."../BUS/schedule/BusDriverSchedule.class.php");
 	      						$busDriverScheduler = new BusDriverSchedule($path_to_root, $page);
-							echo 'ID: ' . $_SESSION['id'];
+							//echo 'ID: ' . $_SESSION['id'];
 							if(($schedule = $busDriverScheduler->insertInProgressBusDriverSchedulesById($_SESSION['id'])) == ""){
-								$schedule = "No schedule available";
+								$schedule = "<td>No schedule available</td>";
 							}
 
 							echo $schedule;

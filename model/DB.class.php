@@ -328,7 +328,7 @@
 			return $data;
 		}
 		catch(PDOException $e){
-			echo "getAllUsers - ".$e->getMessage();
+			echo "getRole - ".$e->getMessage();
 			die();
 		}
 		return $data;
@@ -590,6 +590,33 @@
 	}
 
 	/**
+	 *	getCongregationByContactID - will return the congregation that currently
+	 * exist in the congregation table and matches the provided id.
+	 *
+	 * @param integer $_contactID - contact id to match.
+	 * @return integer $data - congregation contact id to return.
+	 **/
+	function getCongregationByContactID($_contactID){
+		try{
+			$data = array();
+			$stmt = $this->db->prepare("SELECT * 
+										FROM congregation 
+										WHERE contact_ID = :id");
+			$stmt->bindParam(":id",$_contactID,PDO::PARAM_INT);
+			$stmt->execute();
+
+			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'congregation');
+
+			return $data;
+		}
+		catch(PDOException $e){
+			echo "getCongregationByContactID - ".$e->getMessage();
+			die();
+		}
+		return $data;
+	}
+
+	/**
 	 * 	insertNewCongregation - will insert a new record to the congregation
 	 * table with the provided information.
 	 *
@@ -654,7 +681,7 @@
 			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "deleteRole - ".$e->getMessage();
@@ -738,6 +765,34 @@
 		}
 		catch(PDOException $e){
 			echo "getBusDriverContactID - ".$e->getMessage();
+			die();
+		}
+		return $data;
+	}
+
+	/**
+	 *	getBusDriverByContactID - will return the bus driver
+	 *  that currently exist in the bus_driver table and 
+	 *  matches the provided id.
+	 * 
+	 * @param integer $_contactID - contact id to match.
+	 * @return integer $data - busDriver contact id to return.
+	 **/
+	function getBusDriverByContactID($_contactID){
+		try{
+			$data = array();
+			$stmt = $this->db->prepare("SELECT * 
+										FROM bus_driver 
+										WHERE contact_ID = :id");
+			$stmt->bindParam(":id",$_contactID,PDO::PARAM_INT);
+			$stmt->execute();
+
+			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'busDriver');
+
+			return $data;
+		}
+		catch(PDOException $e){
+			echo "getBusDriverByContactID - ".$e->getMessage();
 			die();
 		}
 		return $data;
@@ -1293,6 +1348,33 @@
 										FROM rotation
 										WHERE id = :id");
 			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
+			$stmt->execute();
+
+			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'rotation');
+
+			return $data;
+		}
+		catch(PDOException $e){
+			echo "getRotation - ".$e->getMessage();
+			die();
+		}
+		return $data;
+	}
+
+	/**
+	 *  getRotationByCongregationId - will return the rotation that currently exist in the
+	 * rotation table and matches the rotation id.
+	 *
+	 * @param integer $_congregationID - id of congregation to match. 
+	 * @return rotation $data - rotation object to return.
+	 **/
+	function getRotationByCongregationId($_congregationID){
+		try{
+			$data = array();
+			$stmt = $this->db->prepare("SELECT * 
+										FROM rotation
+										WHERE congregation_ID = :id");
+			$stmt->bindParam(":id",$_congregationID,PDO::PARAM_INT);
 			$stmt->execute();
 
 			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'rotation');
@@ -1883,7 +1965,7 @@
 			return $data;
 		}
 		catch(PDOException $e){
-			echo "getSchedulesByStatus - ".$e->getMessage();
+			echo "getSchedulesByDateInterval - ".$e->getMessage();
 			die();
 		}
 		return $data;
@@ -1913,7 +1995,7 @@
 			print $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
-			echo "insertNewAvailability - ".$e->getMessage();
+			echo "insertNewSchedule - ".$e->getMessage();
 			die();
 		}
 	}
@@ -1945,7 +2027,7 @@
 			print $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
-			echo "insertNewRotation - ".$e->getMessage();
+			echo "updateSchedule - ".$e->getMessage();
 			die();
 		}
 	}
@@ -1968,7 +2050,7 @@
 			print $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
-			echo "deleteRole - ".$e->getMessage();
+			echo "deleteSchedule - ".$e->getMessage();
 			die();
 		}
 	}
