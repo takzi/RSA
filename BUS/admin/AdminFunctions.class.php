@@ -86,12 +86,17 @@ class AdminFunctions{
 
 	private function getHTMLSnippet($id, $name, $type){
 		return "<tr>
-					<td>" . $name ." <a href='edit_". $this->getType($type, 'cong', 'bus') . ".php?" . $this->getType($type, 'congregation', 'driver') . "=" . $id ."'><input type='button' id='tb-right' name='" . $name . "' value='Edit'></a><input type='button' value='Reset Password'></td>
+					<td>" . $name ." <a href='admin_edit_". $this->getType($type, 'cong', 'bus') . ".php?" . $this->getType($type, 'congregation', 'driver') . "=" . $id ."'><input type='button' id='tb-right' name='" . $name . "' value='Edit'></a><input type='button' value='Reset Password'></td>
 				</tr>";
 	}
 
 	private function getType($type, $cong, $bus){
 		return $type == 'c' ? $cong : $bus;
+	}
+
+	
+	function getCongregation($id){
+		return $this->db->getCongregation($id);
 	}
 }
 
