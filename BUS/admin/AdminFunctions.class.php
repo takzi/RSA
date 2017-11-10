@@ -98,6 +98,12 @@ class AdminFunctions{
 	function getCongregation($id){
 		return $this->db->getCongregation($id);
 	}
+
+	function getBusDriver($id){
+		$busDriver = $this->db->getBusDriver($id);
+		$busDriverId = $busDriver[0]->getContactID();
+		return $this->db->getUser($busDriverId);
+	}
 }
 
 
