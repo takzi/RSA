@@ -138,6 +138,7 @@ nav ul li a {
 
 #footer h1 {
     color: #d7d9dd;
+    border-bottom: none;
 }
 
 #footer ul li a {
@@ -186,4 +187,37 @@ nav ul li a {
     content: "";
     clear: both;
     display: table;
+}
+
+.message {
+    margin: 0;
+    text-align: center;
+    padding-top: 5vh;
+}
+
+.schedule-container {
+    position: absolute;
+    left: 50%;
+}
+
+.table {
+    position: relative;
+    border: 1pt solid #d7d9dd;
+    border-radius: 5px;
+    min-width: 40vw;
+    margin-top: 5vh;
+    left: -50%;
+}
+
+.table th {
+    background-color: #0E6AA8;
+    color: white;
+    font-size: 15pt;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.table tr {
+    padding: 20px;
+    border-bottom: 1pt solid #d7d9dd;
 }

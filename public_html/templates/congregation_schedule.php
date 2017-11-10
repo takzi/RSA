@@ -21,9 +21,12 @@
 	echo $generalTemplate->insertHeader();
 
 	require_once($path_to_root.'../BUS/schedule/CongregationSchedule.class.php');
-	$congregationSchedule = new CongregationSchedule($path_to_root, $page);
+	$congregationSchedule = new CongregationSchedule($path_to_root, $page); ?>
 
-	echo $congregationSchedule->insertCongregationSchedule();
+	<div class="schedule-container">
+		<?php echo $congregationSchedule->insertCongregationSchedule(); ?>
+	</div>
 
+<?php
 	echo $generalTemplate->insertFooter();
 ?>

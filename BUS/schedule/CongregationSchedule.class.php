@@ -28,7 +28,7 @@ class CongregationSchedule {
 					</tr>\n";
 		}
 
-		return "<table>
+		return "<table class='table'>
 					<tr>
 						<th>Congreation</th>
 						<th>Start Day</th>

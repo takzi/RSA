@@ -69,33 +69,33 @@ class GeneralTemplate {
 				<footer id='footer'>\n
 					<div id='footer_container'>\n
 						<section id='RSA' class='footer_section'>\n
-							<h1> RSA </h1>\n
+							<h1 style='border: none;'> RSA </h1>\n
 						</section>\n
 						<section id='links' class='footer_section'>\n
 							<article id='links_1'>\n
 								<ul>\n
-									<li><a href='#'>Contact</a></li>\n
-									<li><a href='#'>Login</a></li>\n
-									<li><a href='#'>Facebook</a></li>\n
+									<li><a href='".$this->path_to_root."index.php'>Login</a></li>\n
+									<li><a href='".$this->path_to_root."templates/bus_driver_schedule.php'>Drivers</a></li>\n
+									<li><a href='".$this->path_to_root."templates/congregation_schedule.php'>Congregations</a></li>\n
 								</ul>\n
 							</article>\n
 							<article id='links_2'>\n
 								<ul>\n
 									<li><a href='#'>About</a></li>\n
-									<li><a href='#'>Schedules</a></li>\n
-									<li><a href='#'>Twitter</a></li>\n
+									<li><a href='https://www.facebook.com/RochesterAreaInterfaithHospitalityNetwork'>Facebook</a></li>\n
+									<li><a href='https://twitter.com/raihnshelter'>Twitter</a></li>\n
 								</ul>\n
 							</article>\n
 							<article id='links_3'>\n
 								<ul>\n
-									<li><a href='#'>Help</a></li>\n
-									<li><a href='#'>raihn.org</a></li>\n
-									<li><a href='#''>rit.edu</a></li>\n
+									<li><a href='http://www.raihn.org/financial-support'>Donate</a></li>\n
+									<li><a href='http://www.raihn.org'>raihn.org</a></li>\n
+									<li><a href='https://www.rit.edu''>rit.edu</a></li>\n
 								</ul>\n
 							</article>\n
 						</section>\n
 						<section id='RIT' class='footer_section'>\n
-							<h1> RIT </h1>\n
+							<h1 style='border: none;'> RIT </h1>\n
 						</section>\n
 					</div>\n
 				</footer>\n

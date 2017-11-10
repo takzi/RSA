@@ -49,7 +49,7 @@ class AdminFunctions{
 				<h1>".$type."</h1>\n
 				<div id='admin_container'>\n
 					<div id='form'>\n
-						<input type='text' id='text' name='cong_name' value='Congregation Name'> 
+						<input type='text' class='text' name='cong_name' value='Congregation Name'> 
 						<input type='button' value='Add Now'>\n
 						<input type='button' id='genScheBut' value='Generate New Schedule'>
 						<a href='".$this->path_to_root."templates/congregation_schedule.php'><input type='button' value='View Current Schedule'></a>
