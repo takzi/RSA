@@ -59,45 +59,39 @@ class AdminFunctions{
 	function insertCongregationsIntoAdminPage(){
 		// CREATE THE STRING BASED OFF OF DATA FROM THE DATABASE
 		// GET ALL OF THE CONGREGATIONS AND OUTPUT THEM AS DISPLAYED BELOW
-		return "<table id='congregations'>
-				<tr>
-					<td>Congregation 1 <input type='button' id='tb-right' name='Congregation 1' value='Edit'><input type='button' value='Reset Password'></td>
-				</tr>
-				<tr>
-					<td>Congregation 2 <input type='button' id='tb-right' name='Congregation 2' value='Edit'><input type='button' value='Reset Password'></td>
-				</tr>
-				<tr>
-					<td>Congregation 3 <input type='button' id='tb-right' name='Congregation 3' value='Edit'><input type='button' value='Reset Password'></td>
-				</tr> 
-				<tr>
-					<td>Congregation 4 <input type='button' id='tb-right' name='Congregation 4' value='Edit'><input type='button' value='Reset Password'></td>
-				</tr>
-				<tr>
-					<td>Congregation 5 <input type='button' id='tb-right' name='Congregation 5' value='Edit'><input type='button' value='Reset Password'></td>
-				</tr>   
-			</table>";
+		$congregations = $this->db->getAllCongregations();
+		$tr = "";
+		foreach($congregations as $congregation){
+			$tr .= $this->getHTMLSnippet($congregation->getID(), $congregation->getName(), 'c');
+		}
+		return "<table id='congregations'>". 
+				$tr
+			 . "</table>";
 	}
 
 	function insertBusDriversIntoAdminPage(){
 		// CREATE THE STRING BASED OFF OF DATA FROM THE DATABASE
 		// GET ALL OF THE BUS DRIVERS AND OUTPUT THEM AS DISPLAYED BELOW
-		return "<table id='congregations'>
-				<tr>
-					<td>Bus Driver 1 <input type='button' id='tb-right' name='Bus Driver 1' value='Edit'><input type='button' value='Reset Password'></td>
-				</tr>
-				<tr>
-					<td>Bus Driver 2 <input type='button' id='tb-right' name='Bus Driver 2' value='Edit'><input type='button' value='Reset Password'></td>
-				</tr>
-				<tr>
-					<td>Bus Driver 3 <input type='button' id='tb-right' name='Bus Driver 3' value='Edit'><input type='button' value='Reset Password'></td>
-				</tr> 
-				<tr>
-					<td>Bus Driver 4 <input type='button' id='tb-right' name='Bus Driver 4' value='Edit'><input type='button' value='Reset Password'></td>
-				</tr>
-				<tr>
-					<td>Bus Driver 5 <input type='button' id='tb-right' name='Bus Driver 5' value='Edit'><input type='button' value='Reset Password'></td>
-				</tr>   
-			</table>";
+		$drivers = $this->db->getAllBusDrivers();
+		$tr = "";
+		foreach($drivers as $driver){
+			$contactID = $driver->getContactID();
+			$user = $this->db->getUser($contactID)[0];
+			$tr .= $this->getHTMLSnippet($contactID, $user->getWholeName(), 'd');
+		}
+		return "<table id='congregations'>".
+				$tr
+			.  "</table>";
+	}
+
+	private function getHTMLSnippet($id, $name, $type){
+		return "<tr>
+					<td>" . $name ." <a href='edit_". $this->getType($type, 'cong', 'bus') . ".php?" . $this->getType($type, 'congregation', 'driver') . "=" . $id ."'><input type='button' id='tb-right' name='" . $name . "' value='Edit'></a><input type='button' value='Reset Password'></td>
+				</tr>";
+	}
+
+	private function getType($type, $cong, $bus){
+		return $type == 'c' ? $cong : $bus;
 	}
 }
 
