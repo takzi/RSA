@@ -157,3 +157,41 @@ input{
 #dateArrowButton {
 	min-width: 2.5vw;
 }
+
+#title{
+	height: 50px;
+	background: #0E6AA8;
+	color: white;
+}
+
+#generate_schedule{
+	border-collapse: collapse;
+	font-size: 24px;
+	margin-bottom: 20px;
+}
+
+#generate{
+	width: 640px;
+	margin-top: -20px;
+	padding-top: 20px;
+}
+
+.genDate{
+	width: 17%;
+}
+
+.genSche{
+	text-align: center;
+	width: 83%;
+}
+
+.genBtn{
+	margin-bottom: 50px;
+	font-size: 24px;
+	height: 50px;
+	width: 160px;
+}
+
+#genRight{
+	margin-left: 310px;
+}
