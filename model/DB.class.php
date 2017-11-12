@@ -1604,7 +1604,7 @@
 			$stmt->execute();
 		}
 		catch(PDOException $e){
-			echo "insertNewAvailability - ".$e->getMessage();
+			echo "insertNewSupportingCongregation - ".$e->getMessage();
 			die();
 		}
 	}

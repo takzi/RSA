@@ -41,7 +41,9 @@
 				<input id="dateArrowButton" type="button" value=">" onclick="insertDateValue()">
 				<div id="dateValues" class="heighttext">
 					<!-- INSERT CURRENT BLACKOUT DATES HERE FROM THE DB -->
-					<!-- <p class="date-inputted" value="date string">date string</p> -->
+					<?php 
+						echo $adminFunctions->insertBlackoutDatesIntoEditCongregation($congID);
+					?>
 				</div>
 			</div>
 		

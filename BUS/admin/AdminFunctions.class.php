@@ -75,13 +75,49 @@ class AdminFunctions{
 		$drivers = $this->db->getAllBusDrivers();
 		$tr = "";
 		foreach($drivers as $driver){
+			$id = $driver->getID();
 			$contactID = $driver->getContactID();
 			$user = $this->db->getUser($contactID)[0];
-			$tr .= $this->getHTMLSnippet($contactID, $user->getWholeName(), 'd');
+			$tr .= $this->getHTMLSnippet($id, $user->getWholeName(), 'd');
 		}
 		return "<table id='congregations'>".
 				$tr
 			.  "</table>";
+	}
+
+	function insertBlackoutDatesIntoEditCongregation($id){
+		$blackoutDates = $this->db->getBlackoutdatesForCongregation($id);
+		if(empty($blackoutDates)){
+			return "<p class='date-inputted' value=''>No blackout dates</p>";
+		}	
+		$paragraphDates = "";
+		foreach($blackoutDates as $blackoutDate){
+			$fromDate = $blackoutDate->getFromDate();
+			$toDate = $blackoutDate->getToDate();
+			$date = $this->formatDate($fromDate, "m/d/Y - ") . $this->formatDate($toDate, "m/d/Y");
+			$paragraphDates .= "<p class='date-inputted' value='" . $date ."'>". $date . "</p>\n";
+		}
+
+		return $paragraphDates;
+	}
+
+	function insertAvailablityIntoEditDriver($id){
+		$availabilities = $this->db->getAvailabilityDatesForDriver($id);
+
+		if(empty($availabilities)){
+			return "<p class='date-inputted' value=''>No availability dates</p>";
+		}
+
+		$date = "";
+		
+		$paragraphDates = "";
+		foreach($availabilities as $availability){
+			$date = $this->formatDate($availability, "m/d/Y");
+			$paragraphDates .= "<p class='date-inputted' value='" . $date ."'>". $date . "</p>\n";
+		}
+
+		return $paragraphDates;
+		
 	}
 
 	private function getHTMLSnippet($id, $name, $type){
@@ -103,6 +139,10 @@ class AdminFunctions{
 		$busDriver = $this->db->getBusDriver($id);
 		$busDriverId = $busDriver[0]->getContactID();
 		return $this->db->getUser($busDriverId);
+	}
+
+	function formatDate($date,$format){
+		return date($format, strtotime($date));
 	}
 }
 

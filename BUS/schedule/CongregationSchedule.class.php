@@ -93,8 +93,8 @@ class CongregationSchedule {
 		return $this->db->getCongregationNameByContactID($_id)["name"];
 	}
 
-	function formatDate($date,$format){
-		return date($format, strtotime($date));
+	function formatDate($_date,$_format){
+		return date($_format, strtotime($_date));
 	}
 
 }

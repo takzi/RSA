@@ -41,6 +41,9 @@
 				<input id="dateArrowButton" type="button" value=">" onclick="insertDateValue()">
 				<div id="dateValues" class="heighttext">
 					<!-- INSERT CURRENT BLACKOUT DATES HERE FROM THE DB -->
+					<?php
+						echo $adminFunctions->insertAvailablityIntoEditDriver($busID);
+					?>
 					<!-- <p class="date-inputted" value="date string">date string</p> -->
 				</div>
 			</div>
