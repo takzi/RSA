@@ -47,7 +47,6 @@ class AdminFunctions{
 					<a href='#'>".$type."</a>\n
 				</div>\n
 				<h1>".$type."</h1>\n
-				<div id='admin_container'>\n
 					<div id='form'>\n
 						<input type='text' class='text' name='cong_name' value='Congregation Name'> 
 						<input type='button' value='Add Now'>\n
