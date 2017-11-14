@@ -38,21 +38,23 @@ class BusDriverSchedule {
 	}
 
 	function insertInProgressBusDriverSchedulesById($_id){
-		$currentBusDriver = $this->db->getBusDriverByContactID($_id)[0];
-		$schedules = $this->getDriverInProgressScheduleBackup($currentBusDriver->getID());
-		$tr = "";
+		if(!empty($currentBusDriver = $this->db->getBusDriverByContactID($_id))){
+			$schedules = $this->getDriverInProgressScheduleBackup($currentBusDriver[0]->getID());
+			$tr = "";
 
-		foreach($schedules as $schedule){
-			$date = $schedule->getScheduleDate();
-			$timeOfDay = $schedule->getScheduleTime();
-			//$congregation = $schedule->get // need to know how to get the specific congregation for the bus driver.
-			$tr .= "<tr>\n
-						<td>".$date."</td>\n
-						<td>".$timeOfDay."</td>\n
-					</tr>\n";
+			foreach($schedules as $schedule){
+				$date = $schedule->getScheduleDate();
+				$timeOfDay = $schedule->getScheduleTime();
+				//$congregation = $schedule->get // need to know how to get the specific congregation for the bus driver.
+				$tr .= "<tr>\n
+							<td>".$date."</td>\n
+							<td>".$timeOfDay."</td>\n
+						</tr>\n";
+			}
+
+			return $tr;
 		}
-
-		return $tr;
+		return "No information found associated with your account";
 	}
 
 	function getAllInProgressSchedules(){
@@ -60,7 +62,7 @@ class BusDriverSchedule {
 	}
 
 	// unsure what to do with this
-	function getDriverInProgressSchedule($_id){
+	function getDriverInProgressSchedule($_id){	
 		return $this->db->getRotation($_id);
 	}
 

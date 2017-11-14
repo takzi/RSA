@@ -38,23 +38,25 @@ class CongregationSchedule {
 	}
 
 	function insertCongregationScheduleById($_id){
-		$congregation = $this->db->getCongregationByContactID($_id)[0];
-		$rotations = $this->getSingleCongregationRotationBackup($congregation->getID());
-		$tr = "";
+		if(!empty($congregation = $this->db->getCongregationByContactID($_id))){
+			$rotations = $this->getSingleCongregationRotationBackup($congregation[0]->getID());
+			$tr = "";
 
-		foreach($rotations as $rotation){
-			$startDate = $rotation->getRotationDateFrom();
-			$endDate = $rotation->getRotationDateTo();
-			if($this->formatDate($startDate, "Y") != $this->formatDate($endDate, "Y")){
-				$tr .= $this->formatDate($startDate, "F d, Y - ") . $this->formatDate($endDate, "F d, Y");
+			foreach($rotations as $rotation){
+				$startDate = $rotation->getRotationDateFrom();
+				$endDate = $rotation->getRotationDateTo();
+				if($this->formatDate($startDate, "Y") != $this->formatDate($endDate, "Y")){
+					$tr .= $this->formatDate($startDate, "F d, Y - ") . $this->formatDate($endDate, "F d, Y");
+				}
+				else{
+					$tr .= $this->formatDate($startDate, "F d - ") . $this->formatDate($endDate, "d, Y");
+				}
+				$tr .= "<br><br>";
 			}
-			else{
-				$tr .= $this->formatDate($startDate, "F d - ") . $this->formatDate($endDate, "d, Y");
-			}
-			$tr .= "<br><br>";
+
+			return $tr;
 		}
-
-		return $tr;
+		return "You're not associated with any congregation.";
 	}
 
 	function getAllCongregationRotations(){
