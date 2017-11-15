@@ -2,6 +2,7 @@
  * Login Form CSS for RAIHN Scheduling Application
  *
  * @author     Kristen Merritt
+ * @author     Chevy 
  * @date       10/7/2017
  */
 
@@ -92,4 +93,30 @@
 #login_form button:hover {
     cursor: pointer;
     background-color: #0E6AA8;
+}
+
+/**************************
+ * * * * * MOBILE * * * * *
+ **************************/
+ 
+/* Design for screen-width <= 1065px */ 
+@media screen and (max-width:1065px) {
+  .form_header h1 {
+		margin-top: 7px;
+	}
+	
+	#login_form {
+		width: 300px;
+		left: 20%;
+	}
+
+	.form_header {
+		width: 300px;
+		left: 20%;
+	}	
+
+	#login_form button, 
+	#request_href {
+		width: 250px;
+	}
 }

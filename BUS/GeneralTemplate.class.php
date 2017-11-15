@@ -35,6 +35,7 @@ class GeneralTemplate {
 		<html lang='en'>\n
 		<head>\n
 			<meta charset='utf-8' />\n
+			<meta name='viewport' content='width=device-width, initial-scale=1' />\n
 			<title>".$this->page."</title>\n
 			<link href='".$this->path_to_root."css/default.css' rel='stylesheet'>\n
 			<script src='".$this->path_to_root."js/default.js' type='text/javascript'></script>\n

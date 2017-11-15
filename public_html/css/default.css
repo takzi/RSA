@@ -221,3 +221,41 @@ nav ul li a {
     padding: 20px;
     border-bottom: 1pt solid #d7d9dd;
 }
+
+/**************************
+ * * * * * MOBILE * * * * *
+ **************************/
+ 
+/* Design for screen-width <= 1065px */  
+@media screen and (max-width:1065px) {
+	#container {
+		width: 100%;
+	}
+
+	nav {
+		width: 100%;
+	}
+
+	nav ul {
+		font-size: 12px;
+		display: inline;
+	}
+
+	nav ul li {
+		padding-left: 30px;
+		width: 52px;
+	}
+	
+	#footer_container {
+		width: 100%;
+	}
+	
+	.footer_section > h1 {
+		font-size: 18pt;
+	}
+	
+	#footer a
+	{
+		font-size: 10pt;
+	}	
+}
