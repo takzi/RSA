@@ -1,4 +1,13 @@
 <?php
+/**
+ * Sanitizer holds all of the functionality
+ * to sanitize input for the RSA site.
+ *
+ *
+ * @author     Kristen Merritt
+ * @version    Release: 1.0
+ * @date       11/15/2017
+ */
 
 class Sanitizer {
 	
@@ -7,9 +16,10 @@ class Sanitizer {
 	}
 
 	/**
-	 * Returns a sanitized string
-	 * @param {string} string 
-	 * @return {string}
+	 * Returns a sanitized string.
+	 * 
+	 * @param  string string 
+	 * @return string
 	 */
 	function sanitizeString($string){
 		$string = trim($string);
@@ -17,9 +27,10 @@ class Sanitizer {
 	}
 
 	/**
-	 * Returns a sanitized email
-	 * @param {string} email 
-	 * @return {string}
+	 * Returns a sanitized email.
+	 * 
+	 * @param  string email 
+	 * @return string
 	 */
 	function sanitizeEmail($email){
 		$email = trim($email);
@@ -27,9 +38,11 @@ class Sanitizer {
 	}
 
 	/**
-	 * Returns boolean based on whether or not the email is valid
-	 * @param {string} email 
-	 * @return {bool}
+	 * Returns boolean based on whether 
+	 * or not the email is valid.
+	 * 
+	 * @param  string email 
+	 * @return bool
 	 */
 	function validateEmail($email){
 		$email = trim($email);
@@ -37,9 +50,10 @@ class Sanitizer {
 	}
 
 	/**
-	 * Returns a sanitized number
-	 * @param {int} number 
-	 * @return {int}
+	 * Returns a sanitized number.
+	 * 
+	 * @param  int number 
+	 * @return int
 	 */
 	function sanitizeInt($number){
 		$number = trim($number);
@@ -47,18 +61,21 @@ class Sanitizer {
 	}
 
 	/**
-	 * Returns boolean based on whether or not the number is valid
-	 * @param {int} number 
-	 * @return {bool}
+	 * Returns boolean based on whether 
+	 * or not the number is valid.
+	 * 
+	 * @param  int number 
+	 * @return bool
 	 */
 	function validateInt($number){
 		return filter_var($number, FILTER_VALIDATE_INT);
 	}
 
 	/**
-	 * Returns a sanitized URL
-	 * @param {string} url 
-	 * @return {string}
+	 * Returns a sanitized URL.
+	 * 
+	 * @param  string url 
+	 * @return string
 	 */
 	function sanitizeURL($url){
 		$url = trim($url);
@@ -66,9 +83,11 @@ class Sanitizer {
 	}
 
 	/**
-	 * Returns boolean based on whether or not the URL is valid
-	 * @param {string} url 
-	 * @return {bool}
+	 * Returns boolean based on whether 
+	 * or not the URL is valid.
+	 * 
+	 * @param  string url 
+	 * @return bool
 	 */
 	function validateURL($url){
 		return filter_var($url, FILTER_VALIDATE_URL);
