@@ -130,6 +130,8 @@ class GeneralTemplate {
 					<input id='email' type='text' placeholder='email' name='email' required>\n
 					<br>
 					<input id='pass' type='password' placeholder='password' name='password' required>\n
+					<input id='confirmpass' type='password' placeholder='confirm password' name='confirmpassword' required>\n
+					<div id='confirmed' class='hide'>Password are not matched.</div>\n
 					<br>
 					<select id='role' name='role'>\n
 						<option value='-1'>Select a Role</option>\n

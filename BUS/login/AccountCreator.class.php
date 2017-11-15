@@ -15,8 +15,8 @@ class AccountCreator{
 		$this->sanitizer = new Sanitizer();
 	}
 
-	function createNewAccount($_fname, $_lname, $_role, $_email, $_pass,$_contactNum="",$_congName=""){
-		$sanitizerResult = $this->sanitizeValidateData($_fname, $_lname, $_role, $_email, $_pass);
+	function createNewAccount($_fname, $_lname, $_role, $_email, $_pass, $_confirmpass, $_contactNum="",$_congName=""){
+		$sanitizerResult = $this->sanitizeValidateData($_fname, $_lname, $_role, $_email, $_pass, $_confirmpass);
 
 		if($sanitizerResult != "Clear"){
 			return $sanitizerResult;
@@ -24,7 +24,8 @@ class AccountCreator{
 
 		if($_role != -1){
 			// Checking to make sure the email is not already used
-			if($this->checkUniqueEmail($_email)){				
+			if($this->checkUniqueEmail($_email)){	
+					if($_pass === $_confirmpass){			
 					// Create new account
 					$uid = $this->db->insertNewUser($_fname, $_lname, $_role, $_email, $_pass);
 					switch ($_role) {
@@ -39,7 +40,9 @@ class AccountCreator{
 						default:
 							break;
 					}
-					return "Account created";					
+					return "Account created";	
+					}
+					return "Password are not matched.";			
 			} else {
 				return "Email already in use.";
 			}
@@ -58,7 +61,7 @@ class AccountCreator{
 		return true;
 	}
 
-	function sanitizeValidateData($fname, $lname, $role, $email, $pass){
+	function sanitizeValidateData($fname, $lname, $role, $email, $pass, $confirmpass){
 		if(!$this->sanitizer->sanitizeEmail($email)){
 			return "Invalid characters used in email.";
 		}
@@ -81,6 +84,10 @@ class AccountCreator{
 
 		if(!$this->sanitizer->sanitizeString($pass)){
 			return "Invalid characters used in Password";
+		}
+
+		if(!$this->sanitizer->sanitizeString($confirmpass)){
+			return "Invalid characters used in Confirm Password";
 		}
 
 		return "Clear";

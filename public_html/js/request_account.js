@@ -15,3 +15,13 @@ $('#role').change(function(){
 	}
 });
 
+$('#confirmpass').focusout(function(){
+	var pass = $('#pass').val();
+	var confirmpass = $('#confirmpass').val();
+
+	if(pass !== confirmpass){
+		$('#confirmed').removeClass("hide").addClass("display");
+	}else{
+		$('#confirmed').removeClass("display").addClass("hide");
+	}
+});
