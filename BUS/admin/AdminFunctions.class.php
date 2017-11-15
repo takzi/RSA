@@ -1,10 +1,29 @@
 <?php
+/**
+ * AdminFunctions holds all of the logic for 
+ * administrative functions.
+ *
+ *
+ * @author     Kristen Merritt
+ * @author     Tiandre Turner
+ * @author     Anthony Perez
+ * @version    Release: 1.0
+ * @date       11/15/2017
+ */
 
 class AdminFunctions{
-	private $path_to_root;
-	private $db;
-	private $sanitizer;
+	private $path_to_root; // provide the location of the root of public_html
+	private $db;           // the database object
+	private $sanitizer;	   // sanitizer object that holds sanitization functionality
 
+
+	/**
+	 * Constructor for the AdminFunctions object. Sets the path,
+	 * the database, and the sanitizer.
+	 * 
+	 * @param [string] $page         [provides the page name]
+	 * @param [string] $path_to_root [provides the path to the root]
+	 */
 	public function __construct($page, $path_to_root){
 		$this->path_to_root = $path_to_root;
 
@@ -15,18 +34,24 @@ class AdminFunctions{
 		$this->sanitizer = new Sanitizer();
 	}
 
+	/**
+	 * Inserts the admin home page buttons.
+	 * 
+	 * @param  [string] $name [name of the admin]
+	 * @param  [int]    $role [role of the admin]
+	 * @return [string]       [html string to be inserted]
+	 */
 	function insertAdminHome($name, $role){
 		$buttons = "";
 
-		if($role == 1){
+		if($role == 1){ // general admin
 			$buttons = "<a href='admin_bus.php'><div class='admin_home_button'>Bus Drivers</div></a>\n
 							<a href='admin_cong.php'><div class='admin_home_button'>Congregations</div></a>\n";
-		} elseif($role == 2){
+		} elseif($role == 2){ // congregation admin
 			$buttons = "<a href='admin_cong.php'><div class='admin_home_button'>Congregations</div></a>\n";
-		} elseif($role == 3){
+		} elseif($role == 3){ // bus driver admin
 			$buttons = "<a href='admin_bus.php'><div class='admin_home_button'>Bus Drivers</div></a>\n";
 		}
-
 
 		return "<h1 id='profile_h1'>".$name."</h1>\n
 					<div id='profile_container' class='clearfix'>\n
@@ -40,6 +65,13 @@ class AdminFunctions{
 					</div>\n";
 	}
 
+	/**
+	 * Inserts the congregation or bus drivers
+	 * onto the admin's page for them.
+	 * 
+	 * @param  [string] $type [congregation or bus driver]
+	 * @return [string]       [html to insert onto page]
+	 */
 	function insertCongBusAdmin($type){
 		return "<div id='adminLink'>\n
 					<a href='".$this->path_to_root."templates/admin/profile.php'>Admin Home</a>\n 
@@ -56,9 +88,13 @@ class AdminFunctions{
 					<script type='text/javascript' src='".$this->path_to_root."js/reset.js'></script>";
 	}
 
+	/**
+	 * Retreives all of the congregations, then inserts
+	 * them into the admin's page for them.
+	 * 
+	 * @return [string] [html of the congregation data]
+	 */
 	function insertCongregationsIntoAdminPage(){
-		// CREATE THE STRING BASED OFF OF DATA FROM THE DATABASE
-		// GET ALL OF THE CONGREGATIONS AND OUTPUT THEM AS DISPLAYED BELOW
 		$congregations = $this->db->getAllCongregations();
 		$tr = "";
 		foreach($congregations as $congregation){
@@ -69,9 +105,13 @@ class AdminFunctions{
 			 . "</table>";
 	}
 
+	/**
+	 * Retreives all of the bus drivers, then inserts
+	 * them into the admin's page for them.
+	 * 
+	 * @return [string] [html of the bus drivers' data]
+	 */
 	function insertBusDriversIntoAdminPage(){
-		// CREATE THE STRING BASED OFF OF DATA FROM THE DATABASE
-		// GET ALL OF THE BUS DRIVERS AND OUTPUT THEM AS DISPLAYED BELOW
 		$drivers = $this->db->getAllBusDrivers();
 		$tr = "";
 		foreach($drivers as $driver){
@@ -85,12 +125,22 @@ class AdminFunctions{
 			.  "</table>";
 	}
 
+	/**
+	 * Inserts the blackout dates provides from the DB
+	 * into the edit congregation page.
+	 * 
+	 * @param  [int] $id    [congregation ID]
+	 * @return [string]     [html based off of data]
+	 */
 	function insertBlackoutDatesIntoEditCongregation($id){
 		$blackoutDates = $this->db->getBlackoutdatesForCongregation($id);
+
 		if(empty($blackoutDates)){
 			return "<p class='date-inputted' value=''>No blackout dates</p>";
-		}	
+		}
+
 		$paragraphDates = "";
+
 		foreach($blackoutDates as $blackoutDate){
 			$fromDate = $blackoutDate->getFromDate();
 			$toDate = $blackoutDate->getToDate();
@@ -101,6 +151,13 @@ class AdminFunctions{
 		return $paragraphDates;
 	}
 
+	/**
+	 * Inserts the availability dates provided from the DB
+	 * into the edit bus driver page.
+	 * 
+	 * @param  [int] $id    [bus driver ID]
+	 * @return [string]     [html of data]
+	 */
 	function insertAvailablityIntoEditDriver($id){
 		$availabilities = $this->db->getAvailabilityDatesForDriver($id);
 
@@ -120,6 +177,13 @@ class AdminFunctions{
 		
 	}
 
+	/**
+	 * Resets the password of a user to
+	 * rahin123
+	 * 
+	 * @param  [string] $_type [congregation ('c') or bus driver ('b')]
+	 * @param  [int] $_id      [ID of the congregation or bus driver]
+	 */
 	function resetPassword($_type, $_id){
 		if($_type == 'c'){
 			$congregation = $this->getCongregation($_id)[0];
@@ -133,31 +197,74 @@ class AdminFunctions{
 		}
 	}
 
+	/**
+	 * Helper function used to get HTML for bus driver and 
+	 * congregation admin pages.
+	 * 
+	 * @param  [int] $id   [id of the cong / bus driver]
+	 * @param  [string] $name [name of the cong / driver]
+	 * @param  [string] $type [cong or driver]
+	 * @return [string]       [html of the data provided]
+	 */
 	private function getHTMLSnippet($id, $name, $type){
 		return "<tr>
 					<td>" . $name ." <a href='admin_edit_". $this->getType($type, 'cong', 'bus') . ".php?" . $this->getType($type, 'congregation', 'driver') . "=" . $id ."'><input type='button' id='tb-right' name='" . $name . "' value='Edit'></a><a href=\"\" onclick=\"reset('". $type . "', ". $id . ")\"><input type='button' value='Reset Password'></a></td>
 				</tr>";
 	}	
 
+	/**
+	 * Helper function to retreive the type of 
+	 * account.
+	 * 
+	 * @param  [string] $type [c or d]
+	 * @param  [string] $cong ['cong']
+	 * @param  [string] $bus  ['bus']
+	 * @return [string]       [returns cong or bus]
+	 */
 	private function getType($type, $cong, $bus){
 		return $type == 'c' ? $cong : $bus;
 	}
 
+	/**
+	 * Returns the user object from an ID
+	 * @param  [int] $_id [id of the user]
+	 * @return [User]      [user object]
+	 */
 	function getUser($_id){
 		return $this->db->getUser($_id);
 	}
 
-	
+	/**
+	 * Returns the congregation object fro
+	 * an ID.
+	 * 
+	 * @param  [int] $id       [id of the congregation]
+	 * @return [Congregation]  [congregation object]
+	 */
 	function getCongregation($id){
 		return $this->db->getCongregation($id);
 	}
 
+	/**
+	 * Returns the bus driver object from an
+	 * ID.
+	 * 
+	 * @param  [int] $id    [id of the bus driver]
+	 * @return [BusDriver]  [bus driver object]
+	 */
 	function getBusDriver($id){
 		$busDriver = $this->db->getBusDriver($id);
 		$busDriverId = $busDriver[0]->getContactID();
 		return $this->db->getUser($busDriverId);
 	}
 
+	/**
+	 * Forms a date object.
+	 * 
+	 * @param  [string] $date   [the date you want to format]
+	 * @param  [string] $format [the format you want the date in]
+	 * @return [date]           [date formatted]
+	 */
 	function formatDate($date,$format){
 		return date($format, strtotime($date));
 	}
