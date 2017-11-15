@@ -125,9 +125,11 @@ class AdminFunctions{
 			$congregation = $this->getCongregation($_id)[0];
 			$user = $this->getUser($congregation->getContactID())[0];
 			$this->db->updateUser($user->getID(),$user->getFirstName(), $user->getLastName(), $user->getRole(), $user->getEmail(), "rahin123");
+			echo "<script type='text/javascript'>alert('Password reset!');</script>";
 		}else{
 			$driver = $this->getBusDriver($_id)[0];
 			$this->db->updateUser($driver->getID(),$driver->getFirstName(), $driver->getLastName(), $driver->getRole(), $driver->getEmail(), "rahin123");
+			echo "<script type='text/javascript'>alert('Password reset!');</script>";
 		}
 	}
 
