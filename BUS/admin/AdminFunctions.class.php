@@ -52,7 +52,8 @@ class AdminFunctions{
 						<input type='button' value='Add Now'>\n
 						<input type='button' id='genScheBut' value='Generate New Schedule'>
 						<a href='".$this->path_to_root."templates/congregation_schedule.php'><input type='button' value='View Current Schedule'></a>
-					</div>";
+					</div>\n
+					<script type='text/javascript' src='".$this->path_to_root."js/reset.js'></script>";
 	}
 
 	function insertCongregationsIntoAdminPage(){
@@ -119,14 +120,29 @@ class AdminFunctions{
 		
 	}
 
+	function resetPassword($_type, $_id){
+		if($_type == 'c'){
+			$congregation = $this->getCongregation($_id)[0];
+			$user = $this->getUser($congregation->getContactID())[0];
+			$this->db->updateUser($user->getID(),$user->getFirstName(), $user->getLastName(), $user->getRole(), $user->getEmail(), "rahin123");
+		}else{
+			$driver = $this->getBusDriver($_id)[0];
+			$this->db->updateUser($driver->getID(),$driver->getFirstName(), $driver->getLastName(), $driver->getRole(), $driver->getEmail(), "rahin123");
+		}
+	}
+
 	private function getHTMLSnippet($id, $name, $type){
 		return "<tr>
-					<td>" . $name ." <a href='admin_edit_". $this->getType($type, 'cong', 'bus') . ".php?" . $this->getType($type, 'congregation', 'driver') . "=" . $id ."'><input type='button' id='tb-right' name='" . $name . "' value='Edit'></a><input type='button' value='Reset Password'></td>
+					<td>" . $name ." <a href='admin_edit_". $this->getType($type, 'cong', 'bus') . ".php?" . $this->getType($type, 'congregation', 'driver') . "=" . $id ."'><input type='button' id='tb-right' name='" . $name . "' value='Edit'></a><a href=\"\" onclick=\"reset('". $type . "', ". $id . ")\"><input type='button' value='Reset Password'></a></td>
 				</tr>";
-	}
+	}	
 
 	private function getType($type, $cong, $bus){
 		return $type == 'c' ? $cong : $bus;
+	}
+
+	function getUser($_id){
+		return $this->db->getUser($_id);
 	}
 
 	
