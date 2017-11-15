@@ -1,70 +1,82 @@
 <?php
 date_default_timezone_set('UTC');
-/* 
+/**
  * Containers functions that are used
  * on most if not all pages in the RSA.
  *
+ *
  * @author     Kristen Merritt
- * @date       10/17/2017
+ * @author     Tiandre Turner
+ * @version    Release: 1.0
+ * @date       11/15/2017
  */
-
-
-/*
- * ========================================================================
- * ================= HEADER AND FOOTER FUNCTIONS ==========================
- * ========================================================================
- */
-
 
 class GeneralTemplate {
-	private $page;
-	private $path_to_root;
+	private $page;         // name of the page
+	private $path_to_root; // path to public_html root
 
+	/**
+	 * Constructor for GeneralTemplate.
+	 * 
+	 * @param string $page         page name
+	 * @param string $path_to_root path to public_html
+	 */
 	public function __construct($page, $path_to_root){
 		$this->path_to_root = $path_to_root;
 		$this->page = $page;
 	}
 
+	/**
+	 * Inserts the header onto the page.
+	 * 
+	 * @return string html of the header
+	 */
 	function insertHeader(){
 		$logout = "<li><a href='".$this->path_to_root."index.php'>Login</a></li>\n";
 
-		if(isset($_SESSION['id'])) { 
+		if(isset($_SESSION['id'])) { // login or logout button decision
 			$logout = "<li><a href='".$this->path_to_root."templates/logout.php'>Logout</a></li>\n"; 
 		}
+
 		return "<!DOCTYPE html>\n
-		<html lang='en'>\n
-		<head>\n
-			<meta charset='utf-8' />\n
-			<meta name='viewport' content='width=device-width, initial-scale=1' />\n
-			<title>".$this->page."</title>\n
-			<link href='".$this->path_to_root."css/default.css' rel='stylesheet'>\n
-			<script src='".$this->path_to_root."js/default.js' type='text/javascript'></script>\n
-			<script src='".$this->path_to_root."js/jquery-3.2.1.min.js' type='text/javascript'></script>\n
-		</head>\n
-			<body>\n
-				<div id='header'>\n
-					<div id='logo_container'>\n
-						<img src='".$this->path_to_root."img/logo.png' alt='RAIHN Logo' class='logo'>\n
-					</div>\n
-					<nav>\n
-						<ul class='clearfix'>\n
-							<li><a href='".$this->path_to_root."index.php'>Home</a></li>\n
-							<li id='scheduleNav'><a href='#''>Schedules</a>\n
-								<ul id='hidden_nav'>\n
-									<li><a href='".$this->path_to_root."templates/congregation_schedule.php'>Congregation Schedule</a></li>\n
-									<li><a href='".$this->path_to_root."templates/bus_driver_schedule.php'>Bus Driver Schedule</a></li>\n
+				<html lang='en'>\n
+				<head>\n
+					<meta charset='utf-8' />\n
+					<meta name='viewport' content='width=device-width, initial-scale=1' />\n
+					<title>".$this->page."</title>\n
+					<link href='".$this->path_to_root."css/default.css' rel='stylesheet'>\n
+					<script src='".$this->path_to_root."js/default.js' type='text/javascript'></script>\n
+					<script src='".$this->path_to_root."js/jquery-3.2.1.min.js' type='text/javascript'></script>\n
+				</head>\n
+					<body>\n
+						<div id='header'>\n
+							<div id='logo_container'>\n
+								<img src='".$this->path_to_root."img/logo.png' alt='RAIHN Logo' class='logo'>\n
+							</div>\n
+							<nav>\n
+								<ul class='clearfix'>\n
+									<li><a href='".$this->path_to_root."index.php'>Home</a></li>\n
+									<li id='scheduleNav'><a href='#''>Schedules</a>\n
+										<ul id='hidden_nav'>\n
+											<li><a href='".$this->path_to_root."templates/congregation_schedule.php'>Congregation Schedule</a></li>\n
+											<li><a href='".$this->path_to_root."templates/bus_driver_schedule.php'>Bus Driver Schedule</a></li>\n
+										</ul>\n
+									</li>\n
+									<li><a href='".$this->path_to_root."templates/profile.php'>Profile</a></li>\n
+									<li><a href='http://raihn.org'>raihn.org</a></li>\n
+									".$logout."
 								</ul>\n
-							</li>\n
-							<li><a href='".$this->path_to_root."templates/profile.php'>Profile</a></li>\n
-							<li><a href='http://raihn.org'>raihn.org</a></li>\n
-							".$logout."
-						</ul>\n
-					</nav>\n
-				</div>\n
-				<div id='container'>\n
-					<div id='main_content'>\n";
+							</nav>\n
+						</div>\n
+						<div id='container'>\n
+							<div id='main_content'>\n";
 	}
 
+	/**
+	 * Inserts the footer onto the page.
+	 * 
+	 * @return string footer html
+	 */
 	function insertFooter(){
 		return 	"</div> <!-- end main_content -->\n
 				<footer id='footer'>\n
@@ -105,21 +117,32 @@ class GeneralTemplate {
 		</html>\n";
 	}
 
+	/**
+	 * Inserts the login form onto the page.
+	 * 
+	 * @return string login form html
+	 */
 	function insertLoginForm(){
 	return "<link href='".$this->path_to_root."css/login.css' rel='stylesheet'>\n
-		<div class='form_header clearfix'>\n
-				<h1>RSA Login</h1>\n
-			</div>\n
-		<form id='login_form' method='POST'>\n
-			<input type='text' placeholder='email' name='email' required>\n
-			<br><br>
-			<input type='password' placeholder='password' name='password' required>\n
-			<br><br>
-			<button type='submit'>Login</button>\n
-			<a id='request_href' href='templates/request_account.php'>Request Account</a>\n
-		</form>";
+			<div class='form_header clearfix'>\n
+					<h1>RSA Login</h1>\n
+				</div>\n
+			<form id='login_form' method='POST'>\n
+				<input type='text' placeholder='email' name='email' required>\n
+				<br><br>
+				<input type='password' placeholder='password' name='password' required>\n
+				<br><br>
+				<button type='submit'>Login</button>\n
+				<a id='request_href' href='templates/request_account.php'>Request Account</a>\n
+			</form>";
 	}
 
+	/**
+	 * Inserts the create account form
+	 * onto the page.
+	 * 
+	 * @return string html of form
+	 */
 	function insertCreateAccountForm(){
 		return "<link href='".$this->path_to_root."css/request_account_form.css' type='text/css' rel='stylesheet'>\n
 				<h1 id='title'> Request Account </h1>\n
