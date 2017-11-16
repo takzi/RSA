@@ -16,14 +16,14 @@
 	if(isset($_SESSION['id']) && isset($_SESSION['fullname']) && isset($_SESSION['role'])){
 		$role = $_SESSION['role'];
 		$fullname = $_SESSION['fullname'];
-		
+
 		if($role == 1 || $role == 2 || $role == 3){ 
 			echo $adminFunctions->insertAdminHome($fullname, $role);
 		} else {
-			echo "<h1> Please log in with an admin account. </h1>";
+			echo "<h1 class='message'> Please log in with an admin account. </h1>";
 		}		
 	} else {
-		echo "<h1>Please log in to access your profile.</h1>";
+		echo "<h1 class='message'>Please log in to access your profile.</h1>";
 	}
 
 	echo $generalTemplate->insertFooter(); 

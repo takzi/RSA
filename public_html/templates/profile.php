@@ -19,10 +19,10 @@
 		} elseif($role == 5){
 			require_once($path_to_root.'templates/bus_driver/profile.php');
 		} else {
-			echo "Unknown account. Please log in again.";
+			echo "<h1 class='message'>Unknown account. Please log in again. </h1>";
 		}
 	} else {
-		echo "<h1>Please log in.</h1>";
+		echo "<h1 class='message'>Please log in.</h1>";
 	}
 	
 	echo $generalTemplate->insertFooter();
