@@ -9,11 +9,13 @@
 
 	echo $generalTemplate->insertHeader();
 
-	
 	session_destroy();
 ?>
-<h1> You have successfully logged out. </h1>
-<a href="<?php echo $path_to_root ?>index.php"> Return to home page. </a>
+<div class="message">
+	<h1> You have successfully logged out. </h1>
+	<a href="<?php echo $path_to_root ?>index.php"> Return to home page. </a>
+</div>
+
 <?php
 	echo $generalTemplate->insertFooter();
 ?>
