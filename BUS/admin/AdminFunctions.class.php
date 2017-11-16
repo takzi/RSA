@@ -42,25 +42,30 @@ class AdminFunctions{
 	 * @return [string]       [html string to be inserted]
 	 */
 	function insertAdminHome($name, $role){
-		$buttons = "";
+		$topButtons = "";
+		$bottomButtons = "";
 
 		if($role == 1){ // general admin
-			$buttons = "<a href='admin_bus.php'><div class='admin_home_button'>Bus Drivers</div></a>\n
-							<a href='admin_cong.php'><div class='admin_home_button'>Congregations</div></a>\n";
+			$topButtons = "<a href='admin_bus.php'><div class='admin_home_button'>Bus Drivers</div></a>\n
+						  <a href='admin_cong.php'><div class='admin_home_button'>Congregations</div></a>\n";
+
+			$bottomButtons = "<a href='#'><div class='admin_home_button'>Reports</div></a>\n
+							 <a href='#'><div class='admin_home_button'>FAQ / Guides</div></a>\n";
 		} elseif($role == 2){ // congregation admin
-			$buttons = "<a href='admin_cong.php'><div class='admin_home_button'>Congregations</div></a>\n";
+			$topButtons = "<a href='admin_cong.php'><div class='admin_home_button'>Congregations</div></a>\n
+						   <a href='#'><div class='admin_home_button'>FAQ / Guides</div></a>\n";
 		} elseif($role == 3){ // bus driver admin
-			$buttons = "<a href='admin_bus.php'><div class='admin_home_button'>Bus Drivers</div></a>\n";
+			$topButtons = "<a href='admin_bus.php'><div class='admin_home_button'>Bus Drivers</div></a>\n
+						<a href='#'><div class='admin_home_button'>FAQ / Guides</div></a>\n";
 		}
 
 		return "<h1 id='profile_h1'>".$name."</h1>\n
 					<div id='profile_container' class='clearfix'>\n
 						<div id='topButtons' class='clearfix'>\n
-							".$buttons."
+							".$topButtons."
 						</div>\n
 						<div id='botButtons' class='clearfix'>\n
-							<a href='#'><div class='admin_home_button'>Reports</div></a>\n
-							<a href='#'><div class='admin_home_button'>FAQ / Guides</div></a>\n
+							".$bottomButtons."
 						</div>\n
 					</div>\n";
 	}

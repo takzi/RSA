@@ -16,6 +16,7 @@
 	if(isset($_SESSION['id']) && isset($_SESSION['fullname']) && isset($_SESSION['role'])){
 		$role = $_SESSION['role'];
 		$fullname = $_SESSION['fullname'];
+		
 		if($role == 1 || $role == 2 || $role == 3){ 
 			echo $adminFunctions->insertAdminHome($fullname, $role);
 		} else {
