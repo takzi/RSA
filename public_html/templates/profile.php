@@ -4,10 +4,10 @@
 
 	require_once($path_to_root.'../BUS/GeneralTemplate.class.php');
 	$generalTemplate = new GeneralTemplate($page, $path_to_root);
-
+	session_start();
 	echo $generalTemplate->insertHeader();
 	echo '<link href="'.$path_to_root.'css/profile.css" rel="stylesheet">';
-	session_start();
+
 
 	if(isset($_SESSION['fullname']) && isset($_SESSION['id']) && isset($_SESSION['role'])){
 		$role = $_SESSION['role'];			

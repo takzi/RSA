@@ -49,7 +49,7 @@ class AdminFunctions{
 			$topButtons = "<a href='admin_bus.php'><div class='admin_home_button'>Bus Drivers</div></a>\n
 						  <a href='admin_cong.php'><div class='admin_home_button'>Congregations</div></a>\n";
 
-			$bottomButtons = "<a href='#'><div class='admin_home_button'>Reports</div></a>\n
+			$bottomButtons = "<a href='admin_add_newadmin'><div class='admin_home_button'>Add New Admin</div></a>\n
 							 <a href='#'><div class='admin_home_button'>FAQ / Guides</div></a>\n";
 		} elseif($role == 2){ // congregation admin
 			$topButtons = "<a href='admin_cong.php'><div class='admin_home_button'>Congregations</div></a>\n

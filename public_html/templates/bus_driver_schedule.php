@@ -4,6 +4,9 @@
 	require_once($path_to_root."../BUS/GeneralTemplate.class.php");
       $generalTemplate = new GeneralTemplate($page, $path_to_root);
 
+      // Starting the session
+	  session_start();
+
       echo $generalTemplate->insertHeader();
 
       require_once($path_to_root."../BUS/schedule/BusDriverSchedule.class.php");
