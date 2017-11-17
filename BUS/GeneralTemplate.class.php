@@ -33,7 +33,6 @@ class GeneralTemplate {
 	 */
 	function insertHeader(){
 		$logout = "<li><a href='".$this->path_to_root."index.php'>Login</a></li>\n";
-		var_dump(isset($_SESSION['id']));
 		if(isset($_SESSION['id'])) { // login or logout button decision
 			$logout = "<li><a href='".$this->path_to_root."templates/logout.php'>Logout</a></li>\n"; 
 		}
