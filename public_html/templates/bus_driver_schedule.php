@@ -1,9 +1,11 @@
 <?php
-	$page='RAHIN Home';
+	$page='Bus Driver Schedule';
 	$path_to_root="./../";
+	
 	require_once($path_to_root."../BUS/GeneralTemplate.class.php");
-      $generalTemplate = new GeneralTemplate($page, $path_to_root);
+	$generalTemplate = new GeneralTemplate($page, $path_to_root);
 
+<<<<<<< HEAD
       // Starting the session
 	  session_start();
 
@@ -11,14 +13,17 @@
 
       require_once($path_to_root."../BUS/schedule/BusDriverSchedule.class.php");
       $busDriverScheduler = new BusDriverSchedule($path_to_root, $page);
+=======
+	echo $generalTemplate->insertHeader();
+	echo '<link href="'.$path_to_root.'css/schedule.css" rel="stylesheet">';
+	
+	require_once($path_to_root."../BUS/schedule/BusDriverSchedule.class.php");
+	$busDriverScheduler = new BusDriverSchedule($path_to_root, $page);
+>>>>>>> fd9c546b5514c554a03406b08985e28226404d2e
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $path_to_root ?>css/schedule.css">
-<div id="schedule">
-	<header>
-		<h1>January 2018 - Bus Driver Schedule</h1>
-	</header>
-      <?php echo $busDriverScheduler->insertInProgressBusDriverSchedules(); ?>
-</div>
+	<div class="schedule-container">
+		<?php echo $busDriverScheduler->insertInProgressBusDriverSchedules(); ?>
+	</div>
 <?php
 	echo $generalTemplate->insertFooter();
 ?>

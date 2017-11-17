@@ -1,16 +1,3 @@
-<script>
-	function insertDateValue(){
-		var date = $("#date-input").val();
-		var p = document.createElement("p");
-		p.setAttribute("class", "date-inputted");
-		p.setAttribute("value", date);
-		var txt = document.createTextNode(date);
-		p.appendChild(txt);
-		$("#dateValues").append(p);
-		$("#date-input").val("");
-	}
-</script>
-
 <?php
 	$page='RAHIN Add new Admin';
 	$path_to_root="./../../";

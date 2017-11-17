@@ -195,33 +195,6 @@ nav ul li a {
     padding-top: 5vh;
 }
 
-.schedule-container {
-    position: absolute;
-    left: 50%;
-}
-
-.table {
-    position: relative;
-    border: 1pt solid #d7d9dd;
-    border-radius: 5px;
-    min-width: 40vw;
-    margin-top: 5vh;
-    left: -50%;
-}
-
-.table th {
-    background-color: #0E6AA8;
-    color: white;
-    font-size: 15pt;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-}
-
-.table tr {
-    padding: 20px;
-    border-bottom: 1pt solid #d7d9dd;
-}
-
 /**************************
  * * * * * MOBILE * * * * *
  **************************/
@@ -232,18 +205,9 @@ nav ul li a {
 		width: 100%;
 	}
 
-	nav {
-		width: 100%;
-	}
-
 	nav ul {
+		width: 87vw;
 		font-size: 12px;
-		display: inline;
-	}
-
-	nav ul li {
-		padding-left: 30px;
-		width: 52px;
 	}
 	
 	#footer_container {
