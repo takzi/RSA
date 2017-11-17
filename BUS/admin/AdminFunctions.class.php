@@ -189,11 +189,11 @@ class AdminFunctions{
 			$congregation = $this->getCongregation($_id)[0];
 			$user = $this->getUser($congregation->getContactID())[0];
 			$this->db->updateUser($user->getID(),$user->getFirstName(), $user->getLastName(), $user->getRole(), $user->getEmail(), "rahin123");
-			echo "<script type='text/javascript'>alert('Password reset!');</script>";
+			//echo "<script type='text/javascript'>alert('Password reset!');</script>";
 		}else{
 			$driver = $this->getBusDriver($_id)[0];
 			$this->db->updateUser($driver->getID(),$driver->getFirstName(), $driver->getLastName(), $driver->getRole(), $driver->getEmail(), "rahin123");
-			echo "<script type='text/javascript'>alert('Password reset!');</script>";
+			//echo "<script type='text/javascript'>alert('Password reset!');</script>";
 		}
 	}
 
@@ -208,7 +208,7 @@ class AdminFunctions{
 	 */
 	private function getHTMLSnippet($id, $name, $type){
 		return "<tr>
-					<td>" . $name ." <a href='admin_edit_". $this->getType($type, 'cong', 'bus') . ".php?" . $this->getType($type, 'congregation', 'driver') . "=" . $id ."'><input type='button' id='tb-right' name='" . $name . "' value='Edit'></a><a href=\"\" onclick=\"reset('". $type . "', ". $id . ")\"><input type='button' value='Reset Password'></a></td>
+					<td>" . $name ." <a href='admin_edit_". $this->getType($type, 'cong', 'bus') . ".php?" . $this->getType($type, 'congregation', 'driver') . "=" . $id ."'><input type='button' id='tb-right' name='" . $name . "' value='Edit'></a><a href=\"#\" onclick=\"reset('". $type . "', ". $id . ")\"><input type='button' value='Reset Password'></a></td>
 				</tr>";
 	}	
 

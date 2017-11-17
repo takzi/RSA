@@ -26,6 +26,7 @@
 
 	$congID = $_GET['congregation'];
 	$cong = $adminFunctions->getCongregation($congID)[0];
+	$user = $adminFunctions->getUser($cong->getContactId())[0];
 ?>
 	<div id="adminLink">
 		<a href="profile.php">Admin Home</a> > <a href="admin_cong.php">Congregation</a> > <a href="#"><?php echo $cong->getName(); ?></a>
@@ -34,7 +35,7 @@
 	<div id="admin_container">
 		<form id="edit-cong-form" align="middle">
 			<input id="edit-name" class="fulltext" type="text" name="congregation" value="<?php echo $cong->getName(); ?>">
-
+			<input id="edit-leader-name" class="fulltext" type="text" name="congregation_leader" value="<?php echo $user->getWholeName(); ?>">
 			<br><br>Blackout Dates<br><br>
 			<div id="date-container" class="clearfix">
 				<input id="date-input" class="text" type="date" name="date-input" value="">
