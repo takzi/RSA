@@ -44,7 +44,7 @@ h1{
 
 #form{
 	padding-top: 20px;
-	width: 640px;
+	width: 700px;
 	margin: 0 auto;
 }
 
@@ -59,7 +59,7 @@ table{
 	border-spacing: 0;
     text-align: center;
 	margin-top: 10px;
-    width: 640px;
+    width: 700px;
 	margin-bottom: 50px;
 }
 
@@ -91,8 +91,17 @@ input{
 	margin-left: 95px;
 }
 
-#tb-right{
-	margin-left: 340px;
+.tb_right1, .tb_right2{
+	position: relative;
+	float: right;
+}
+
+.tb_right1{
+	right: 120px;
+}
+
+.tb_right2{
+	right: -35px;
 }
 
 #editright, .editright{
@@ -128,7 +137,7 @@ input{
 }
 
 #genScheBut {
-	margin-left: 4vw;
+	margin-left: 6vw;
 }
 
 #admin_container input[type="button"]{

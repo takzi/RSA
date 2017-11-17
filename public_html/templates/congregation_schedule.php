@@ -19,9 +19,11 @@
 
 	// Inserting header and navigation onto page via template system
 	echo $generalTemplate->insertHeader();
+	echo '<link href="'.$path_to_root.'css/schedule.css" rel="stylesheet">';
 
 	require_once($path_to_root.'../BUS/schedule/CongregationSchedule.class.php');
-	$congregationSchedule = new CongregationSchedule($path_to_root, $page); ?>
+	$congregationSchedule = new CongregationSchedule($path_to_root, $page);
+?>
 
 	<div class="schedule-container">
 		<?php echo $congregationSchedule->insertCongregationSchedule(); ?>

@@ -51,12 +51,16 @@ class BusDriverSchedule {
 					</tr>\n";
 		}
 
-		return "<table>
+		return "<table class='table'>
+					<tr>
+						<th colspan='3' class='header'>Bus Driver Schedule</th>
+					</tr>
 					<tr>
 						<th>Bus Driver</th>
 						<th>Date</th>
 						<th>Time Of Day</th>
-					</tr>".$tr."
+					</tr>
+					".$tr."
 				</table>\n";
 	}
 

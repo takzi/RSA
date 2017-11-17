@@ -53,10 +53,14 @@ class CongregationSchedule {
 
 		return "<table class='table'>
 					<tr>
+						<th colspan='3' class='header'>Congreation Schedule</th>
+					</tr>
+					<tr>
 						<th>Congreation</th>
 						<th>Start Day</th>
 						<th>End Day</th>
-					</tr>".$tr."
+					</tr>
+					".$tr."
 				</table>\n";
 	}
 
