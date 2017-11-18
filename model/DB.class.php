@@ -1164,6 +1164,13 @@
 		return $data;
 	}
 
+	/**
+	 *  getBlackoutdatesForCongregation - will return all blackout
+	 * dates of the given congregation that currently exist in the blackout_dates table.
+	 *
+	 * @param integer $_id - The id of a congregation
+	 * @return blackoutDates $data - blackoutDates objects to return.
+	 **/
 	function getBlackoutdatesForCongregation($_id){
 		try{
 			$data = array();
@@ -1179,12 +1186,19 @@
 			return $data;
 		}
 		catch(PDOException $e){
-			echo "getAllHolidays - ".$e->getMessage();
+			echo "getBlackoutdatesForCongregation - ".$e->getMessage();
 			die();
 		}
 		return $data;
 	}
 
+	/**
+	 *  getBlackoutdatesForCongregationFrom - will return all of from blackout
+	 * dates of the given congregation that currently exist in the blackout_dates table.
+	 *
+	 * @param integer $_id - The id of a congregation
+	 * @return blackoutDates $data - blackoutDates objects to return.
+	 **/
 	function getBlackoutdatesForCongregationFrom($_id){
 		try{
 			$data = array();
@@ -1199,12 +1213,19 @@
 			return $data;
 		}
 		catch(PDOException $e){
-			echo "getAllHolidays - ".$e->getMessage();
+			echo "getBlackoutdatesForCongregationFrom - ".$e->getMessage();
 			die();
 		}
 		return $data;
 	}
 
+	/**
+	 *  getBlackoutdatesForCongregationFrom - will return all of to blackout
+	 * dates of the given congregation that currently exist in the blackout_dates table.
+	 *
+	 * @param integer $_id - The id of a congregation
+	 * @return blackoutDates $data - blackoutDates objects to return.
+	 **/
 	function getBlackoutdatesForCongregationTo($_id){
 		try{
 			$data = array();
@@ -1219,7 +1240,7 @@
 			return $data;
 		}
 		catch(PDOException $e){
-			echo "getAllHolidays - ".$e->getMessage();
+			echo "getBlackoutdatesForCongregationTo - ".$e->getMessage();
 			die();
 		}
 		return $data;
@@ -1567,6 +1588,13 @@
 		return $data;
 	}
 
+	/**
+	 *  getSupportingCongregtationForCongregation - will return the supporting congregation
+	 *	that is currently associated with a congregation.
+	 *
+	 * @param integer $_id - id of the congregation to match.
+	 * @return supporting congregation $data - supporting congregations objects to return.
+	 **/
 	function getSupportingCongregtationForCongregation($_id){
 		try{
 			$data = array();
@@ -1583,11 +1611,19 @@
 			return $data;
 		}
 		catch(PDOException $e){
-			echo "getSupportingCongregation - ".$e->getMessage();
+			echo "getSupportingCongregtationForCongregation - ".$e->getMessage();
 			die();
 		}
 		return $data;
 	}
+
+	/**
+	 *  insertNewSupportingCongregation - will insert the new supporting congregation
+	 *  in the database.
+	 *
+	 * @param integer $_name - name of the supporting congregation to match.
+	 * @param integer $_congregation - id of the congregation to match.
+	 **/
 	function insertNewSupportingCongregation($_name,$_congregation){
 		try{
 			$stmt = $this->db->prepare("INSERT INTO supporting_congregation  
@@ -1723,6 +1759,13 @@
 		return $data;
 	}
 
+	/**
+	 *  getAvailabilityDatesForDriver - will return the availability dates that are currently
+	 * exist in the availability table and matches the provided driver id.
+	 *
+	 * @param integer $_id - driver id of the availability to match.
+	 * @return availability dates $data - availability dates to return.
+	 **/
 	function getAvailabilityDatesForDriver($_id){
 		try{
 			$data = array();
@@ -1743,10 +1786,17 @@
 		return $data;
 	}
 
+	/**
+	 *  getAvailabilityTimeOfDayForDriver - will return the availability time of the day that are currently
+	 * exist in the availability table and matches the provided driver id.
+	 *
+	 * @param integer $_id - driver id of the availability to match.
+	 * @return availability time of the day $data - availability time of the day to return.
+	 **/
 	function getAvailabilityTimeOfDayForDriver($_id){
 		try{
 			$data = array();
-			$stmt = $this->db->prepare("SELECT availability 
+			$stmt = $this->db->prepare("SELECT time_of_day 
 										FROM availability
 										WHERE bus_driver_ID = :id");
 			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
@@ -1763,13 +1813,20 @@
 		return $data;
 	}
 
-	function insertNewAvailability($busDriverID,$availability,$time_of_day){
+	/**
+	 *  insertNewAvailability - will insert the availability for a specific bus driver in the datebase.
+	 *
+	 * @param integer $_busDriverID - driver id to associate with the availability.
+	 * @param integer $_availability - the availability chosen by the bus driver.
+	 * @param integer $_time_of_day - the time of day chosen by the bus driver.
+	 **/
+	function insertNewAvailability($_busDriverID,$_availability,$_time_of_day){
 		try{
 			$stmt = $this->db->prepare("INSERT INTO availability  
 			VALUES (:busDriverID,:availability,:time_of_day)");
-			$stmt->bindParam(":busDriverID",$busDriverID,PDO::PARAM_INT);
-			$stmt->bindParam(":availability",$availability,PDO::PARAM_STR);
-			$stmt->bindParam(":time_of_day",$time_of_day,PDO::PARAM_INT);
+			$stmt->bindParam(":busDriverID",$_busDriverID,PDO::PARAM_INT);
+			$stmt->bindParam(":availability",$_availability,PDO::PARAM_STR);
+			$stmt->bindParam(":time_of_day",$_time_of_day,PDO::PARAM_INT);
 			$stmt->execute();
 
 			print $this->db->lastInsertId();
