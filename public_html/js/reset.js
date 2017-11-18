@@ -1,3 +1,11 @@
+/**
+ * Functions for resetting password
+ *
+ * @author     Tiandre Turner
+ * @version    Release: 1.0
+ * @date       11/16/2017
+ */
+ 
 function reset(currentType, id) {
 		console.log("Type: "+ currentType + "\tId: " + id);
 	    	      $.ajax({

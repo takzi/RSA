@@ -1,27 +1,27 @@
 /**
  * Login Form CSS for RAIHN Scheduling Application
  *
+ * @author     Chevy Mac
  * @author     Kristen Merritt
- * @author     Chevy 
- * @date       10/7/2017
+ * @version    Release: 1.0
+ * @date       11/16/2017
  */
-
 
 /***************************
  * * * * * COLORS * * * * * 
  *************************/
+ 
 /*
-    light-gray:      #d7d9dd
+    light-gray:      #D7D9DD
     background-gray: #F6F6F6
-    light-blue:      ##0E6AA8
+    light-blue:      #0E6AA8
     dark-blue:       #095487
  */
-
-
 
 /******************************
  * * * * * LOGIN FORM * * * * *
  ******************************/
+ 
 #login_form {
     position: absolute;
     width: 20vw;

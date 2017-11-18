@@ -10,7 +10,7 @@
 	$page='RAHIN Home';
 	$path_to_root="./";
 
-	// Setting template system
+	// Setting up template system
 	require_once($path_to_root.'../BUS/GeneralTemplate.class.php');
 	$generalTemplate = new GeneralTemplate($page, $path_to_root);
 

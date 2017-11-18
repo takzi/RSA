@@ -1,7 +1,16 @@
 <?php
+	/**
+	 * Add new Admin Page for RSA
+	 * 
+	 * @author     Tiandre Turner
+	 * @version    Release: 1.0
+	 * @date       11/17/17
+	 */
+	 
 	$page='RAHIN Add new Admin';
 	$path_to_root="./../../";
-
+	
+	// Setting up template system and loads functions for Admin
 	require_once($path_to_root.'../BUS/GeneralTemplate.class.php');
 	require_once($path_to_root.'../BUS/admin/AdminFunctions.class.php');
 
@@ -10,7 +19,8 @@
 
 	// Starting the session
 	session_start();
-
+	
+	// Inserting header and navigation onto page via template system
 	echo $generalTemplate->insertHeader();
 	echo '<link href="'.$path_to_root.'css/admin.css" rel="stylesheet">';
 

@@ -12,18 +12,30 @@
 </script>
 
 <?php
+	/**
+	 * Admin Edit Bus Driver page for RSA
+	 * 
+	 * @author     Tiandre Turner
+	 * @author     Kristen Merritt
+	 * @version    Release: 1.0
+	 * @date       11/13/17
+	 */
+	 
 	$page='RAHIN Admin Edit Bus Driver';
 	$path_to_root="./../../";
-
+	
+	// Setting up template system and loads functions for Admin
 	require_once($path_to_root.'../BUS/GeneralTemplate.class.php');
 	require_once($path_to_root.'../BUS/admin/AdminFunctions.class.php');
 
 	$generalTemplate = new GeneralTemplate($page, $path_to_root);
 	$adminFunctions = new AdminFunctions($page, $path_to_root);
-
+	
+	// Inserting header and navigation onto page via template system
 	echo $generalTemplate->insertHeader();
 	echo '<link href="'.$path_to_root.'css/admin.css" rel="stylesheet">';
-
+	
+	// Gets Bus Driver ID
 	$busID = $_GET['driver']; 
 	$busDriverUser = $adminFunctions->getBusDriver($busID)[0];
 ?>

@@ -1,14 +1,16 @@
 /**
- * Bus Driver/Congregation CSS for RAIHN Scheduling Application
+ * Schedule CSS for RAIHN Scheduling Application
  *
  * @author     Chevy Mac
- * @date       10/7/2017
+ * @author     Kristen Merritt
+ * @version    Release: 1.0
+ * @date       11/16/2017
  */
-
 
 /***************************
  * * * * * COLORS * * * * * 
  ***************************/
+ 
 /*
     light-gray:      #D7D9DD
     background-gray: #F6F6F6
@@ -16,8 +18,6 @@
     dark-blue:       #095487
 	light-blue (v2): #B2D6EF
  */
-
-
 
 /*****************************
  * * * * * SCHEDULES * * * * *
@@ -28,6 +28,7 @@
     left: 50%;
 }
 
+ /* Title for Schedules */
 .header {
 	border-top-right-radius: 5px;
     border-top-left-radius: 5px;

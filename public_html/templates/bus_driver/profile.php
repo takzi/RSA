@@ -22,6 +22,8 @@
 				<tr>
 						<?php 
 							$page='Bus Driver Schedule';
+							
+							// Checks if there is schedule available
 							require_once($path_to_root."../BUS/schedule/BusDriverSchedule.class.php");
 	      						$busDriverScheduler = new BusDriverSchedule($path_to_root, $page);
 							//echo 'ID: ' . $_SESSION['id'];
