@@ -7,8 +7,9 @@ date_default_timezone_set('UTC');
  *
  * @author     Kristen Merritt
  * @author     Tiandre Turner
+ * @author     Chevy Mac
  * @version    Release: 1.0
- * @date       11/15/2017
+ * @date       11/20/2017
  */
 
 class GeneralTemplate {
@@ -153,6 +154,7 @@ class GeneralTemplate {
 					<input id='email' type='text' placeholder='email' name='email' required>\n
 					<br>
 					<input id='pass' type='password' placeholder='password' name='password' required>\n
+					<br>
 					<input id='confirmpass' type='password' placeholder='confirm password' name='confirmpassword' required>\n
 					<div id='confirmed' class='hide'>Password are not matched.</div>\n
 					<br>
@@ -160,7 +162,6 @@ class GeneralTemplate {
 						<option value='-1'>Select a Role</option>\n
 						<option value='5'>Bus Driver</option>\n
 						<option value='4'>Congregation Leader</option>\n
-						<option value='1'>Admin</option>\n
 					</select>\n
 					<br>
 					<input id='congName' class='hide' type='text' placeholder='Congregation Name' name='congName'>\n
