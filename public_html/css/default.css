@@ -1,23 +1,22 @@
 /**
  * Default CSS for RAIHN Scheduling Application
  *
+ * @author     Chevy Mac
  * @author     Kristen Merritt
- * @author     Chevy 
- * @date       9/30/2017
+ * @version    Release: 1.0
+ * @date       11/16/2017
  */
-
 
 /***************************
  * * * * * COLORS * * * * * 
  *************************/
+ 
 /*
     light-gray:      #d7d9dd
     background-gray: #F6F6F6
-    light-blue:      ##0E6AA8
+    light-blue:      #0E6AA8
     dark-blue:       #095487
  */
-
-
 
 /***************************
  * * * * * GENERAL * * * * *
@@ -138,6 +137,7 @@ nav ul li a {
 
 #footer h1 {
     color: #d7d9dd;
+    border-bottom: none;
 }
 
 #footer ul li a {
@@ -181,9 +181,44 @@ nav ul li a {
     float: left;
 }
 
-
 .clearfix::after {
     content: "";
     clear: both;
     display: table;
+}
+
+/* Message for displaying to users */
+.message {
+    margin: 0;
+    text-align: center;
+    padding-top: 5vh;
+}
+
+/**************************
+ * * * * * MOBILE * * * * *
+ **************************/
+ 
+/* Design for screen-width <= 1065px */
+@media screen and (max-width:1065px) {
+	#container {
+		width: 100%;
+	}
+
+	nav ul {
+		width: 87vw;
+		font-size: 12px;
+	}
+	
+	#footer_container {
+		width: 100%;
+	}
+	
+	.footer_section > h1 {
+		font-size: 18pt;
+	}
+	
+	#footer a
+	{
+		font-size: 10pt;
+	}	
 }

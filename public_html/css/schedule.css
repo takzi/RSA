@@ -1,14 +1,16 @@
 /**
- * Bus Driver/Congregation CSS for RAIHN Scheduling Application
+ * Schedule CSS for RAIHN Scheduling Application
  *
  * @author     Chevy Mac
- * @date       10/7/2017
+ * @author     Kristen Merritt
+ * @version    Release: 1.0
+ * @date       11/16/2017
  */
-
 
 /***************************
  * * * * * COLORS * * * * * 
  ***************************/
+ 
 /*
     light-gray:      #D7D9DD
     background-gray: #F6F6F6
@@ -17,39 +19,61 @@
 	light-blue (v2): #B2D6EF
  */
 
-
-
 /*****************************
  * * * * * SCHEDULES * * * * *
  *****************************/
-#schedule 
-{
-	background: #0E6AA8;
-	width: 650px;
+ 
+.schedule-container {
+    position: absolute;
+    left: 50%;
 }
 
-#cong
-{
-	background: #B2D6EF;
+ /* Title for Schedules */
+.header {
+	border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+	border-bottom: 2pt solid #d7d9dd;
 }
-    
-h1 
-{
-	color: white;
-	font-size: 20pt;
+
+.table {
+    position: relative;
+    min-width: 40vw;
+    margin-top: 5vh;
+    left: -50%;
+	border-spacing: 0;
+	font-size: 18pt;
+}
+
+.table th {
+    background-color: #0E6AA8;
+    color: white;
+    font-size: 20pt;
+}
+
+.table td, .table tr, .table th {
+    border: 1pt solid #d7d9dd;
 	text-align: center;
 }
 
-table 
-{
-	background: white;
-	border-collapse: collapse;
-	width: 650px;
+.table tr {
+    padding: 20px;
 }
 
-td 
-{
-	border: 1px solid #ccc;
-	line-height: 80px;
-	text-align: center;
+/**************************
+ * * * * * MOBILE * * * * *
+ **************************/
+ 
+/* Design for screen-width <= 1065px */ 
+@media screen and (max-width:1065px) {
+	.table {
+		width: 80vw;
+	}
+	
+	.table th {
+		font-size: 4vw;
+	}
+
+	.table {
+		font-size: 3vw;
+	}	
 }

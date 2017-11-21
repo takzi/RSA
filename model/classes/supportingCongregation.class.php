@@ -8,6 +8,8 @@ class supportingCongregation{
 
 	private $id, $name;
 
+	// Get the id of the supporting congregation
 	public function getID(){return $this->id;}
+	// Get the name of the supporting congregation
 	public function getName(){return $this->name;}
 }

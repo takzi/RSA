@@ -10,7 +10,7 @@
 	$page='RAHIN Home';
 	$path_to_root="./";
 
-	// Setting template system
+	// Setting up template system
 	require_once($path_to_root.'../BUS/GeneralTemplate.class.php');
 	$generalTemplate = new GeneralTemplate($page, $path_to_root);
 
@@ -22,7 +22,8 @@
 
 	// Checking to see if any session is currently active
 	if(isset($_SESSION['fullname']) && isset($_SESSION['id']) && isset($_SESSION['role'])){
-		echo "<h1> Welcome ".$_SESSION['fullname']."</h1>";
+		echo "<h1 class='message'> Welcome ".$_SESSION['fullname']."</h1>";
+		echo "<h2 class='message'> Access your profile, schedules, and more using the navigation above. </h2>";
 	} else if(!empty($_POST['email']) && !empty($_POST['password'])){
 		$email = $_POST['email'];
 		$password = $_POST['password'];

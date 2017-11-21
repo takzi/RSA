@@ -1,14 +1,16 @@
 /**
- * Default CSS for RAIHN Scheduling Application - Admin
+ * Admin CSS for RAIHN Scheduling Application
  *
  * @author     Chevy Mac
- * @date       10/30/2017
+ * @author     Kristen Merritt
+ * @version    Release: 1.0
+ * @date       11/16/2017
  */
-
 
 /***************************
  * * * * * COLORS * * * * * 
  *************************/
+ 
 /*
     light-gray:      #D7D9DD
     background-gray: #F6F6F6
@@ -43,7 +45,8 @@ h1{
 }
 
 #form{
-	width: 640px;
+	padding-top: 20px;
+	width: 700px;
 	margin: 0 auto;
 }
 
@@ -58,7 +61,7 @@ table{
 	border-spacing: 0;
     text-align: center;
 	margin-top: 10px;
-    width: 640px;
+    width: 700px;
 	margin-bottom: 50px;
 }
 
@@ -80,27 +83,36 @@ input{
 	margin-left: 3px;
 }
 
-#text, #fulltext, #heighttext{
+.text, .fulltext, .heighttext{
 	padding-left: 5px;
 	background: white;
 	color: black;
 }
 
-#right{
+#right, .right {
 	margin-left: 95px;
 }
 
-#tb-right{
-	margin-left: 340px;
+.tb_right1, .tb_right2{
+	position: relative;
+	float: right;
 }
 
-#editright{
+.tb_right1{
+	right: 120px;
+}
+
+.tb_right2{
+	right: -35px;
+}
+
+#editright, .editright{
 	margin-left: 425px;
-	margin-bottom: 250px;
+	margin-bottom: 10px;
 	width: 80px;
 }
 
-#fulltext{
+.fulltext{
 	width: 60%;
 }
 
@@ -127,11 +139,71 @@ input{
 }
 
 #genScheBut {
-	margin-left: 4vw;
+	margin-left: 6vw;
 }
 
 #admin_container input[type="button"]{
 	border: none;
 	padding-left: 7px;
 	padding-right: 7px;
+}
+
+#date-container {
+	width: 69%;
+	margin: 0 auto;
+	margin-bottom: 2vh;
+}
+
+#dateValues {
+	border: 1pt solid #BEBEBE;
+	border-radius: 5px;
+	width: 15vw;
+	height: 20vh;
+	margin: 0 1vw 0 1vw;
+}
+
+#date-input, #dateArrowButton, #dateValues {
+	float: left;
+}
+
+#dateArrowButton {
+	min-width: 2.5vw;
+}
+
+#title{
+	height: 50px;
+	background: #0E6AA8;
+	color: white;
+}
+
+#generate_schedule{
+	border-collapse: collapse;
+	font-size: 24px;
+	margin-bottom: 20px;
+}
+
+#generate{
+	width: 640px;
+	margin-top: -20px;
+	padding-top: 20px;
+}
+
+.genDate{
+	width: 17%;
+}
+
+.genSche{
+	text-align: center;
+	width: 83%;
+}
+
+.genBtn{
+	margin-bottom: 50px;
+	font-size: 24px;
+	height: 50px;
+	width: 160px;
+}
+
+#genRight{
+	margin-left: 310px;
 }

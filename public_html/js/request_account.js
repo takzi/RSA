@@ -1,3 +1,11 @@
+/**
+ * Functions for account request
+ *
+ * @author     Tiandre Turner
+ * @version    Release: 1.0
+ * @date       11/14/2017
+ */
+
 $('#role').change(function(){
 	var role = $('#role').val();
 	if(role == 4){ // cong 
@@ -15,3 +23,13 @@ $('#role').change(function(){
 	}
 });
 
+$('#confirmpass').focusout(function(){
+	var pass = $('#pass').val();
+	var confirmpass = $('#confirmpass').val();
+
+	if(pass !== confirmpass){
+		$('#confirmed').removeClass("hide").addClass("display");
+	}else{
+		$('#confirmed').removeClass("display").addClass("hide");
+	}
+});

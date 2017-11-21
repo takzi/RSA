@@ -25,6 +25,8 @@
 					<td id ="cong_tb">
 						<?php 
 							$page='Congregation Schedule';
+							
+							// Checks if there is schedule available
 							require_once($path_to_root.'../BUS/schedule/CongregationSchedule.class.php');
 							$congregationSchedule = new CongregationSchedule($path_to_root, $page);
 							//echo 'ID: ' . $_SESSION['id'];
