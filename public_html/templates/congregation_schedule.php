@@ -8,7 +8,7 @@
 	 * @version    Release: 1.0
 	 * @date       11/16/17
 	 */
-	 */
+	 
 
 	$page='Congregation Schedule';
 	$path_to_root="./../";
