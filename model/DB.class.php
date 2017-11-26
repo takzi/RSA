@@ -1127,7 +1127,8 @@
 		try{
 			$stmt = $this->db->prepare("DELETE FROM holidays
 										WHERE name=:name AND h.date=:date");
-			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
+			$stmt->bindParam(":name",$_name,PDO::PARAM_STR);
+			$stmt->bindParam(":date",$_date,PDO::PARAM_STR);
 			$stmt->execute();
 
 			print $this->db->lastInsertId();
@@ -1284,7 +1285,7 @@
 	 *                                     and update.
 	 * @return integer $data - blackout date id to return.
 	 **/
-	function updateBlackoutdate($_congregationID,$_blackoutDateTo,$_blackoutDateFrom){
+	function updateBlackoutdate($_congregationID,$_blackoutDateFrom,$_blackoutDateTo){
 		try{
 			$stmt = $this->db->prepare("UPDATE blackout_dates 
 				SET blackout_date_from=:blackout_date_from,
@@ -1881,8 +1882,11 @@
 	 **/
 	function deleteAvailability($_availability,$_busDriverID){
 		try{
-			$stmt = $this->db->prepare("DELETE FROM availability WHERE id = :id");
-			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
+			$stmt = $this->db->prepare("DELETE FROM availability 
+											WHERE availability = :availability
+											AND bus_driver_ID = :busDriverID");
+			$stmt->bindParam(":availability",$_availability,PDO::PARAM_INT);
+			$stmt->bindParam(":busDriverID",$_busDriverID,PDO::PARAM_INT);
 			$stmt->execute();
 
 			print $this->db->lastInsertId();
@@ -2072,13 +2076,14 @@
 		try{
 			$stmt = $this->db->prepare("UPDATE schedule s
 				SET s.date=:date,
-					time_of_day=:time_of_day 
+					time_of_day=:time_of_day
 				WHERE bus_driver_ID=:bus_driver_ID
 				AND s.id=:id");
+			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
 			$stmt->bindParam(":date",$_date,PDO::PARAM_STR);
-			$stmt->bindParam(":old_date",$_oldDate,PDO::PARAM_STR);
 			$stmt->bindParam(":time_of_day",$_timeOfDay,PDO::PARAM_INT);
 			$stmt->bindParam(":busDriverID",$_busDriverID,PDO::PARAM_INT);
+			$stmt->bindParam(":status",$_status,PDO::PARAM_INT);
 			$stmt->execute();
 
 			print $this->db->lastInsertId();
@@ -2091,14 +2096,12 @@
 
 	/**
 	 * 	deleteSchedule - will delete a record from the schedule table
-	 * that matches the provided date, time of day, and driver id.
+	 * that matches the provided schedule id.
 	 *
-	 * @param string $_busDriverID - bus driver id to match.
-	 * @param string $_busDriverID - bus driver id to match.
-	 * @param integer $_availability - availability date to match.
+	 * @param integer $_id - schedule id to match.
 	 * @return integer containing the id of affected supporting congregation.
 	 **/
-	function deleteSchedule(){
+	function deleteSchedule($_id){
 		try{
 			$stmt = $this->db->prepare("DELETE FROM schedule WHERE id = :id");
 			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
