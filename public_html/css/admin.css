@@ -4,7 +4,7 @@
  * @author     Chevy Mac
  * @author     Kristen Merritt
  * @version    Release: 1.0
- * @date       11/16/2017
+ * @date       11/27/2017
  */
 
 /***************************
@@ -206,4 +206,17 @@ input{
 
 #genRight{
 	margin-left: 310px;
+}
+
+/**************************
+ * * * * * MOBILE * * * * *
+ **************************/
+ 
+/* Design for screen-width <= 1065px */
+@media screen and (max-width:1065px) {
+	.admin_home_button{
+		width: 23vw;
+		font-size: 3vw;
+		margin: 1vh 1vw 1vh 1vw;
+	}
 }
