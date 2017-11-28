@@ -4,7 +4,7 @@
  * @author     Chevy Mac
  * @author     Kristen Merritt
  * @version    Release: 1.0
- * @date       11/6/2017
+ * @date       11/27/2017
  */
 
 /***************************
@@ -100,4 +100,42 @@ td {
 
 #cong_tb{
 	height: 295px;
+}
+
+/**************************
+ * * * * * MOBILE * * * * *
+ **************************/
+ 
+/* Design for screen-width <= 1065px */
+@media screen and (max-width:1065px) {
+
+	#profile_h1{
+		width: 75%;
+	}	
+	
+	#profile_container{
+		width: 93%;
+	}
+	
+	table{
+		width: 40vw;
+	}
+	
+	td {
+		font-size: 3vw;
+		height: 40px;
+	}
+	
+	#title{
+		height: 6vh;
+	}
+	
+	#cong_tb{
+		height: 25vh;
+	}	
+	
+	button{
+		font-size: 3vw;
+		width: 50vw;
+	}
 }

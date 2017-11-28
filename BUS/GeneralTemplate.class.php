@@ -9,7 +9,7 @@ date_default_timezone_set('UTC');
  * @author     Tiandre Turner
  * @author     Chevy Mac
  * @version    Release: 1.0
- * @date       11/20/2017
+ * @date       11/26/2017
  */
 
 class GeneralTemplate {
@@ -165,7 +165,6 @@ class GeneralTemplate {
 					</select>\n
 					<br>
 					<input id='congName' class='hide' type='text' placeholder='Congregation Name' name='congName'>\n
-					<br>
 					<input id='contactNum' class='hide' type='tel' placeholder='Phone Number' name='contactNum'>\n
 					<br>
 					<button type='submit'>Request Account</button>\n
