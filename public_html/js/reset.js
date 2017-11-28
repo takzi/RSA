@@ -7,7 +7,6 @@
  */
  
 function reset(currentType, id) {
-		console.log("Type: "+ currentType + "\tId: " + id);
 	    	      $.ajax({
            type: "POST",
            url: '../admin/reset.php',

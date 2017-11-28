@@ -157,6 +157,18 @@ class AdminFunctions{
 	}
 
 	/**
+	 * Inserts the blackout dates into the database
+	 * 
+	 * @param  [int] $_id    [congregation ID]
+	 * @param  [string] $_from_date  [From Date]
+	 * @param  [string] $_to_date    [To Date]
+	 */
+	function insertBlackoutDatesIntoDB($_id, $_from_date, $_to_date){
+		 $this->db->insertNewBlackoutdate($_id, $_from_date, $_to_date);
+	}
+
+
+	/**
 	 * Inserts the availability dates provided from the DB
 	 * into the edit bus driver page.
 	 * 
@@ -240,7 +252,7 @@ class AdminFunctions{
 	}
 
 	/**
-	 * Returns the congregation object fro
+	 * Returns the congregation object from
 	 * an ID.
 	 * 
 	 * @param  [int] $id       [id of the congregation]
@@ -248,6 +260,17 @@ class AdminFunctions{
 	 */
 	function getCongregation($id){
 		return $this->db->getCongregation($id);
+	}
+
+	/**
+	 * Returns the congregation object from
+	 * an user ID.
+	 * 
+	 * @param  [int] $id       [id of the current user]
+	 * @return [Congregation]  [congregation object]
+	 */
+	function getCongregationByContactID($id){
+		return $this->db->getCongregationByContactID($id);
 	}
 
 	/**
