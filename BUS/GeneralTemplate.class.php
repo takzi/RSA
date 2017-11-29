@@ -25,6 +25,7 @@ class GeneralTemplate {
 	public function __construct($page, $path_to_root){
 		$this->path_to_root = $path_to_root;
 		$this->page = $page;
+
 	}
 
 	/**
@@ -170,6 +171,22 @@ class GeneralTemplate {
 					<button type='submit'>Request Account</button>\n
 				</form>\n
 				<script type='text/javascript' src='".$this->path_to_root."js/request_account.js'></script>";
+	}
+
+		/**
+	 * Allows the user to change their password
+	 * 
+	 * @param  [int] $_id      [ID of the congregation or bus driver]
+	 * @param  [string] $_fName [firstName of the user to update]
+	 * @param  [string $_lName  [lastName of the user to update]
+	 * @param  [integer $_roleID [roleid of the user to update]
+	 * @param  [string] $_email  [email of the user to update]
+	 * @param  [string] $_password [pasword of the user to update]
+	 */
+	function updatePassword($_id, $_fName, $_lName, $_roleID, $_email, $_password){
+		require_once('admin/AdminFunctions.class.php');
+		$adminFunctions = new AdminFunctions($this->page, $this->path_to_root);
+		$adminFunctions->updatePassword($_id,$_fName, $_lName, $_roleID, $_email, $_password);
 	}
 }
 

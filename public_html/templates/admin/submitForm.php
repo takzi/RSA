@@ -15,7 +15,7 @@
 	// If action is selected for reset, loads admin function and proceeds with resetting password for user.
 	if($_POST['action'] == 'submitBlackoutDates'){
 		$adminFunctions->insertBlackoutDatesIntoDB($_POST['congID'], $_POST['from'], $_POST['to']);
-	}elseif($_POST['action'] == 'submitAvailablity'){
-
+	}elseif($_POST['action'] == 'submitAvailabilityDates'){
+		$adminFunctions->insertAvailabilityDatesIntoDB($_POST['busID'], $_POST['availabilityDate'], $_POST['timeOfDay']);
 	}
 ?>

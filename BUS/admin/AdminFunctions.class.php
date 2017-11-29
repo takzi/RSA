@@ -176,8 +176,7 @@ class AdminFunctions{
 	 * @return [string]     [html of data]
 	 */
 	function insertAvailablityIntoEditDriver($id){
-		$availabilities = $this->db->getAvailabilityDatesForDriver($id);
-
+		$availabilities = $this->db->getAvailabilityForDriver($id);
 		if(empty($availabilities)){
 			return "<p class='date-inputted' value=''>No availability dates</p>";
 		}
@@ -186,12 +185,23 @@ class AdminFunctions{
 		
 		$paragraphDates = "";
 		foreach($availabilities as $availability){
-			$date = $this->formatDate($availability, "m/d/Y");
+			$date = $this->formatDate($availability->getAvailability(), "m/d/Y") . ' - ' . $availability->getTimeOfDay();
 			$paragraphDates .= "<p class='date-inputted' value='" . $date ."'>". $date . "</p>\n";
 		}
 
 		return $paragraphDates;
 		
+	}
+
+	/**
+	 * Inserts the availability dates into the database
+	 * 
+	 * @param  [int] $_id    [bus driver ID]
+	 * @param  [string] $_from_date  [Requested Date]
+	 * @param  [int] $_time_of_day    [Requested Time Of Day]
+	 */
+	function insertAvailabilityDatesIntoDB($_id, $_date, $_time_of_day){
+		 $this->db->insertNewAvailability($_id, $_date, $_time_of_day);
 	}
 
 	/**
@@ -213,6 +223,22 @@ class AdminFunctions{
 			//echo "<script type='text/javascript'>alert('Password reset!');</script>";
 		}
 	}
+
+	/**
+	 * Allows the user to change their password
+	 * 
+	 * @param  [int] $_id      [ID of the congregation or bus driver]
+	 * @param  [string] $_fName [firstName of the user to update]
+	 * @param  [string $_lName  [lastName of the user to update]
+	 * @param  [integer $_roleID [roleid of the user to update]
+	 * @param  [string] $_email  [email of the user to update]
+	 * @param  [string] $_password [pasword of the user to update]
+	 */
+	function updatePassword($_id, $_fName, $_lName, $_roleID, $_email, $_password){
+		$this->db->updateUser($_id,$_fName, $_lName, $_roleID, $_email, $_password);
+	}
+
+
 
 	/**
 	 * Helper function used to get HTML for bus driver and 
@@ -284,6 +310,17 @@ class AdminFunctions{
 		$busDriver = $this->db->getBusDriver($id);
 		$busDriverId = $busDriver[0]->getContactID();
 		return $this->db->getUser($busDriverId);
+	}
+
+	/**
+	 * Returns the bus driver object from an
+	 * user ID.
+	 * 
+	 * @param  [int] $id    [id of the current user]
+	 * @return [BusDriver]  [bus driver object]
+	 */
+	function getBusDriveryByContactID($id){
+		return $this->db->getBusDriverByContactID($id);
 	}
 
 	/**

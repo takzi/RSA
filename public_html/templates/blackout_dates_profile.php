@@ -1,14 +1,14 @@
 <?php
 	/**
-	 * Admin Edit Congregation page for RSA
+	 * View/Request Congregation's blackout dates page for RSA
 	 * 
 	 * @author     Tiandre Turner	 
 	 * @author     Kristen Merritt
 	 * @version    Release: 1.0
-	 * @date       11/16/17
+	 * @date       11/28/17
 	 */
 	 
-	$page='RAHIN Admin Edit Congregation';
+	$page='RAHIN View/Request Blackout Dates';
 	$path_to_root="./../";
 	session_start();
 	
@@ -30,14 +30,14 @@
 ?>
 
 <div id="adminLink">
-		<a href="profile.php">Admin Home</a> > <a href="admin_cong.php">Congregation</a> > <a href="#"><?php echo $cong->getName(); ?></a>
+		<a href="profile.php">Profile</a> > <a href="#">View/Request Blackout Dates</a>
 	</div>
 <h1 id ="profile_h1"><?php echo $_SESSION['fullname']; ?></h1>
 	<div id="profile_container">
 		<div align="left">
-			<button>Change Password</button> 	
+			<a href="change_password.php"><button>Change Password</button></a>	
 			<br>
-			<button>View Schedule</button>
+			<a href="profile.php"><button>View Schedule</button></a>
 			<br>
 			<button>Request Schedule Change</button>
 		</div>
@@ -58,7 +58,7 @@
 					</div>
 				</div>
 			
-				<input class="editright" type="button" value="Save" onclick="submitBlackoutDates()">
+				<input class="editright" type="submit" value="Save" onclick="submitBlackoutDates()">
 			</form>		
 		</div>
 		</div>
@@ -74,13 +74,11 @@
 		var toDate = $("#to-date-input").val();
 		if(fromDate && toDate){
 			if($("#dateValues").text().trim() == "No blackout dates"){
-				//console.log('true');
 				$("#dateValues").text("");
 			}
 
 			blackoutDates.push(fromDate + ","+toDate);
 			var formattedDate = getDateString(fromDate, toDate);
-			console.log(formattedDate);
 			var p = document.createElement("p");
 			p.setAttribute("class", "date-inputted");
 			p.setAttribute("value", formattedDate);
@@ -95,33 +93,38 @@
 	function getDateString(fromDateStr, toDateStr) {
 	    [fromYear, fromMonth, fromDay] = fromDateStr.split("-");
 	    [toYear, toMonth, toDay] = toDateStr.split("-");
-	    fromMonth = getMonth(fromMonth);
-	    toMonth = getMonth(toMonth);
-	    if(fromYear == toYear && fromMonth == toMonth)
-	    	return fromMonth + " " + fromDay + " - " + toDay + ", " + fromYear;
-	    else
-	    	return fromMonth + " " + fromDay + ", " + fromYear + " - " + toMonth + " " + toDay + ", " + toYear
+	    // fromMonth = getMonth(fromMonth);
+	    // toMonth = getMonth(toMonth);
+
+	    return fromMonth + '/' + fromDay + '/' + fromYear + ' - ' +  toMonth + '/' + toDay + '/' + toYear;
+	    // if(fromYear == toYear && fromMonth == toMonth)
+	    // 	return fromMonth + " " + fromDay + " - " + toDay + ", " + fromYear;
+	    // else
+	    // 	return fromMonth + " " + fromDay + ", " + fromYear + " - " + toMonth + " " + toDay + ", " + toYear
 	}
 
 	function submitBlackoutDates(){
 		console.log(blackoutDates);
 		for(var i = 0 ; i < blackoutDates.length; i++ ){
 			[fromDate, toDate] = blackoutDates[i].split(",");
-			// $.ajax({
-			//   type: "POST",
-			//   url: "admin/submitForm.php",
-			//   data:{action:'submitBlackoutDates', congID: <?php echo $congID ?>,from: fromDate, to: toDate},
-			//   error: function(){
-			//     alert("There is an error with the submit");
-			//     exit();
-			//   }
-			// });
+			$.ajax({
+			  type: "POST",
+			  url: "admin/submitForm.php",
+			  data:{action:'submitBlackoutDates', congID: <?php echo $congID ?>,from: fromDate, to: toDate},
+			  success: function(){
+			    alert("The blackout dates are now saved");
+			  },
+			  error: function(){
+			    alert("There is an error with the submit");
+			    exit();
+			  }
+			});
 		}
-		//s = s.substring(0, s.indexOf('T'))
 	}
 
 	function getMonth(monthNumber){
 		var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 		return months[monthNumber - 1];
 	}
+
 </script>

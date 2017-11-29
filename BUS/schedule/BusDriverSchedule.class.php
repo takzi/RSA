@@ -80,7 +80,7 @@ class BusDriverSchedule {
 				$date = $schedule->getScheduleDate();
 				$timeOfDay = $schedule->getScheduleTime();
 				$tr .= "<tr>\n
-							<td>".$date."</td>\n
+							<td>".$this->formatDate($date, "M d")."</td>\n
 							<td>".$timeOfDay."</td>\n
 						</tr>\n";
 			}
@@ -158,6 +158,15 @@ class BusDriverSchedule {
 		return $this->db->getBusDriverName($_id);
 	}
 
+	/**
+	 * Formats the date
+	 * @param  string $_date   date
+	 * @param  string $_format format of date
+	 * @return string          formatted date
+	 */
+	function formatDate($_date,$_format){
+		return date($_format, strtotime($_date));
+	}
 }
 
 ?>

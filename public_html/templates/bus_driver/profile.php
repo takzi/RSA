@@ -1,17 +1,9 @@
 <h1 id ="profile_h1"><?php echo $_SESSION['fullname']; ?></h1>
 	<div id="profile_container">
 		<div align="left">
-			<?php
-				$actionRequired = 1;
-				// If there is any action required, it will display ACTION REQUIRED in red, else it will show regular button with no actions to take.
-				if ($actionRequired == 1){
-					echo '<button id ="required">ACTION REQUIRED</button>';
-				} else {
-					echo '<button>No Action Required</button>';
-				}
-			?> 	
+			<a href="change_password.php"><button>Change Password</button></a>
 			<br>
-			<button>View/Request Blackout Dates</button>
+			<a href="availability_dates_profile.php"><button>View/Request Availability Dates</button></a>
 			<br>
 			<button>Request Schedule Change</button>
 		</div>
@@ -26,7 +18,7 @@
 							// Checks if there is schedule available
 							require_once($path_to_root."../BUS/schedule/BusDriverSchedule.class.php");
 	      						$busDriverScheduler = new BusDriverSchedule($path_to_root, $page);
-							//echo 'ID: ' . $_SESSION['id'];
+
 							if(($schedule = $busDriverScheduler->insertInProgressBusDriverSchedulesById($_SESSION['id'])) == ""){
 								$schedule = "<td>No schedule available</td>";
 							}
