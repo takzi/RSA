@@ -50,13 +50,13 @@ class AdminFunctions{
 						  <a href='admin_cong.php'><div class='admin_home_button'>Congregations</div></a>\n";
 
 			$bottomButtons = "<a href='admin_add_newadmin'><div class='admin_home_button'>Add New Admin</div></a>\n
-							 <a href='#'><div class='admin_home_button'>FAQ / Guides</div></a>\n";
+							 <a href='admin_user.php'><div class='admin_home_button'>Users</div></a>\n";
 		} elseif($role == 2){ // congregation admin
 			$topButtons = "<a href='admin_cong.php'><div class='admin_home_button'>Congregations</div></a>\n
-						   <a href='#'><div class='admin_home_button'>FAQ / Guides</div></a>\n";
+						  <a href='admin_user.php'><div class='admin_home_button'>Users</div></a>\n";
 		} elseif($role == 3){ // bus driver admin
 			$topButtons = "<a href='admin_bus.php'><div class='admin_home_button'>Bus Drivers</div></a>\n
-						<a href='#'><div class='admin_home_button'>FAQ / Guides</div></a>\n";
+						<a href='admin_user.php'><div class='admin_home_button'>Users</div></a>\n";
 		}
 
 		return "<h1 id='profile_h1'>".$name."</h1>\n
@@ -78,6 +78,8 @@ class AdminFunctions{
 	 * @return [string]       [html to insert onto page]
 	 */
 	function insertCongBusAdmin($type){
+		$input_name =  ($isBus = $type == "Bus Drivers") ? "bus" : "cong";
+		$input_value = $isBus ? "Bus Driver" : "Congregation";
 		return "<div id='adminLink'>\n
 					<a href='".$this->path_to_root."templates/admin/profile.php'>Admin Home</a>\n 
 					>
@@ -85,10 +87,30 @@ class AdminFunctions{
 				</div>\n
 				<h1>".$type."</h1>\n
 					<div id='form'>\n
-						<input type='text' class='text' name='cong_name' value='Congregation Name'> 
+						<input type='text' class='text' name='" . $input_name . "_name' value='" . $input_value . " Name'> 
 						<input type='button' value='Add Now'>\n
 						<input type='button' id='genScheBut' value='Generate New Schedule'>
 						<a href='".$this->path_to_root."templates/congregation_schedule.php'><input type='button' value='View Current Schedule'></a>
+					</div>\n
+					<script type='text/javascript' src='".$this->path_to_root."js/reset.js'></script>";
+	}
+
+	/**
+	 * Inserts the users
+	 * onto the admin's page for them.
+	 * 
+	 * @return [string]       [html to insert onto page]
+	 */
+	function insertUserAdmin(){
+		return "<div id='adminLink'>\n
+					<a href='".$this->path_to_root."templates/admin/profile.php'>Admin Home</a>\n 
+					>
+					<a href='#'>Users</a>\n
+				</div>\n
+				<h1>Users</h1>\n
+					<div id='form'>\n
+						<input type='text' class='text' name='user_name' value='User Name'> 
+						<input type='button' value='Add'>\n
 					</div>\n
 					<script type='text/javascript' src='".$this->path_to_root."js/reset.js'></script>";
 	}
@@ -124,6 +146,23 @@ class AdminFunctions{
 			$contactID = $driver->getContactID();
 			$user = $this->db->getUser($contactID)[0];
 			$tr .= $this->getHTMLSnippet($id, $user->getWholeName(), 'd');
+		}
+		return "<table id='congregations'>".
+				$tr
+			.  "</table>";
+	}
+
+	/**
+	 * Retreives all of the users, then inserts
+	 * them into the admin's page for them.
+	 * 
+	 * @return [string] [html of the users' data]
+	 */
+	function insertUsersIntoAdminPage(){
+		$users = $this->db->getAllUsers();
+		$tr = "";
+		foreach($users as $user){
+			$tr .= $this->getHTMLSnippet($user->getID(), $user->getWholeName(), 'u');
 		}
 		return "<table id='congregations'>".
 				$tr
@@ -217,10 +256,13 @@ class AdminFunctions{
 			$user = $this->getUser($congregation->getContactID())[0];
 			$this->db->updateUser($user->getID(),$user->getFirstName(), $user->getLastName(), $user->getRole(), $user->getEmail(), "rahin123");
 			//echo "<script type='text/javascript'>alert('Password reset!');</script>";
-		}else{
+		}else if($_type == 'd'){
 			$driver = $this->getBusDriver($_id)[0];
 			$this->db->updateUser($driver->getID(),$driver->getFirstName(), $driver->getLastName(), $driver->getRole(), $driver->getEmail(), "rahin123");
 			//echo "<script type='text/javascript'>alert('Password reset!');</script>";
+		}else{
+			$user = $this->getUser($_id)[0];
+			$this->db->updateUser($user->getID(),$user->getFirstName(), $user->getLastName(), $user->getRole(), $user->getEmail(), "rahin123");
 		}
 	}
 
@@ -244,14 +286,14 @@ class AdminFunctions{
 	 * Helper function used to get HTML for bus driver and 
 	 * congregation admin pages.
 	 * 
-	 * @param  [int] $id   [id of the cong / bus driver]
-	 * @param  [string] $name [name of the cong / driver]
-	 * @param  [string] $type [cong or driver]
+	 * @param  [int] $id   [id of the cong / bus driver / user]
+	 * @param  [string] $name [name of the cong / driver / user]
+	 * @param  [string] $type [cong, driver or user]
 	 * @return [string]       [html of the data provided]
 	 */
 	private function getHTMLSnippet($id, $name, $type){
 		return "<tr>
-					<td>" . $name ." <a href='admin_edit_". $this->getType($type, 'cong', 'bus') . ".php?" . $this->getType($type, 'congregation', 'driver') . "=" . $id ."'><input type='button' class='tb_right1' name='" . $name . "' value='Edit'></a><a href=\"#\" onclick=\"reset('". $type . "', ". $id . ")\"><input type='button' class='tb_right2' value='Reset Password'></a></td>
+					<td>" . $name ." <a href='admin_edit_". $this->getType($type, 'cong', 'bus','user') . ".php?" . $this->getType($type, 'congregation', 'driver', 'user') . "=" . $id ."'><input type='button' class='tb_right1' name='" . $name . "' value='Edit'></a><a href=\"#\" onclick=\"reset('". $type . "', ". $id . ")\"><input type='button' class='tb_right2' value='Reset Password'></a></td>
 				</tr>";
 	}	
 
@@ -259,13 +301,21 @@ class AdminFunctions{
 	 * Helper function to retreive the type of 
 	 * account.
 	 * 
-	 * @param  [string] $type [c or d]
+	 * @param  [string] $type [c, d, or u]
 	 * @param  [string] $cong ['cong']
 	 * @param  [string] $bus  ['bus']
-	 * @return [string]       [returns cong or bus]
+	 * @param  [string] $user ['user']
+	 * @return [string]       [returns cong, bus, or user]
 	 */
-	private function getType($type, $cong, $bus){
-		return $type == 'c' ? $cong : $bus;
+	private function getType($type, $cong, $bus, $user){
+		switch($type){
+			case 'c':
+				return $cong;
+			case 'd':
+				return $bus;
+			case 'u':
+				return $user;
+		}
 	}
 
 	/**
