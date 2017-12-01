@@ -26,6 +26,17 @@ if(isset($_POST['action'])){
 				$data = "Updating Driver";
 				print_r($data);
 				break;
+
+			case 'reset':
+				$this->resetPassword($_POST['type'], $_POST['userId']);
+				$data = "Password Reset";
+				print_r($data);
+				break;
+
+			case 'delete':
+				$data = $this->delete($_POST['type'], $_POST['id']);
+				print_r($data);
+				break;
 		}
 	}
 
@@ -107,10 +118,9 @@ class AdminFunctions{
 					<div id='form'>\n
 						<input type='text' class='text' name='" . $input_name . "_name' value='" . $input_value . " Name'> 
 						<input type='button' value='Add Now'>\n
-						<input type='button' id='gen".$input_name."But' value='Generate New Schedule'>
+						<input type='button' id='genScheBut' value='Generate New Schedule'>
 						<a href='".$this->path_to_root."templates/congregation_schedule.php'><input type='button' value='View Current Schedule'></a>
-					</div>\n
-					<script type='text/javascript' src='".$this->path_to_root."js/reset.js'></script>";
+					</div>";
 	}
 
 	/**
@@ -129,8 +139,7 @@ class AdminFunctions{
 					<div id='form'>\n
 						<input type='text' class='text' name='user_name' value='User Name'> 
 						<input type='button' value='Add'>\n
-					</div>\n
-					<script type='text/javascript' src='".$this->path_to_root."js/reset.js'></script>";
+					</div>";
 	}
 
 	/**
@@ -308,6 +317,25 @@ class AdminFunctions{
 		return $data;
 	}
 
+	function delete($_type, $_id){
+		switch($_type){
+			case 'c':
+				$data = $this->db->deleteCongregation($_id);
+				break;
+			case 'd':
+				$data = $this->db->deleteBusDriver($_id);
+				break;
+			case 'u':
+				$data = $this->db->deleteUser($_id);
+				break;
+			default:
+				$data = "Unable to delete";
+		}
+
+		return $data;
+
+	}
+
 
 
 	/**
@@ -326,17 +354,18 @@ class AdminFunctions{
 									 </a>\n
 
 									 <a href=''>\n
-									 	<input type='button' class='tb tb-delete' name='delete-".$name."' value='Delete'>\n
+									 	<input type='button' id='deleteButton' class='tb tb-delete' name='delete-".$name."' value='Delete'>\n
 									 </a>\n
 
 									 <a href=''>\n
 									 	<input type='button' class='tb' data-id='".$id."' id='email-btn' name='email-".$name."' value='Email'>\n
 									 </a>\n
 
-									 <a href=\"#\" onclick=\"reset('". $type . "', ". $id . ")\">\n
-									 	<input type='button' class='tb' value='Reset Password'>\n
+									 <a href=\"#\" \">\n
+									 	<input type='button' id='resetButton' class='tb' value='Reset Password'>\n
 									 </a></div>\n
 					</td>
+
 				</tr>";
 	}	
 

@@ -8,7 +8,7 @@
 	 * @date       11/28/17
 	 */
 	 
-	$page='RAHIN View/Request Blackout Dates';
+	$page='RAIHN View/Request Blackout Dates';
 	$path_to_root="./../";
 	session_start();
 	

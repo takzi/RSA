@@ -7,7 +7,7 @@
 	 * @date       11/10/17
 	 */
 	 
-	$page='RAHIN Admin Generate Schedule';
+	$page='RAIHN Admin Generate Schedule';
 	$path_to_root="./../../";
 
 	// Setting up template system and loads functions for Admin

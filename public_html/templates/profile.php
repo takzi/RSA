@@ -9,7 +9,7 @@
 	 * @date       11/16/17
 	 */
 	 
-	$page='RAHIN Profile';
+	$page='RAIHN Profile';
 	$path_to_root="./../";
 
 	// Setting up template system
