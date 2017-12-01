@@ -24,8 +24,9 @@
  *****************************/
  
 .schedule-container {
-    position: absolute;
-    left: 50%;
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
 }
 
  /* Title for Schedules */
@@ -38,8 +39,8 @@
 .table {
     position: relative;
     min-width: 40vw;
-    margin-top: 5vh;
-    left: -50%;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
 	border-spacing: 0;
 	font-size: 18pt;
 }
