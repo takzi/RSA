@@ -330,7 +330,7 @@ class AdminFunctions{
 									 </a>\n
 
 									 <a href=''>\n
-									 	<input type='button' class='tb' name='email-".$name."' value='Email'>\n
+									 	<input type='button' class='tb' data-id='".$id."' id='email-btn' name='email-".$name."' value='Email'>\n
 									 </a>\n
 
 									 <a href=\"#\" onclick=\"reset('". $type . "', ". $id . ")\">\n

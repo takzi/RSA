@@ -35,8 +35,8 @@
 		});
 	})
 
-	$("#emailBtn").click(function(){
-
+	$("#email-btn").click(function(){
+		console.log("you clicked id= "+this.data().)
 	})
 
 	$("#loginBtn").click(function(){
