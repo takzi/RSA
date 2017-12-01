@@ -5,13 +5,13 @@
  //start func.
  window.onload = function(){
 
- 	$("#genScheBut").click(function(){
+ 	$("#gencongBut").click(function(){
 	 	var $data = {
 	 		action: 'generateCongregationSchedule'
 	 	}
 		$.ajax({
 			type: "POST",
-			url: '../../../../BUS/schedule/generate_congregations_schedule.php',
+			url: '../../../BUS/schedule/generate_congregations_schedule.php',
 			data: $data
 		}).done(function(msg){
 			//alert("Rotation Created");
@@ -20,16 +20,17 @@
 		});
 	})
 
- 	$("#createSchedule").click(function(){
+ 	$("#genbusBut").click(function(){
 		var $data = {
 	 		action: 'generateBusDriverSchedule'
 	 	}
 		$.ajax({
 			type: 'POST',
-			url: '../../../../BUS/schedule/generate_bus_driver_schedule.php',
+			url: '../../../BUS/schedule/generate_bus_driver_schedule.php',
 			data: $data
-		}).done(function(){
-			alert("Schedule Created");
+		}).done(function(msg){
+			console.log(msg);
+			//alert("Schedule Created");
 			//location.reload();
 		});
 	})
