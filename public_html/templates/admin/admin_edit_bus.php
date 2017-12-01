@@ -23,6 +23,9 @@
 	 
 	$page='RAHIN Admin Edit Bus Driver';
 	$path_to_root="./../../";
+
+	// starting a session
+	session_start();
 	
 	// Setting up template system and loads functions for Admin
 	require_once($path_to_root.'../BUS/GeneralTemplate.class.php');

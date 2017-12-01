@@ -4,7 +4,7 @@
  * @author     Kristen Merritt
  * @author     Chevy Mac
  * @version    Release: 1.0
- * @date       11/26/2017
+ * @date       11/30/2017
  */
 
 /***************************
@@ -73,4 +73,26 @@
 #request_account_form input[type=text] .hide,
 .hide {
     display: none !important;
+}
+
+/**************************
+ * * * * * MOBILE * * * * *
+ **************************/
+ 
+/* Design for screen-width <= 1065px */
+@media screen and (max-width:1065px) {
+	#request_account_form {
+		width: 80vw;
+		left: 30%;
+		margin: -20vh 0 0 -20vw;
+	}
+	
+	#request_account_form button {
+		width: 45vw;
+		font-size: 13pt;
+	}
+	
+	#footer {
+		padding-top: 60px;
+	}	
 }
