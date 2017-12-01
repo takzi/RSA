@@ -44,7 +44,7 @@
 	</div>
 	<h1><?php echo $busDriverUser->getWholeName(); ?></h1>
 	<div id="admin_container">
-		<form id="edit-cong-form" align="middle">
+		<form id="edit-bus-form" align="middle">
 			<input id="edit-name" class="fulltext" type="text" name="congregation" value="<?php echo $busDriverUser->getWholeName(); ?>">
 
 			<br><br>Availability Dates<br><br>
@@ -60,7 +60,7 @@
 				</div>
 			</div>
 		
-			<input class="editright" type="submit" value="Save">
+			<input class="editright" id="updateBusDriver" type="submit" value="Save">
 		</form>		
 	</div>
 <?php

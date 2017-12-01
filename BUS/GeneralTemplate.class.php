@@ -45,9 +45,9 @@ class GeneralTemplate {
 					<meta charset='utf-8' />\n
 					<meta name='viewport' content='width=device-width, initial-scale=1' />\n
 					<title>".$this->page."</title>\n
+					<script src='".$this->path_to_root."js/jquery-3.2.1.min.js' type='text/javascript'></script>\n
 					<link href='".$this->path_to_root."css/default.css' rel='stylesheet'>\n
 					<script src='".$this->path_to_root."js/default.js' type='text/javascript'></script>\n
-					<script src='".$this->path_to_root."js/jquery-3.2.1.min.js' type='text/javascript'></script>\n
 				</head>\n
 					<body>\n
 						<div id='header'>\n

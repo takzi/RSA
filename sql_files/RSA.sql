@@ -47,10 +47,11 @@ DROP TABLE IF EXISTS `schedule`;
 CREATE TABLE schedule (
 	`id` INT(11) NOT NULL,
 	`date` DATE NOT NULL,
-	`time_of_day` ENUM('Any','Morning','Afternoon') NOT NULL,
+	`time_of_day` ENUM('All Day','Morning','Afternoon') NOT NULL,
+    `driver_position` ENUM('Primary','Backup') NOT NULL,
 	`bus_driver_ID` INT(11),
 	`status` ENUM('Pending Approval','Approved','In Progress','Finalized'),
-	PRIMARY KEY (`id`,`date`,`time_of_day`),
+	PRIMARY KEY (`id`,`date`,`driver_position`,`time_of_day`),
 	KEY `fk_schedule_bus_driver` (`bus_driver_ID`),
 	CONSTRAINT `fk_schedule_bus_driver` FOREIGN KEY (`bus_driver_ID`) REFERENCES `bus_driver` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );

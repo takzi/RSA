@@ -11,6 +11,24 @@
  * @date       11/15/2017
  */
 
+if(isset($_POST['action'])){
+		print_r("in action");
+		$action = $_POST['action'];
+
+		switch ($action) {
+			case 'updateCongregation':
+				//$data = generateCongregationSchedule();
+				$data = "Updating Congregation";
+				print_r($data);
+				break;
+			
+			case 'updateBusDriver':
+				$data = "Updating Driver";
+				print_r($data);
+				break;
+		}
+	}
+
 class AdminFunctions{
 	private $path_to_root; // provide the location of the root of public_html
 	private $db;           // the database object
@@ -226,7 +244,7 @@ class AdminFunctions{
 
 	/**
 	 * Allows the user to change their password
-	 * 
+	 *
 	 * @param  [int] $_id      [ID of the congregation or bus driver]
 	 * @param  [string] $_fName [firstName of the user to update]
 	 * @param  [string $_lName  [lastName of the user to update]
@@ -236,6 +254,16 @@ class AdminFunctions{
 	 */
 	function updatePassword($_id, $_fName, $_lName, $_roleID, $_email, $_password){
 		$this->db->updateUser($_id,$_fName, $_lName, $_roleID, $_email, $_password);
+	}
+
+	function updateCongregation($_id, $_contactID, $_name){
+		$data = $this->db->updateCongregation($_id, $_contactID, $_name);
+		return $data;
+	}
+
+	function updateBusDriver($_id, $_contactID, $_contactNumber){
+		$data = $this->db->updateBusDriver($_id, $_contactID, $_contactNumber);
+		return $data;
 	}
 
 

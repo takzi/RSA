@@ -1038,6 +1038,27 @@
 		return $data;
 	}
 
+	function getCongregationsHolidaysForDates($_start,$_end){
+		try{
+			$data = array();
+			$stmt = $this->db->prepare("SELECT h.date,last_congregation 
+										FROM holiday h
+										WHERE h.date BETWEEN :start AND :ends");
+			$stmt->bindParam(":start",$_start,PDO::PARAM_STR);
+			$stmt->bindParam(":ends",$_end,PDO::PARAM_STR);
+			$stmt->execute();
+
+			$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+			return $data;
+		}
+		catch(PDOException $e){
+			echo "getHolidayName - ".$e->getMessage();
+			die();
+		}
+		return $data;
+	}
+
 	/**
 	 * 	insertNewHoliday - will insert a new record to the holidays table
 	 * with the provided information.
@@ -1357,6 +1378,47 @@
 	}
 
 	/**
+	 * 
+	 **/
+	function getLastRotationID(){
+		try{
+			$data = array();
+			$stmt = $this->db->prepare("SELECT max(id) AS '0' FROM rotation");
+			$stmt->execute();
+
+			$data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			return $data;
+		}
+		catch(PDOException $e){
+			echo "getLastRotationID - ".$e->getMessage();
+			die();
+		}
+		return $data;
+	}
+
+	function getNextRotationDate(){
+		$lastID = $this->getLastRotationID();
+
+		try{
+			$data = array();
+			$stmt = $this->db->prepare("SELECT max(rotation_date_from) AS '0'
+										FROM rotation");
+			$stmt->bindParam(":id",$lastID[0],PDO::PARAM_INT);
+			$stmt->execute();
+
+			$data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			return $data;
+		}
+		catch(PDOException $e){
+			echo "getLastRotationID - ".$e->getMessage();
+			die();
+		}
+		return $data;
+	}
+
+	/**
 	 *  getRotation - will return the rotation that currently exist in the
 	 * rotation table and matches the rotation id.
 	 *
@@ -1411,6 +1473,36 @@
 	}
 
 	/**
+	 *  getRotationsBetweenDates - will return the rotation(s) that currently
+	 * exist in the rotations table and matches the date inteval provided.
+	 *
+	 * @param date $_dateFrom - start date of the interval for retrieval.
+	 * @param date $_dateTo - end date of the interval for retrieval.
+	 * @return [rotation] - rotation(s) object(s) to return.
+	 */
+	function getRotationsBetweenDates($_dateFrom,$_dateTo){
+		try{
+			$data = array();
+			$stmt = $this->db->prepare("SELECT * 
+										FROM rotation
+										WHERE rotation_date_from
+										BETWEEN :dateFrom AND :dateTo");
+			$stmt->bindParam(":dateFrom",$_id,PDO::PARAM_INT);
+			$stmt->bindParam(":dateTo",$_id,PDO::PARAM_INT);
+			$stmt->execute();
+
+			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'rotation');
+
+			return $data;
+		}
+		catch(PDOException $e){
+			echo "getRotationsBetweenDates - ".$e->getMessage();
+			die();
+		}
+		return $data;
+	}
+
+	/**
 	 * 	insertNewRotation - will insert a new record to the rotation 
 	 * table with the provided information.
 	 *
@@ -1425,7 +1517,7 @@
 		try{
 			$stmt = $this->db->prepare("INSERT INTO rotation  
 			VALUES (:rotationID,:rotation_number,:congregation_ID,
-					:rotation_date_from,:rotation_date_to)");
+					:rotation_date_from,:rotation_date_to,1)");
 			$stmt->bindParam(":rotationID",$_rotationID,PDO::PARAM_INT);
 			$stmt->bindParam(":rotation_number",$_rotationNumber,PDO::PARAM_INT);
 			$stmt->bindParam(":congregation_ID",$_congregationID,PDO::PARAM_INT);
@@ -2037,17 +2129,19 @@
 	 * with the provided information.
 	 *
 	 * @param string $_date - schedule date to add.
-	 * @param string $_timeOfDay - schedule time of day of date to add.
+	 * @param integer $_timeOfDay - schedule time of day of date to add.
+	 * @param integer $_driverStatus - driver status of the date to add.
 	 * @param integer $_busDriverID - id of the bus driver assigned to the
 	 *                               schedule to add.
 	 * @param integer $_status - id of the status of the schedule to add.
 	 * @return integer $data - id of the newly created schedule date.
 	 **/
-	function insertNewSchedule($_date,$_timeOfDay,$_busDriverID,$_status){
+	function insertNewSchedule($_date,$_timeOfDay,$_driverStatus,$_busDriverID,$_status){
 		try{
 			$stmt = $this->db->prepare("INSERT INTO schedule  
-			VALUES (0,:date,:time_of_day,:busDriverID,:status)");
+			VALUES (0,:date,:time_of_day,:driver_status,:busDriverID,:status)");
 			$stmt->bindParam(":date",$_date,PDO::PARAM_STR);
+			$stmt->bindParam(":driver_status",$_driverStatus,PDO::PARAM_INT);
 			$stmt->bindParam(":time_of_day",$_timeOfDay,PDO::PARAM_INT);
 			$stmt->bindParam(":busDriverID",$_busDriverID,PDO::PARAM_INT);
 			$stmt->bindParam(":status",$_status,PDO::PARAM_INT);
@@ -2056,7 +2150,7 @@
 			print $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
-			echo "insertNewSchedule - ".$e->getMessage();
+			echo "insertNewAvailability - ".$e->getMessage();
 			die();
 		}
 	}
@@ -2068,20 +2162,24 @@
 	 * @param integer $_id - schedule id to match.
 	 * @param string $_date - schedule date value to update.
 	 * @param integer $_timeOfDay - id of time of day to update.
+	 * @param integer $_driverStatus - id of the status of the driver to update.
 	 * @param integer $_busDriverID - bus driver id to match.
 	 * @param integer $_status - id of the schedule status to update.
 	 * @return integer $data - schedule id that has been updated.
 	 **/
-	function updateSchedule($_id,$_date,$_timeOfDay,$_busDriverID,$_status){
+	function updateSchedule($_id,$_date,$_timeOfDay,$_driverStatus,$_busDriverID,$_status){
 		try{
 			$stmt = $this->db->prepare("UPDATE schedule s
 				SET s.date=:date,
-					time_of_day=:time_of_day
+					time_of_day=:time_of_day,
+					driver_status=:driver_status,
+					status:status
 				WHERE bus_driver_ID=:bus_driver_ID
 				AND s.id=:id");
-			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
 			$stmt->bindParam(":date",$_date,PDO::PARAM_STR);
+			$stmt->bindParam(":old_date",$_oldDate,PDO::PARAM_STR);
 			$stmt->bindParam(":time_of_day",$_timeOfDay,PDO::PARAM_INT);
+			$stmt->bindParam(":driver_status",$_driverStatus,PDO::PARAM_INT);
 			$stmt->bindParam(":busDriverID",$_busDriverID,PDO::PARAM_INT);
 			$stmt->bindParam(":status",$_status,PDO::PARAM_INT);
 			$stmt->execute();

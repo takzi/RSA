@@ -1,127 +1,163 @@
-<?php 
-require_once('../model/DB.class.php')
-date_default_timezone_set('UTC');
-define("threeMonths", 3);
-define("sixDays", 6);
-define("sevenDays", 7);
+<?php
+	date_default_timezone_set("America/New_York");
+	require_once '../../model/DB.class.php';
+	require_once '../../model/classes/blackoutDate.class.php';
+	require_once '../../model/classes/holiday.class.php';
 
-$db = new DB();
+	if(isset($_POST['action'])){
+		$action = $_POST['action'];
 
-
-/*assignCongregations(calendar)
-variable List for all congregations for three months
--        If all congregations are assigned, add to list and rearrange the order of congregations,
--        If length of list == 3, return with the calendar object.
--        Start with next week of the current month
-o   If reach the last day of the month and the week is not full, then add the first few days of the next month.
--        for each congregation
-o   if
- 
-once done add the ranking for each congregation.
- 
-validatingBlackoutDates(): method to loop through and check all the blackdates to ensure no conflicts.
- 
-Check the rotation number to ensure that the first and last congregation is not always swapping with each other.*/
- 
-/* 
--        get the current date (+7 days later) & the last day of the third month (modified to get the next sunday and the last saturday but checked)
--        if all congregation are assigned & 3 months are completed
--        if all congregation are assigned
-o   then rearrange order
-o   recall
--        once current congregation is assigned
-o   break out of the loop to the next congregation
--        Check if current week is not owned by other congregations
--        Check if the requested holidays are not within the week even if the week is not a part of their blackout dates.*/
-function generateSchedule(){
-$congregations = $db->getAllCongregations();
-$schedule = array();
-$startDate = getDateTime('NOW');
-$endDate = getDateTime('NOW');
-
-// starting on a Sunday
-$startDate = getModifiedDate($startDate, '+%d days', $sevenDays - getFormattedDate($startDate, 'N'));
-// advancing in three months
-$endDate = getModifiedDate($endDate, '+%d months', threeMonths));
-// getting the last day of the third month
-$endDate = getModifiedDate($endDate,'+%d days', (getFormattedDate($endDate, 't') - getFormattedDate($endDate, 'j')));
-
-// if the end of the third month does not land on a Saturday.
-if(($lengthOfEndDays = getFormattedDate($endDate, 'N')) != 6){
-	$endDate = getModifiedDate($endDate,'+%d days', $sixDays - $lengthOfEndDays);
-}
-
-echo "The date from now and in three months is between " . $date->format('m-d-Y') . " & " . $newDate->format('m-d-Y') . "\n\n";
-
-
-while($startDate <= $endDate){
-    $tempEndDate = getModifiedDate($startDate,'+%d days', $sixDays - getFormattedDate($startDate, 'N'));
-   // echo "<tr><td>" . getFormattedDate($startDate,'l m-d-Y') . " - " . getFormattedDate($tempEndDate,'l m-d-Y') .  "</td></tr>";
-   if(allCongregationsRAssigned($congregations, $schedule)){
-
-   }
-    $startDate = getModifiedDate($startDate,'+%d days', $sixDays - getFormattedDate($startDate, 'N'));
-}
-
-
-
-} // end function generateSchedule
-
-function allCongregationsRAssigned($congregations, $rotations){
-	//$rotations = $db->getAllRotations();
-	foreach($congregations as $congregation){
-		foreach($rotations as $rotation){
-			if($rotation->getCongregationID == $congregation->getID && ($rotation->getRotationDateFrom == $congregation->get)
+		if($action == 'generateCongregationSchedule'){
+			$data = generateCongregationSchedule();
+			print_r($data);
 		}
-	/*	$rotations = $db->getRotation($congregation->getID);
-		$blackoutDates = $db->getBlackoutdatesForCongregations($congregation->getID);
-		foreach($rotations as $rotation){
-			if($rotation->getRotationDateFrom == $blackoutDates->getBlackoutDateFrom && )
-		}*/
 	}
-}
 
-function rearrageOrder($congregations){
-	$tempCongregations = array();
-	foreach($congregations as $congregation){
-		if(validOrderConflict($congregation) && $congregation.current ==  $congregation.prev){
-			$congregation.current = rand(count($congregations));
-			$tempNewCongregations = array();
-			continue;
+	function generateCongregationSchedule(){
+		$DB = new DB("./../");
+
+		$lastRot = $DB->getLastRotationID();
+		$lastRotID = $lastRot[0];
+
+		$lastDate = $DB->getNextRotationDate();
+		$lastDateStr = $lastDate[0];
+
+		// get the blackout dates for the next rotattion period
+		$blackouts = $DB->getAllBlackoutDates();
+		$blackoutArr = array();
+		foreach ($blackouts as $blackout) {
+			$blackoutArr[$blackout->getCongregationID()] = "{$blackout->getFromDate()}";
 		}
-		array_push($tempCongregations, $congregation);
+
+		//get next rotation dates
+		$dateStart = DateTime::createFromFormat('Y-m-d',$lastDateStr);
+		date_add($dateStart,date_interval_create_from_date_string("7 days"));
+		$dateEnd = DateTime::createFromFormat('Y-m-d',$lastDateStr);
+		date_add($dateEnd,date_interval_create_from_date_string("280 days"));
+
+		$interval = DateInterval::createFromDateString("7 days");
+		$period = new DatePeriod($dateStart,$interval,$dateEnd);
+
+		$RotDatesArr = array();
+		$counter = 1;
+		foreach ($period as $date) {
+			$RotDatesArr[$counter] = $date;
+			$counter++;
+		}
+
+
+		$dateHolidayStart = $dateStart;
+		date_sub($dateHolidayStart,date_interval_create_from_date_string("1 year"));
+		$dateHolidayEnd = $dateEnd;
+		date_sub($dateHolidayEnd,date_interval_create_from_date_string("1 year"));
+
+		/**
+		 * get holidays.. should be calling a new method to be made getHolidays between dates to
+		 * get the holidays from the next rotation period from last year.
+		 */ 
+		$holidays = $DB->getCongregationsHolidaysForDates(date_format($dateHolidayStart, 'Y-m-d'),date_format($dateHolidayEnd, 'Y-m-d'));
+		$holidayArr = array();
+		if(!empty($holidays)){
+			foreach ($holidays as $holiday) {
+				$holidayArr[$holiday['date']] = $holiday['last_congregation'];
+			}
+		}	
+		print_r($holidayArr);	
+
+		//fill in posibility array(matrix)
+		// - it needs to take into consideration past rotations in order to create the array
+		$possibilitiesArr = array();
+		for($i=1; $i<=count($RotDatesArr);$i++){
+			$curDate = $RotDatesArr[$i]->format('Y-m-d');
+			$congs = "";
+			foreach($blackoutArr as $blackoutCong => $date){
+				if($date != $curDate){
+					$congs .= "$blackoutCong,";
+				}
+			}
+			$congs = trim($congs,',');
+			$possibilitiesArr[$i] = $congs;
+		}
+
+		$numberOfWeeks = 13;
+		$numberOfCongregations = 13;
+		$numberOfRotationsAtATime = 3;
+
+		$counter = 1;
+		// go through the possible schedule array and randomly select congregations for dates.
+		$possibilitiesArrCopy = $possibilitiesArr;
+		$possibleScheduleRot1 = array();
+		$possibleScheduleRot2 = array();
+		$possibleScheduleRot3 = array();
+		foreach ($possibilitiesArrCopy as $rotNumber => $congsAvailable) {
+			
+			$search = 0;
+			$num = 0;
+			$radomNumber = 0;
+			$randomSelection = 0;
+			while(getType($search) == "integer"){
+				$test = explode(',', $congsAvailable);
+				$num = count($test);
+				$radomNumber = rand(0,($num-1));
+				$randomSelection = $test[$radomNumber];
+				//check number is not repeating within possibleSchedule before deleting
+				if($counter == 1){
+					$search = array_search($randomSelection,array_column($possibleScheduleRot1,'congregation'));
+				}
+				else if ($counter == 2) {
+					$search = array_search($randomSelection,array_column($possibleScheduleRot2,'congregation'));
+				}
+				else{
+					$search = array_search($randomSelection,array_column($possibleScheduleRot3,'congregation'));
+				}
+			}
+
+				// add to possibilityArr
+			if($counter == 1){
+				$possibleScheduleRot1[$rotNumber] = array("date" => $RotDatesArr[$rotNumber],
+												  "congregation" => $randomSelection);
+			}
+			else if ($counter == 2) {
+				$possibleScheduleRot2[$rotNumber] = array("date" => $RotDatesArr[$rotNumber],
+												  "congregation" => $randomSelection);
+			}
+			else{
+				$possibleScheduleRot3[$rotNumber] = array("date" => $RotDatesArr[$rotNumber],
+												  "congregation" => $randomSelection);
+			}
+
+			//deleting selection
+			for ($i=1; $i <= ($numberOfWeeks*$counter); $i++) { 
+				$oldVal = $possibilitiesArrCopy[$i];
+				$pattern = "/(^|\D)".$randomSelection."(\D|$)/";
+				$newVal = preg_replace($pattern,',',$oldVal);
+				$possibilitiesArrCopy[$i] = trim($newVal,',');
+			}
+
+			if($rotNumber%13 == 0){
+				$counter ++;
+			}
+		}
+
+		$possibleSchedule = array(($lastRotID+1)=>$possibleScheduleRot1, ($lastRotID+2)=>$possibleScheduleRot2, ($lastRotID+3)=>$possibleScheduleRot3);
+		
+		// foreach ($possibleSchedule as $rotation => $rot) {
+		// 	foreach ($rot as $r => $info) {
+
+		// 		$rotationToDate = DateTime::createFromFormat('Y-m-d',date_format($info['date'], 'Y-m-d'));
+		// 		date_add($rotationToDate,date_interval_create_from_date_string("6 days"));
+
+		// 		if($r > 13 && $r < 27){
+		// 			$fixedR = $r-13;
+		// 			$DB->insertNewRotation($rotation,$fixedR,$info['congregation'],date_format($info['date'],'Y-m-d'),date_format($rotationToDate,'Y-m-d'));
+		// 		}
+		// 		else if($r >=27){
+		// 			$fixedR = $r-26;
+		// 			$DB->insertNewRotation($rotation,$fixedR,$info['congregation'],date_format($info['date'],'Y-m-d'),date_format($rotationToDate,'Y-m-d'));
+		// 		}
+		// 		else{
+		// 			$DB->insertNewRotation($rotation,$r,$info['congregation'],date_format($info['date'],'Y-m-d'),date_format($rotationToDate,'Y-m-d'));
+		// 		}
+		// 	}
+		// }
 	}
-	return $tempCongregations;
-}
-
-/*
--        Get the order based on the assigned weeks after all congregations are assigned
--        Create new variable to check for the previous rotation number.
-
- */
-function validOrderConflict($currentCongregation, $congregations){
- foreach($congregations as $congregation){
- 	if($congregation !== $currentCongregation && $congregation.current == $currentCongregation.current)
- 		return true;
- }
- return false;
-}
-
-/** 
- * Get the DateTime object
- * 
- */
-function getDateTime($when){
-	return new DateTime($when);
-}
-
-
-function getModifiedDate($date, $formatQuery, $modifyDate){
-	return $date->modify(sprintf($formatQuery, $modifyDate));
-}
-
-function getFormattedDate($date, $formatQuery){
-	return $date->format($formatQuery);
-}
-
-?>

@@ -60,7 +60,7 @@
 				</div>
 			</div>
 		
-			<input class="editright" type="submit" value="Save">
+			<input class="editright" id="updateCongregation" type="submit" value="Save">
 		</form>		
 	</div>
 <?php
