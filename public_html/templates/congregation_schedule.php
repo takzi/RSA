@@ -29,7 +29,7 @@
 	$congregationSchedule = new CongregationSchedule($path_to_root, $page);
 ?>
 
-	<div class="schedule-container">
+	<div class="schedule-container clearfix">
 		<?php echo $congregationSchedule->insertCongregationSchedule(); ?>
 	</div>
 

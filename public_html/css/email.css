@@ -1,0 +1,15 @@
+#email_container {
+    width: 60%;
+    margin: 0 auto;
+}
+
+#email_h1 {
+	padding-top: 30px;
+    margin: 0 auto;
+	border-bottom: 1pt solid #d7d9dd;
+}
+
+#email-content {
+	width: 100%;
+	margin: 0 auto;
+}
