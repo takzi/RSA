@@ -4,7 +4,7 @@
  * @author     Chevy Mac
  * @author     Kristen Merritt
  * @version    Release: 1.0
- * @date       11/27/2017
+ * @date       11/30/2017
  */
 
 /***************************
@@ -219,4 +219,46 @@ input{
 		font-size: 3vw;
 		margin: 1vh 1vw 1vh 1vw;
 	}
+
+	#admin_container{
+		width: 90%;
+	}
+	
+	#form{
+		width: 350px;
+	}
+
+	#genScheBut{
+		margin-left: 0vw;
+		margin-top: 10px;
+	}
+	
+	input{
+		font-size: 12px;
+		height: 25px;
+	}
+	
+	table{
+		width: 90vw;
+	}
+
+	td{
+		height: 30px;
+	}
+	
+	.text, .fulltext, .heighttext{
+		font-size: 12px;
+	}
+	
+	#dateValues{
+		width: 30vw;
+	}
+	
+	#editright, .editright{
+		margin-left: 50vw;
+	}
+
+	#date-container{
+		width: 90%;
+	}	
 }
