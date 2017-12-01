@@ -326,7 +326,11 @@ class AdminFunctions{
 									 </a>\n
 
 									 <a href=''>\n
-									 	<input type='button' class='tb' name='delete-".$name."' value='Delete'>\n
+									 	<input type='button' class='tb tb-delete' name='delete-".$name."' value='Delete'>\n
+									 </a>\n
+
+									 <a href=''>\n
+									 	<input type='button' class='tb' name='email-".$name."' value='Email'>\n
 									 </a>\n
 
 									 <a href=\"#\" onclick=\"reset('". $type . "', ". $id . ")\">\n

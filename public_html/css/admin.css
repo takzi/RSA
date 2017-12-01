@@ -103,6 +103,10 @@ input{
 	float: right;
 }
 
+.tb-delete {
+	background-color: red;
+}
+
 #editright, .editright{
 	margin-left: 425px;
 	margin-bottom: 10px;
