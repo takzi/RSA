@@ -107,7 +107,7 @@ class AdminFunctions{
 					<div id='form'>\n
 						<input type='text' class='text' name='" . $input_name . "_name' value='" . $input_value . " Name'> 
 						<input type='button' value='Add Now'>\n
-						<input type='button' id='genScheBut' value='Generate New Schedule'>
+						<input type='button' id='gen".$input_name."But' value='Generate New Schedule'>
 						<a href='".$this->path_to_root."templates/congregation_schedule.php'><input type='button' value='View Current Schedule'></a>
 					</div>\n
 					<script type='text/javascript' src='".$this->path_to_root."js/reset.js'></script>";

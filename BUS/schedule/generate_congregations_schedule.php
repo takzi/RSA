@@ -61,22 +61,39 @@
 			foreach ($holidays as $holiday) {
 				$holidayArr[$holiday['date']] = $holiday['last_congregation'];
 			}
-		}	
-		print_r($holidayArr);	
+		}
 
 		//fill in posibility array(matrix)
 		// - it needs to take into consideration past rotations in order to create the array
 		$possibilitiesArr = array();
 		for($i=1; $i<=count($RotDatesArr);$i++){
 			$curDate = $RotDatesArr[$i]->format('Y-m-d');
-			$congs = "";
+			$blackOutCongs = "";
 			foreach($blackoutArr as $blackoutCong => $date){
 				if($date != $curDate){
-					$congs .= "$blackoutCong,";
+					$blackOutCongs .= "$blackoutCong,";
 				}
 			}
-			$congs = trim($congs,',');
-			$possibilitiesArr[$i] = $congs;
+			$holidayCongs = array();
+			foreach ($holidayArr as $hDate => $hCong) {
+				if($curDate == $hDate){
+					$holidayCongs[] = $hCong;
+				}
+			}
+			print_r($holidayCongs);
+			if(!empty($holidayCongs)){
+				$newCongs = "";
+				foreach ($holidayCongs as $cong) {
+					$pattern = "/(^|\D)".$cong."(\D|$)/";
+					$newCongs = preg_replace($pattern,',',$blackOutCongs);
+					print_r($newCongs);
+				}
+				$newHolidayCongs = trim($newCongs,',');
+				$possibilitiesArr[$i] = $newHolidayCongs;
+			}
+			else{
+				$possibilitiesArr[$i] = $blackOutCongs;
+			}
 		}
 
 		$numberOfWeeks = 13;
@@ -141,23 +158,23 @@
 
 		$possibleSchedule = array(($lastRotID+1)=>$possibleScheduleRot1, ($lastRotID+2)=>$possibleScheduleRot2, ($lastRotID+3)=>$possibleScheduleRot3);
 		
-		// foreach ($possibleSchedule as $rotation => $rot) {
-		// 	foreach ($rot as $r => $info) {
+		foreach ($possibleSchedule as $rotation => $rot) {
+			foreach ($rot as $r => $info) {
 
-		// 		$rotationToDate = DateTime::createFromFormat('Y-m-d',date_format($info['date'], 'Y-m-d'));
-		// 		date_add($rotationToDate,date_interval_create_from_date_string("6 days"));
+				$rotationToDate = DateTime::createFromFormat('Y-m-d',date_format($info['date'], 'Y-m-d'));
+				date_add($rotationToDate,date_interval_create_from_date_string("6 days"));
 
-		// 		if($r > 13 && $r < 27){
-		// 			$fixedR = $r-13;
-		// 			$DB->insertNewRotation($rotation,$fixedR,$info['congregation'],date_format($info['date'],'Y-m-d'),date_format($rotationToDate,'Y-m-d'));
-		// 		}
-		// 		else if($r >=27){
-		// 			$fixedR = $r-26;
-		// 			$DB->insertNewRotation($rotation,$fixedR,$info['congregation'],date_format($info['date'],'Y-m-d'),date_format($rotationToDate,'Y-m-d'));
-		// 		}
-		// 		else{
-		// 			$DB->insertNewRotation($rotation,$r,$info['congregation'],date_format($info['date'],'Y-m-d'),date_format($rotationToDate,'Y-m-d'));
-		// 		}
-		// 	}
-		// }
+				if($r > 13 && $r < 27){
+					$fixedR = $r-13;
+					$DB->insertNewRotation($rotation,$fixedR,$info['congregation'],date_format($info['date'],'Y-m-d'),date_format($rotationToDate,'Y-m-d'));
+				}
+				else if($r >=27){
+					$fixedR = $r-26;
+					$DB->insertNewRotation($rotation,$fixedR,$info['congregation'],date_format($info['date'],'Y-m-d'),date_format($rotationToDate,'Y-m-d'));
+				}
+				else{
+					$DB->insertNewRotation($rotation,$r,$info['congregation'],date_format($info['date'],'Y-m-d'),date_format($rotationToDate,'Y-m-d'));
+				}
+			}
+		}
 	}
