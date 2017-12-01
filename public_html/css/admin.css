@@ -260,5 +260,33 @@ input{
 
 	#date-container{
 		width: 90%;
-	}	
+	}
+
+	#title{
+		height: 30px;
+	}
+	
+	#generate{
+		width: 90%;
+	}
+	
+	.genDate{
+		width: 35%;
+	}
+
+	.genSche{
+		width: 65%;
+	}
+
+	.genBtn{
+		font-size: 14px;
+		height: 30px;
+		width: 90px;
+	}
+
+	#genRight{
+		float:right;
+		margin-left: 0px;
+	}
+	
 }
