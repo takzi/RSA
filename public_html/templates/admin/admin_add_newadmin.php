@@ -7,7 +7,7 @@
 	 * @date       11/17/17
 	 */
 	 
-	$page='RAHIN Add new Admin';
+	$page='RAIHN Add new Admin';
 	$path_to_root="./../../";
 	
 	// Setting up template system and loads functions for Admin

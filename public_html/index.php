@@ -7,7 +7,7 @@
 	 * @date       10/21/17
 	 */
 
-	$page='RAHIN Home';
+	$page='RAIHN Home';
 	$path_to_root="./";
 
 	// Setting up template system

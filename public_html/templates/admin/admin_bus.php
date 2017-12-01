@@ -7,7 +7,7 @@
 	 * @date       11/9/17
 	 */
 	 
-	$page='RAHIN Admin Bus Drivers';
+	$page='RAIHN Admin Bus Drivers';
 	$path_to_root="./../../";
 	
 	// Starting the session

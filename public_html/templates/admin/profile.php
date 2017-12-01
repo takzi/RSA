@@ -8,7 +8,7 @@
 	 * @date       11/16/17
 	 */
 	 
-	$page='RAHIN Admin Profile';
+	$page='RAIHN Admin Profile';
 	$path_to_root="./../../";
 	
 	// Starting the session

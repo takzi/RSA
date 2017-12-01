@@ -21,7 +21,7 @@
 	 * @date       11/16/17
 	 */
 	 
-	$page='RAHIN Admin Edit Congregation';
+	$page='RAIHN Admin Edit Congregation';
 	$path_to_root="./../../";
 
 	// starting a session
