@@ -321,7 +321,18 @@ class AdminFunctions{
 	 */
 	private function getHTMLSnippet($id, $name, $type){
 		return "<tr>
-					<td>" . $name ." <a href='admin_edit_". $this->getType($type, 'cong', 'bus','user') . ".php?" . $this->getType($type, 'congregation', 'driver', 'user') . "=" . $id ."'><input type='button' class='tb_right1' name='" . $name . "' value='Edit'></a><a href=\"#\" onclick=\"reset('". $type . "', ". $id . ")\"><input type='button' class='tb_right2' value='Reset Password'></a></td>
+					<td>" . $name ." <div class='tb-container'> <a href='admin_edit_". $this->getType($type, 'cong', 'bus','user') . ".php?" . $this->getType($type, 'congregation', 'driver', 'user') . "=" . $id ."'>\n
+									 	<input type='button' class='tb' name='" . $name . "' value='Edit'>\n
+									 </a>\n
+
+									 <a href=''>\n
+									 	<input type='button' class='tb' name='delete-".$name."' value='Delete'>\n
+									 </a>\n
+
+									 <a href=\"#\" onclick=\"reset('". $type . "', ". $id . ")\">\n
+									 	<input type='button' class='tb' value='Reset Password'>\n
+									 </a></div>\n
+					</td>
 				</tr>";
 	}	
 

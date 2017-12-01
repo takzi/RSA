@@ -4,7 +4,7 @@
  * @author     Chevy Mac
  * @author     Kristen Merritt
  * @version    Release: 1.0
- * @date       11/30/2017
+ * @date       11/27/2017
  */
 
 /***************************
@@ -93,17 +93,14 @@ input{
 	margin-left: 95px;
 }
 
-.tb_right1, .tb_right2{
+.tb-container {
+	float: right;
+	margin-right: 1vw;
+}
+
+.tb{
 	position: relative;
 	float: right;
-}
-
-.tb_right1{
-	right: 120px;
-}
-
-.tb_right2{
-	right: -35px;
 }
 
 #editright, .editright{
@@ -219,74 +216,4 @@ input{
 		font-size: 3vw;
 		margin: 1vh 1vw 1vh 1vw;
 	}
-
-	#admin_container{
-		width: 90%;
-	}
-	
-	#form{
-		width: 350px;
-	}
-
-	#genScheBut{
-		margin-left: 0vw;
-		margin-top: 10px;
-	}
-	
-	input{
-		font-size: 12px;
-		height: 25px;
-	}
-	
-	table{
-		width: 90vw;
-	}
-
-	td{
-		height: 30px;
-	}
-	
-	.text, .fulltext, .heighttext{
-		font-size: 12px;
-	}
-	
-	#dateValues{
-		width: 30vw;
-	}
-	
-	#editright, .editright{
-		margin-left: 50vw;
-	}
-
-	#date-container{
-		width: 90%;
-	}
-
-	#title{
-		height: 30px;
-	}
-	
-	#generate{
-		width: 90%;
-	}
-	
-	.genDate{
-		width: 35%;
-	}
-
-	.genSche{
-		width: 65%;
-	}
-
-	.genBtn{
-		font-size: 14px;
-		height: 30px;
-		width: 90px;
-	}
-
-	#genRight{
-		float:right;
-		margin-left: 0px;
-	}
-	
 }
