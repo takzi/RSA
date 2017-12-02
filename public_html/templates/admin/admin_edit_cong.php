@@ -49,20 +49,21 @@
 	<h1><?php echo $cong->getName(); ?></h1>
 	<div id="admin_container">
 		<form id="edit-cong-form" align="middle">
-			<input id="edit-name" class="fulltext" type="text" name="congregation" value="<?php echo $cong->getName(); ?>">
-			<input id="edit-leader-name" class="fulltext" type="text" name="congregation_leader" value="<?php echo $user->getWholeName(); ?>">
+			Congregation Name: <input id="edit-name" class="fulltext" type="text" name="congregation" value="<?php echo $cong->getName(); ?>">
+			<br><br>
+			Congregation Leader Name: <input id="edit-leader-name" class="fulltext" type="text" name="congregation_leader" value="<?php echo $user->getWholeName(); ?>">
 			<br><br>Blackout Dates<br><br>
 			<div id="date-container" class="clearfix">
 				<input id="date-input" class="text" type="date" name="date-input" value="">
 				<input id="dateArrowButton" type="button" value=">" onclick="insertDateValue()">
-				<div id="dateValues" class="heighttext">
-					<!-- INSERT CURRENT BLACKOUT DATES HERE FROM THE DB -->
+				<textarea id="dateValues" name="dateValues" class="heighttext">
 					<?php 
 						echo $adminFunctions->insertBlackoutDatesIntoEditCongregation($congID);
-					?>
-				</div>
+					?>						
+				</textarea> 
 			</div>
-		
+			<input type="hidden" name="leaderUID" value="<?php echo $user->getID(); ?>"/>
+			<input type="hidden" name="congUID" value="<?php echo $cong->getID(); ?>" />
 			<input class="editright" id="updateCongregation" type="submit" value="Save">
 		</form>		
 	</div>
