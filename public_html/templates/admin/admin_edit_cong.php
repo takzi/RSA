@@ -1,13 +1,10 @@
 <script>
 	function insertDateValue(){
-		var date = $("#date-input").val();
-		var p = document.createElement("p");
-		p.setAttribute("class", "date-inputted");
-		p.setAttribute("value", date);
-		var txt = document.createTextNode(date);
-		p.appendChild(txt);
-		$("#dateValues").append(p);
-		$("#date-input").val("");
+		var date = $("#date-from-input").val() + " - " + $("#date-to-input").val();
+		var txt = document.createTextNode(date+"\n");
+		$("#dateValues").append(txt);
+		$("#date-from-input").val("");
+		$("#date-to-input").val("");
 	}
 </script>
 
@@ -54,7 +51,9 @@
 			Congregation Leader Name: <input id="edit-leader-name" class="fulltext" type="text" name="congregation_leader" value="<?php echo $user->getWholeName(); ?>">
 			<br><br>Blackout Dates<br><br>
 			<div id="date-container" class="clearfix">
-				<input id="date-input" class="text" type="date" name="date-input" value="">
+				<input id="date-from-input" class="text" type="date" name="date-from-input" value="">
+				<input id="date-to-input" class="text" type="date" name="date-to-input" value="">
+				<br><br>
 				<input id="dateArrowButton" type="button" value=">" onclick="insertDateValue()">
 				<textarea id="dateValues" name="dateValues" class="heighttext">
 					<?php 
