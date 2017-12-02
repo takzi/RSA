@@ -56,7 +56,7 @@
 			<div id="date-container" class="clearfix">
 				<input id="date-input" class="text" type="date" name="date-input" value="">
 				<input id="dateArrowButton" type="button" value=">" onclick="insertDateValue()">
-				<textarea id="dateValues" class="heighttext">
+				<textarea id="dateValues" name="dateValues" class="heighttext">
 					<?php 
 						echo $adminFunctions->insertBlackoutDatesIntoEditCongregation($congID);
 					?>						
