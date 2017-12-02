@@ -207,7 +207,7 @@ class AdminFunctions{
 		$blackoutDates = $this->db->getBlackoutdatesForCongregation($id);
 
 		if(empty($blackoutDates)){
-			return "<p class='date-inputted' value=''>No blackout dates</p>";
+			return " ";
 		}
 
 		$paragraphDates = "";
@@ -216,7 +216,8 @@ class AdminFunctions{
 			$fromDate = $blackoutDate->getFromDate();
 			$toDate = $blackoutDate->getToDate();
 			$date = $this->formatDate($fromDate, "m/d/Y - ") . $this->formatDate($toDate, "m/d/Y");
-			$paragraphDates .= "<p class='date-inputted' value='" . $date ."'>". $date . "</p>\n";
+			//$paragraphDates .= "<p class='date-inputted' value='" . $date ."'>". $date . "</p>\n";
+			$paragraphDates .=  $date ."\n";
 		}
 
 		return $paragraphDates;
