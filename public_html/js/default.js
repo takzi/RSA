@@ -34,21 +34,21 @@
 		});
 	})
 
-	$("#email-btn").click(function(){
-		console.log("you clicked id= "+this.data().)
-	})
-
 	$("#loginBtn").click(function(){
 		
 	})
 
 	$("#edit-cong-form").submit(function(e){
         e.preventDefault();
-    });
+    })
 
     $("#edit-bus-form").submit(function(e){
         e.preventDefault();
-    });
+    })
+
+    $("#email-form").submit(function(e){
+    	e.preventDefault();
+    })
 
 	$("#updateCongregation").click(function(){
 		var $data = {

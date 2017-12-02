@@ -357,8 +357,8 @@ class AdminFunctions{
 									 	<input type='button' id='deleteButton' class='tb tb-delete' name='delete-".$name."' value='Delete'>\n
 									 </a>\n
 
-									 <a href=''>\n
-									 	<input type='button' class='tb' data-id='".$id."' id='email-btn' name='email-".$name."' value='Email'>\n
+									 <a href='../email.php?uid=".$id."'>\n
+									 	<input type='button' class='tb' id='email-btn' name='email-".$name."' value='Email'>\n
 									 </a>\n
 
 									 <a href=\"#\" \">\n
