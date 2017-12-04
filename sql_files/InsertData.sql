@@ -29,7 +29,7 @@ INSERT INTO `user` VALUES
 (0, 'Bus', 'Driver3', 5, 'driver3@gmail.com', '$2y$10$mC5chca3RBB3REbtSu8PKeDoLo66MvIPT4BjXBylUg/pjLfEb2BCy'),
 (0, 'Bus', 'Driver4', 5, 'driver4@gmail.com', '$2y$10$mC5chca3RBB3REbtSu8PKeDoLo66MvIPT4BjXBylUg/pjLfEb2BCy'),
 (0, 'Bus', 'Driver5', 5, 'driver5@gmail.com', '$2y$10$mC5chca3RBB3REbtSu8PKeDoLo66MvIPT4BjXBylUg/pjLfEb2BCy'),
-(0, 'Bus', 'Driver6', 5, 'driver6@gmail.com', '$2y$10$mC5chca3RBB3REbtSu8PKeDoLo66MvIPT4BjXBylUg/pjLfEb2BCy'),
+(0, 'Bus', 'Driver6', 5, 'driver6@gmail.com', '$2y$10$mC5chca3RBB3REbtSu8PKeDoLo66MvIPT4BjXBylUg/pjLfEb2BCy');
 
 -- (0, 'Kristen', 'Merritt', 1, 'km2029@rit.edu', '$2y$10$da2lsTqiCqIQ1CJZoeM3kuMRT.9N4i40XBmmGF0swIBWkdk4WnHH2'),
 -- (0, 'Amanda', 'Bynes', 3, 'takzitest@gmail.com', '$2y$10$mC5chca3RBB3REbtSu8PKeDoLo66MvIPT4BjXBylUg/pjLfEb2BCy'),
@@ -63,12 +63,12 @@ INSERT INTO `bus_driver` VALUES
 (0, 20, '(585) 231-8976'),
 (0, 21, '(585) 777-4565');
 
---(0, 4, '(585) 456-3789'),
---(0, 5, '(585) 789-4723'),
---(0, 10, '(585) 589-4215'),
---(0, 11, '(585) 893-6588'),
---(0, 13, '(585) 231-8976'),
---(0, 20, '(585) 777-4565');
+-- (0, 4, '(585) 456-3789'),
+-- (0, 5, '(585) 789-4723'),
+-- (0, 10, '(585) 589-4215'),
+-- (0, 11, '(585) 893-6588'),
+-- (0, 13, '(585) 231-8976'),
+-- (0, 20, '(585) 777-4565');
 
 -- CONGREGATION ===============================================================
 INSERT INTO `congregation` VALUES
@@ -86,19 +86,19 @@ INSERT INTO `congregation` VALUES
 (0, 14, 'Day Center'),
 (0, 15, 'Third Presbyterian');
 
---(0, 3, 'DUPC'),
---(0, 6, 'First Presbyterian Pittsford'),
---(0, 7, "St. Paul's Episcopal"),
---(0, 8, 'Two Saints'),
---(0, 9, 'First Universalist'),
---(0, 12, 'Incarnate World'),
---(0, 14, 'Assumption'),
---(0, 15, 'Asbury Methodist'),
---(0, 16, 'Mary Magdalene'),
---(0, 17, 'First Unitarian'),
---(0, 18, 'Temple Sinai'),
---(0, 19, 'Day Center'),
---(0, 21, 'Third Presbyterian');
+-- (0, 3, 'DUPC'),
+-- (0, 6, 'First Presbyterian Pittsford'),
+-- (0, 7, "St. Paul's Episcopal"),
+-- (0, 8, 'Two Saints'),
+-- (0, 9, 'First Universalist'),
+-- (0, 12, 'Incarnate World'),
+-- (0, 14, 'Assumption'),
+-- (0, 15, 'Asbury Methodist'),
+-- (0, 16, 'Mary Magdalene'),
+-- (0, 17, 'First Unitarian'),
+-- (0, 18, 'Temple Sinai'),
+-- (0, 19, 'Day Center'),
+-- (0, 21, 'Third Presbyterian');
 
 -- SUPPORTING CONGREGATION ====================================================
 INSERT INTO `supporting_congregation` VALUES
@@ -166,7 +166,7 @@ INSERT INTO `holiday` VALUES
 ('New Years Day', '2018-01-01', 10),
 ('Memorial Day', '2018-05-28', 10),
 ('4th of July', '2018-07-04', 10),
-('Labor Day', '2018-09-03', 10),
+('Labor Day', '2018-09-03', 10);
 
 -- AVAILABILITY  ==============================================================
 INSERT INTO `availability` VALUES
@@ -227,7 +227,7 @@ INSERT INTO `blackout_dates` VALUES
 (9, '2018-07-19', '2017-07-26'),
 (10, '2018-08-02', '2017-08-09'),
 (11, '2018-08-04', '2017-08-09'),
-(12, '2018-08-15', '2017-08-20'),
+(12, '2018-08-15', '2017-08-20');
 
 -- (1, '2017-09-24', '2017-09-30'),
 -- (2, '2017-09-24', '2017-09-30'),
@@ -257,4 +257,4 @@ INSERT INTO `rotation` VALUES
 (0, 1, 9, '2018-03-05', '2017-03-11', 1),
 (0, 1, 10, '2018-03-12', '2017-03-18', 1),
 (0, 1, 11, '2018-03-19', '2017-03-25', 1),
-(0, 1, 12, '2018-03-26', '2017-04-01', 1),
+(0, 1, 12, '2018-03-26', '2017-04-01', 1);
