@@ -60,6 +60,7 @@
 						<form id='change_password_form' method='POST'>
 							<input id='pass' type='password' placeholder='New Password' name='password' required>
 							<br>
+							<br>
 							<input id='confirmpass' type='password' placeholder='Confirm Password' name='confirmpassword' required>
 							<div id='confirmed' class='hide'>Password are not matched.</div>
 							<br>
