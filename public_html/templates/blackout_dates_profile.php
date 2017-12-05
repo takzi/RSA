@@ -28,7 +28,7 @@
 	$congID = $cong->getID();
 	
 ?>
-
+<script src="../js/default.js"></script>
 <div id="adminLink">
 		<a href="profile.php">Profile</a> > <a href="#">View/Request Blackout Dates</a>
 	</div>
@@ -47,18 +47,17 @@
 			<form id="edit-cong-form" align="middle">
 				<br><br>Blackout Dates<br><br>
 				<div id="date-container" class="clearfix">
-					From <input id="from-date-input" class="text" type="date" name="from-date-input" value="">
-					To <input id="to-date-input" class="text" type="date" name="to-date-input" value="">
-					<input id="dateArrowButton" type="button" value=">" onclick="insertDateValue()">
-					<div id="dateValues" class="heighttext">
-						<!-- INSERT CURRENT BLACKOUT DATES HERE FROM THE DB -->
-						<?php 
-							echo $adminFunctions->insertBlackoutDatesIntoEditCongregation($congID);
-						?>
-					</div>
+					From <input id="date-from-input" class="text" type="date" name="from-date-input" value="">
+					To <input id="date-to-input" class="text" type="date" name="to-date-input" value="">
+					<input id="dateArrowButton" class="blackout" type="button" value=">" >
+				<textarea id="dateValues" name="dateValues" class="heighttext">
+					<?php 
+						echo $adminFunctions->insertBlackoutDatesIntoEditCongregation($congID);
+					?>						
+				</textarea> 
 				</div>
-			
-				<input class="editright" type="submit" value="Save" onclick="submitBlackoutDates()">
+				<input type="hidden" id="congUID" name="congUID" value="<?php echo $congID; ?>" />
+				<input class="editright" id="updateBlackoutDates" type="submit" value="Save">
 			</form>		
 		</div>
 		</div>
@@ -67,64 +66,3 @@
 <?php
 	echo $generalTemplate->insertFooter();
 ?>
-<script>
-	var blackoutDates = [];
-	function insertDateValue(){
-		var fromDate = $("#from-date-input").val();
-		var toDate = $("#to-date-input").val();
-		if(fromDate && toDate){
-			if($("#dateValues").text().trim() == "No blackout dates"){
-				$("#dateValues").text("");
-			}
-
-			blackoutDates.push(fromDate + ","+toDate);
-			var formattedDate = getDateString(fromDate, toDate);
-			var p = document.createElement("p");
-			p.setAttribute("class", "date-inputted");
-			p.setAttribute("value", formattedDate);
-			var txt = document.createTextNode(formattedDate);
-			p.appendChild(txt);
-			$("#dateValues").append(p);
-			$("#from-date-input").val("");
-			$("#to-date-input").val("");
-		}
-	}
-
-	function getDateString(fromDateStr, toDateStr) {
-	    [fromYear, fromMonth, fromDay] = fromDateStr.split("-");
-	    [toYear, toMonth, toDay] = toDateStr.split("-");
-	    // fromMonth = getMonth(fromMonth);
-	    // toMonth = getMonth(toMonth);
-
-	    return fromMonth + '/' + fromDay + '/' + fromYear + ' - ' +  toMonth + '/' + toDay + '/' + toYear;
-	    // if(fromYear == toYear && fromMonth == toMonth)
-	    // 	return fromMonth + " " + fromDay + " - " + toDay + ", " + fromYear;
-	    // else
-	    // 	return fromMonth + " " + fromDay + ", " + fromYear + " - " + toMonth + " " + toDay + ", " + toYear
-	}
-
-	function submitBlackoutDates(){
-		console.log(blackoutDates);
-		for(var i = 0 ; i < blackoutDates.length; i++ ){
-			[fromDate, toDate] = blackoutDates[i].split(",");
-			$.ajax({
-			  type: "POST",
-			  url: "admin/submitForm.php",
-			  data:{action:'submitBlackoutDates', congID: <?php echo $congID ?>,from: fromDate, to: toDate},
-			  success: function(){
-			    alert("The blackout dates are now saved");
-			  },
-			  error: function(){
-			    alert("There is an error with the submit");
-			    exit();
-			  }
-			});
-		}
-	}
-
-	function getMonth(monthNumber){
-		var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-		return months[monthNumber - 1];
-	}
-
-</script>

@@ -13,13 +13,6 @@
 			type: "POST",
 			url: '../admin/admin_access.php',
 			data: $data
-			//  success: function(data){  
-   //              alert("success" + data );  
-   //          },
-   //          error: function(data) {
-   //          	//var err= eval("(" + xhr.responseText + ")");
-   //              alert("Something went wrong in the server"); 
-   //          }
 		}).done(function(msg){
 			//alert("Rotation Created");
 			console.log(msg);
@@ -58,54 +51,94 @@
         e.preventDefault();
     });
 
+    $("#dateArrowButton").click(function(e){
+        e.preventDefault();
+    });
+
 	$("#updateCongregation").click(function(){
-		$rawData = $("#dateValues").val().split('\n');
 		$congName = $("#edit-name").val();
 		$leaderName = $("#edit-leader-name").val();
 		$congID = $('#congUID').val();
 		$leaderID = $('#leaderUID').val()
-		$dateValues = [];
-		console.log($rawData);
 
-		for(var index = 0; index < $rawData.length; index++){
-			if(($current = $rawData[index].trim()).length != 0 && !$current.includes('/')){
-				$dateValues.push($current);
-			}
-		}
-		console.log($dateValues);
-		console.log($('#congUID').val());
 		var $data = {
-	 		action: 'updateCongregation', blackouts: $dateValues, leader: $leaderName, cong: $congName
+	 		action: 'updateCongregation', leaderID: $leaderID, leader: $leaderName, congID: $congID, cong: $congName
 	 	}
 		$.ajax({
 			type: 'POST',
 			url: '../admin/admin_access.php',
 			data: $data,
 		}).done(function(msg){
-			console.log(msg);
-			//alert("Congregation Updated");
-			//location.reload();
+			submitBlackoutDates();
+			alert("Congregation Updated");
+			location.reload();
 		});
 	})
 
+	$(".blackout").click(function(){
+		insertBlackoutDateValue();
+	})
+
+	$(".availability").click(function(){
+		insertAvailabilityDateValue();
+	})
+
+	$("#updateBlackoutDates").click(function(){
+		submitBlackoutDates();
+		alert("The blackout dates are now saved");
+		location.reload();
+	})
+
+	$("#updateAvailability").click(function(){
+		submitAvailabilityDates();
+		alert("The availability dates are now saved");
+		location.reload();
+	})
+
 	$("#updateBusDriver").click(function(){
+		$name = $("#edit-name").val();
+		$busID = $('#busDriverUID').val();
+		$contactNumber = $('#edit-number').val();
 		var $data = {
-	 		action: 'updateBusDriver', 
+	 		action: 'updateBusDriver', name: $name, id: $busID, contactNum: $contactNumber
 	 	}
 		$.ajax({
 			type: 'POST',
 			url: '../admin/admin_access.php',
 			data: $data
 		}).done(function(msg){
-			console.log(msg);
-			//alert("Bus Driver Updated");
-			//location.reload();
+			// console.log(msg);
+			submitAvailabilityDates();
+			alert("Bus Driver Updated");
+			location.reload();
 		});
 	})
 
 	$('a.anchor').click(function(e){
 		// preventing from refreshing
 		e.preventDefault();
+	})
+
+	$("#save-btn").click(function(e) {
+		$name = $("#edit-leader-name").val();
+		$userID = $("#userID").val();
+		var $data = {
+			action:'save', id: $userID, name: $name
+		}
+
+	   $.ajax({
+           type: "POST",
+           url: '../admin/admin_access.php',
+           data: $data,
+           success: function(data){  
+                alert( "User Updated" );  
+                location.reload();
+            },
+            error: function(data) {
+            	//var err= eval("(" + xhr.responseText + ")");
+                alert("Something went wrong in the server"); 
+            }
+        });
 	})
 
 	$(".reset-btn").click(function(e) {
@@ -145,4 +178,92 @@
             }
 		});
 	})
+
+	var blackoutDates = [];
+	function insertBlackoutDateValue(){
+		var fromDate = $("#date-from-input").val();
+		var toDate = $("#date-to-input").val();
+
+		if(fromDate && toDate){
+			if($("#dateValues").text().trim() == "No blackout dates"){
+				$("#dateValues").text("");
+			}
+
+			blackoutDates.push(fromDate + ","+toDate);
+			var formattedDate = getBlackoutDateString(fromDate, toDate);
+			var txt = document.createTextNode(formattedDate +"\n");
+			$("#dateValues").append(txt);
+			$("#date-from-input").val("");
+			$("#date-to-input").val("");
+		}
+	}
+
+	function getBlackoutDateString(fromDateStr, toDateStr) {
+	    [fromYear, fromMonth, fromDay] = fromDateStr.split("-");
+	    [toYear, toMonth, toDay] = toDateStr.split("-");
+
+	    return fromMonth + '/' + fromDay + '/' + fromYear + ' - ' +  toMonth + '/' + toDay + '/' + toYear;
+	}
+
+	function submitBlackoutDates(){
+		console.log(blackoutDates);
+		var id = $('#congUID').val();
+		for(var i = 0 ; i < blackoutDates.length; i++ ){
+			[fromDate, toDate] = blackoutDates[i].split(",");
+			$.ajax({
+			  type: "POST",
+			  url: "../templates/admin/admin_access.php",
+			  data:{action:'submitBlackoutDates', congID: id,from: fromDate, to: toDate}
+			})
+		}
+	}
+
+	function getMonth(monthNumber){
+		var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		return months[monthNumber - 1];
+	}
+
+	var availabilityDates = [];
+	function insertAvailabilityDateValue(){
+		var date = $("#date-input").val();
+		var time_of_day =$("#time_of_day").val();
+		if (typeof (time_of_day) == 'undefined')
+			time_of_day = 1;
+		console.log(time_of_day);
+		if(date && time_of_day != -1){
+			if($("#dateValues").text().trim() == "No availability dates"){
+				$("#dateValues").text("");
+			}
+
+			availabilityDates.push(date + ","+ time_of_day);
+			var formattedDate = getAvailabilityDateString(date) + ' - ' + getTimeOfDay(time_of_day);
+			var txt = document.createTextNode(formattedDate+"\n");
+			$("#dateValues").append(txt);
+			$("#date-input").val("");
+		}
+	}
+
+	function getAvailabilityDateString(dateStr) {
+	    [year, month, day] = dateStr.split("-");
+
+	    return month + '/' + day + '/' + year;
+	}
+
+	function submitAvailabilityDates(){
+		console.log(availabilityDates);
+		var id = $('#busDriverUID').val();
+		for(var i = 0 ; i < availabilityDates.length; i++ ){
+			[date, time_of_day] = availabilityDates[i].split(",");
+			$.ajax({
+			  type: "POST",
+			  url: "../templates/admin/admin_access.php",
+			  data:{action:'submitAvailabilityDates', busID: id, availabilityDate: date, timeOfDay: time_of_day}
+			});
+		}
+	}
+
+	function getTimeOfDay(timeOfDayValue){
+		var timeOfDay = ['Any', 'Morning', 'Afternoon'];
+		return timeOfDay[timeOfDayValue - 1];
+	}
 }

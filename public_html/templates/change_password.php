@@ -14,8 +14,10 @@
 
 	// Setting up template system
 	require_once($path_to_root.'../BUS/GeneralTemplate.class.php');
-	$generalTemplate = new GeneralTemplate($page, $path_to_root);
+	require_once($path_to_root.'../BUS/admin/AdminFunctions.class.php');
 	
+	$generalTemplate = new GeneralTemplate($page, $path_to_root);
+	$adminFunctions = new AdminFunctions($page, $path_to_root);
 	// Starting the session
 	session_start(); 
 	
@@ -26,7 +28,8 @@
 	echo '<link href="'.$path_to_root.'css/request_account_form.css" rel="stylesheet">';
 	
 	// Checks if the fields aren't empty before proceeding creating account.
-	if( !empty($_POST['password']) && !empty($_POST['confirmpassword'])) {
+	if( !empty($_POST['currentpassword']) && !empty($_POST['password']) && !empty($_POST['confirmpassword'])) {
+		$currentPassword = $_POST['currentpassword'];
 		$password = $_POST['password'];
 		$confirmPassword = $_POST['confirmpassword'];
 		$id = $_SESSION['id'];
@@ -34,12 +37,20 @@
 		$lastName = $_SESSION['last'];
 		$email = $_SESSION['email'];
 		$role = $_SESSION['role'];
-		if($password === $confirmPassword){
-			$generalTemplate->updatePassword($id, $firstName, $lastName, $role, $email, $password);
-			echo "<script>alert('Password updated')</script>";
+
+		$user = $adminFunctions->getUser($id)[0];
+		
+		if(password_verify($currentPassword, $user->getPassword())){
+			if($password === $confirmPassword){
+				$generalTemplate->updatePassword($id, $firstName, $lastName, $role, $email, $password);
+				echo "<script>alert('Password updated')</script>";
+			}else{
+				echo "<script>alert('Password are not matched')</script>";
+			}
 		}else{
-			echo "<script>alert('Password are not matched')</script>";
+			echo "<script>alert('The current password is incorrect')</script>";
 		}
+
 	}
 ?>
 		<div id="adminLink">
@@ -48,8 +59,6 @@
 		<h1 id='profile_h1'> Change Password </h1>
 			<div id="profile_container">
 				<div align="left">
-					<a href="change_password.php"><button>Change Password</button></a>	
-					<br>
 					<a href="profile.php"><button>View Schedule</button></a>
 					<br>
 					<button>Request Schedule Change</button>
@@ -58,6 +67,11 @@
 				<div align="right">
 					<div id="pw_form">
 						<form id='change_password_form' method='POST'>
+							<br>
+							<br>
+							<input id='currentpass' type='password' placeholder='Current Password' name='currentpassword' required>
+							<br>
+							<br>
 							<input id='pass' type='password' placeholder='New Password' name='password' required>
 							<br>
 							<br>

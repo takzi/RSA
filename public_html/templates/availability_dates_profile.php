@@ -28,7 +28,7 @@
 	$busID = $busDriverUser->getID();
 	
 ?>
-
+<script src="../js/default.js"></script>
 <div id="adminLink">
 		<a href="profile.php">Profile</a> > <a href="#">View/Request Availability Dates</a>
 	</div>
@@ -54,16 +54,16 @@
 						<option value='2'>Morning</option>
 						<option value='3'>Afternoon</option>
 					</select>
-					<input id="dateArrowButton" type="button" value=">" onclick="insertDateValue()">
-					<div id="dateValues" class="heighttext">
+					<input id="dateArrowButton" class="availability" type="button" value=">" >
+					<textarea id="dateValues" class="heighttext">
 						<!-- INSERT CURRENT BLACKOUT DATES HERE FROM THE DB -->
 						<?php 
 							echo $adminFunctions->insertAvailablityIntoEditDriver($busID);
 						?>
-					</div>
+					</textarea>
 				</div>
-			
-				<input class="editright" type="submit" value="Save" onclick="submitAvailabilityDates()">
+				<input type="hidden" id="busDriverUID" name="busDriverUID" value="<?php echo $busID; ?>" />
+				<input class="editright" id="updateAvailability" type="submit" value="Save">
 			</form>		
 		</div>
 		</div>
@@ -72,56 +72,3 @@
 <?php
 	echo $generalTemplate->insertFooter();
 ?>
-<script>
-	var availabilityDates = [];
-	function insertDateValue(){
-		var date = $("#date-input").val();
-		var time_of_day =$("#time_of_day").val();
-		if(date && time_of_day != -1){
-			if($("#dateValues").text().trim() == "No availability dates"){
-				$("#dateValues").text("");
-			}
-
-			availabilityDates.push(date + ","+ time_of_day);
-			var formattedDate = getDateString(date) + ' - ' + getTimeOfDay(time_of_day);
-			var p = document.createElement("p");
-			p.setAttribute("class", "date-inputted");
-			p.setAttribute("value", formattedDate);
-			var txt = document.createTextNode(formattedDate);
-			p.appendChild(txt);
-			$("#dateValues").append(p);
-			$("#date-input").val("");
-		}
-	}
-
-	function getDateString(dateStr) {
-	    [year, month, day] = dateStr.split("-");
-
-	    return month + '/' + day + '/' + year;
-	}
-
-	function submitAvailabilityDates(){
-		console.log(availabilityDates);
-		for(var i = 0 ; i < availabilityDates.length; i++ ){
-			[date, time_of_day] = availabilityDates[i].split(",");
-			$.ajax({
-			  type: "POST",
-			  url: "admin/submitForm.php",
-			  data:{action:'submitAvailabilityDates', busID: <?php echo $busID ?>, availabilityDate: date, timeOfDay: time_of_day},
-			  success: function(){
-			    alert("The availability dates are now saved");
-			  },
-			  error: function(){
-			    alert("There is an error with the submit");
-			    exit();
-			  }
-			});
-		}
-	}
-
-	function getTimeOfDay(timeOfDayValue){
-		var timeOfDay = ['Any', 'Morning', 'Afternoon'];
-		return timeOfDay[timeOfDayValue - 1];
-	}
-
-</script>

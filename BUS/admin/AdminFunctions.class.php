@@ -225,7 +225,8 @@ class AdminFunctions{
 		$paragraphDates = "";
 		foreach($availabilities as $availability){
 			$date = $this->formatDate($availability->getAvailability(), "m/d/Y") . ' - ' . $availability->getTimeOfDay();
-			$paragraphDates .= "<p class='date-inputted' value='" . $date ."'>". $date . "</p>\n";
+			//$paragraphDates .= "<p class='date-inputted' value='" . $date ."'>". $date . "</p>\n";
+			$paragraphDates .=  $date ."\n";
 		}
 
 		return $paragraphDates;
@@ -280,23 +281,28 @@ class AdminFunctions{
 		$this->updateUser($_id,$_fName, $_lName, $_roleID, $_email, $_password);
 	}
 
-	function updateCongregation($_id, $_contactID, $_name, $_userWholeName, $_blackoutDates){
-		//$user = $this->getUser($_contactID())[0];
-		//$data = $this->db->updateCongregation($_id, $_contactID, $_name);
-
-		foreach($_blackoutDates as $blackoutDate){
-			$date = explode(' ', $blackoutDate);
-			print_r($date);
-			// $date = $this->formatDate($fromDate, "m/d/Y - ") . $this->formatDate($toDate, "m/d/Y");
-			// //$paragraphDates .= "<p class='date-inputted' value='" . $date ."'>". $date . "</p>\n";
-			// $paragraphDates .=  $date ."\n";
+	function updateCongregation($_id, $_contactID, $_name, $_userWholeName){
+		$user = $this->getUser($_contactID)[0];
+		$data = $this->db->updateCongregation($_id, $_contactID, $_name);
+		$name = explode(" ", $_userWholeName);
+		for($index = 1; $index < count($name); $index++){
+			$lastName .= $name[$index] . " ";
 		}
-
+		
+		$this->updateUser($_contactID, $name[0], trim($lastName), $user->getRole(), $user->getEmail(), $user->getPassword())
+;
 		return $data;
 	}
 
-	function updateBusDriver($_id, $_contactID, $_contactNumber){
-		$data = $this->db->updateBusDriver($_id, $_contactID, $_contactNumber);
+	function updateBusDriver($_id, $_name, $_contactNumber){
+		$user = $this->getBusDriver($_id)[0];
+		$name = explode(" ", $_name);
+		for($index = 1; $index < count($name); $index++){
+			if(!empty($name[$index]))
+				$last .= $name[$index] . " ";
+		}
+		$this->updateUser($user->getID(), $name[0], trim($last), $user->getRole(), $user->getEmail(), $user->getPassword());
+		$data = $this->db->updateBusDriver($_id, $user->getID(), $_contactNumber);
 		return $data;
 	}
 
