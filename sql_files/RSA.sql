@@ -38,7 +38,7 @@ CREATE TABLE availability (
 	`bus_driver_ID` INT(11) NOT NULL,
 	`availability` DATE NOT NULL,
 	`time_of_day` ENUM('Any','Morning','Afternoon') NOT NULL,
-	PRIMARY KEY (`bus_driver_ID`,`availability`),
+	PRIMARY KEY (`bus_driver_ID`,`availability`, `time_of_day`),
 	KEY `fk_availability_bus_driver` (`bus_driver_ID`),
 	CONSTRAINT `fk_availability_bus_driver` FOREIGN KEY (`bus_driver_ID`) REFERENCES `bus_driver` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );

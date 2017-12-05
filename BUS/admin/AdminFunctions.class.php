@@ -13,6 +13,8 @@
 
 if(isset($_POST['action'])){
 		print_r("in action");
+
+		$adminFunctions = new AdminFunctions();
 		$action = $_POST['action'];
 
 		switch ($action) {
@@ -28,10 +30,10 @@ if(isset($_POST['action'])){
 				break;
 
 			case 'reset':
-				$this->resetPassword($_POST['type'], $_POST['userId']);
+				//$this->resetPassword($_POST['type'], $_POST['userId']);
 				$data = "Password Reset";
 				print_r($data);
-				break;
+				return $data;
 
 			case 'delete':
 				$data = $this->delete($_POST['type'], $_POST['id']);
@@ -115,11 +117,10 @@ class AdminFunctions{
 					<a href='#'>".$type."</a>\n
 				</div>\n
 				<h1>".$type."</h1>\n
-					<div id='form'>\n
-						<input type='text' class='text' name='" . $input_name . "_name' value='" . $input_value . " Name'> 
-						<input type='button' value='Add Now'>\n
-						<input type='button' id='genScheBut' value='Generate New Schedule'>
-						<a href='".$this->path_to_root."templates/congregation_schedule.php'><input type='button' value='View Current Schedule'></a>
+					<div id='form'>\n 
+						<a href='".$this->path_to_root."templates/admin/create_".$input_name.".php'><input type='button' id='createNew' value='Create New'></a>\n
+						<input type='button' id='genScheBut' value='Generate New Schedule'>\n
+						<a href='".$this->path_to_root."templates/congregation_schedule.php'><input type='button' value='View Current Schedule'></a>\n
 					</div>";
 	}
 
@@ -350,20 +351,21 @@ class AdminFunctions{
 	 */
 	private function getHTMLSnippet($id, $name, $type){
 		return "<tr>
-					<td>" . $name ." <div class='tb-container'> <a href='admin_edit_". $this->getType($type, 'cong', 'bus','user') . ".php?" . $this->getType($type, 'congregation', 'driver', 'user') . "=" . $id ."'>\n
+					<td>" . $name ." <div class='tb-container'> <a class='anchor' href='admin_edit_". $this->getType($type, 'cong', 'bus','user') . ".php?" . $this->getType($type, 'congregation', 'driver', 'user') . "=" . $id ."'>\n
 									 	<input type='button' class='tb' name='" . $name . "' value='Edit'>\n
 									 </a>\n
 
-									 <a href=''>\n
-									 	<input type='button' id='deleteButton' class='tb tb-delete' name='delete-".$name."' value='Delete'>\n
+									 <a class='anchor' href='#'>\n
+									 	<input type='button' class='delete-btn tb tb-delete' data-id='".$id ."' data-type='". $type."' name='delete-".$name."' value='Delete'>\n
 									 </a>\n
 
 									 <a href='../email.php?uid=".$id."'>\n
 									 	<input type='button' class='tb' id='email-btn' name='email-".$name."' value='Email'>\n
+
 									 </a>\n
 
-									 <a href=\"#\" \">\n
-									 	<input type='button' id='resetButton' class='tb' value='Reset Password'>\n
+									 <a class='anchor' href='#'>\n
+									 	<input type='button' class='reset-btn tb' data-id='".$id ."' data-type='". $type."' value='Reset Password'>\n
 									 </a></div>\n
 					</td>
 

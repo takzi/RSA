@@ -102,35 +102,47 @@ $.urlParam = function(name){
 		});
 	})
 
-	$("#resetButton").click(function(currentType, id) {
+	$('a.anchor').click(function(e){
+		// preventing from refreshing
+		e.preventDefault();
+	})
+
+	$(".reset-btn").click(function(e) {
 		var $data = {
-			action:'reset', type: currentType, userId: id
+			action:'reset', type: $(this).data("type"), userId: $(this).data("id")
 		}
+		//console.log($data);
+
 	   $.ajax({
            type: "POST",
-           url: '../../../../BUS/admin/AdminFunctions.class.php',
+           url: '../../BUS/admin/AdminFunctions.class.php',
            data: $data,
            success: function(data){  
                 alert( data );  
             },
             error: function(data) {
+            	console.log(data);
                 alert("Sorry, it is seems that there is an error"); 
             }
+<<<<<<< HEAD
           });
+=======
+        });
+>>>>>>> 231233b6b8741d3511360350c5ce026f16df0935
 	})
 
-	$("#deleteButton").click(function(currentType, currentId){
-		var $data = {
-	 		action: 'delete', type: currentType, id: currentId
-	 	}
-		$.ajax({
-			type: 'POST',
-			url: '../../../../BUS/admin/AdminFunctions.class.php',
-			data: $data
-		}).done(function(msg){
-			console.log(msg);
-			//alert("Bus Driver Updated");
-			//location.reload();
-		});
-	})
+	// $("#deleteButton").click(function(currentType, currentId){
+	// 	var $data = {
+	//  		action: 'delete', type: data, id: currentId
+	//  	}
+	// 	$.ajax({
+	// 		type: 'POST',
+	// 		url: '../../../../BUS/admin/AdminFunctions.class.php',
+	// 		data: $data
+	// 	}).done(function(msg){
+	// 		console.log(msg);
+	// 		//alert("Bus Driver Updated");
+	// 		//location.reload();
+	// 	});
+	// })
 }
