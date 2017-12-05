@@ -28,7 +28,7 @@
 		<br>
 		<form id="email-form">
 			<textarea id="email-content" name="email-content" rows="10" cols="50"> </textarea>
-			<input type="submit" value="Send" />
+			<input id="email-sender" type="submit" value="Send" />
 		</form>
 	</div>
 

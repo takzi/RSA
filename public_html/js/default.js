@@ -2,6 +2,11 @@
  *  @author Anthony Perez
  **/
  
+$.urlParam = function(name){
+	var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+	return results[1] || 0;
+}
+
  //start func.
  window.onload = function(){
 
@@ -50,6 +55,23 @@
     	e.preventDefault();
     })
 
+    $("#email-sender").click(function(){
+    	var $data = {
+    		uid: $.urlParam('uid'),
+    		message: $('#email-content').val(),
+	 		action: 'email'
+	 	}
+    	console.log("Sending server: "+$data);
+  //   	$.ajax({
+		// 	type: 'POST',
+		// 	url: '../../../../BUS/schedule/generate_bus_driver_schedule.php',
+		// 	data: $data
+		// }).done(function(){
+		// 	alert("Schedule Created");
+		// 	//location.reload();
+		// });
+    })
+
 	$("#updateCongregation").click(function(){
 		var $data = {
 	 		action: 'updateCongregation'
@@ -95,7 +117,6 @@
                 alert("Sorry, it is seems that there is an error"); 
             }
           });
- 		}
 	})
 
 	$("#deleteButton").click(function(currentType, currentId){
