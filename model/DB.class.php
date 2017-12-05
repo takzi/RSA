@@ -4,6 +4,7 @@
  * @auth Anthony Perez
  * @date 09/11/17
  **/
+
  class DB{
  	function __construct($path_to_root){
  		require_once("classes/availability.class.php");
@@ -17,7 +18,7 @@
 		require_once("classes/user.class.php");
 		require_once("classes/schedule.class.php");
 
-		require_once($path_to_root."../dbInfo.php");
+		require($path_to_root."../dbInfo.php");
 
 		try{
 			//initiate PDO connection to the database
@@ -1563,7 +1564,7 @@
 			print $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
-			echo "insertNewRotation - ".$e->getMessage();
+			echo "updateRotation - ".$e->getMessage();
 			die();
 		}
 	}
@@ -1592,7 +1593,7 @@
 			print $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
-			echo "deleteRole - ".$e->getMessage();
+			echo "deleteRotation - ".$e->getMessage();
 			die();
 		}
 	}

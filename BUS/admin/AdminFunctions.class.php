@@ -10,38 +10,7 @@
  * @version    Release: 1.0
  * @date       11/15/2017
  */
-
-if(isset($_POST['action'])){
-		print_r("in action");
-
-		$adminFunctions = new AdminFunctions();
-		$action = $_POST['action'];
-
-		switch ($action) {
-			case 'updateCongregation':
-				//$data = generateCongregationSchedule();
-				$data = "Updating Congregation";
-				print_r($data);
-				break;
-			
-			case 'updateBusDriver':
-				$data = "Updating Driver";
-				print_r($data);
-				break;
-
-			case 'reset':
-				//$this->resetPassword($_POST['type'], $_POST['userId']);
-				$data = "Password Reset";
-				print_r($data);
-				return $data;
-
-			case 'delete':
-				$data = $this->delete($_POST['type'], $_POST['id']);
-				print_r($data);
-				break;
-		}
-	}
-
+	date_default_timezone_set("America/New_York");
 class AdminFunctions{
 	private $path_to_root; // provide the location of the root of public_html
 	private $db;           // the database object
@@ -111,16 +80,18 @@ class AdminFunctions{
 	function insertCongBusAdmin($type){
 		$input_name =  ($isBus = $type == "Bus Drivers") ? "bus" : "cong";
 		$input_value = $isBus ? "Bus Driver" : "Congregation";
+		$id_name = $isBus ? "createSchedule" : "genScheBut";
 		return "<div id='adminLink'>\n
 					<a href='".$this->path_to_root."templates/admin/profile.php'>Admin Home</a>\n 
 					>
 					<a href='#'>".$type."</a>\n
 				</div>\n
 				<h1>".$type."</h1>\n
-					<div id='form'>\n 
-						<a href='".$this->path_to_root."templates/admin/create_".$input_name.".php'><input type='button' id='createNew' value='Create New'></a>\n
-						<input type='button' id='genScheBut' value='Generate New Schedule'>\n
-						<a href='".$this->path_to_root."templates/congregation_schedule.php'><input type='button' value='View Current Schedule'></a>\n
+					<div id='form'>\n
+						<input type='text' class='text' name='" . $input_name . "_name' value='" . $input_value . " Name'> 
+						<input type='button' value='Add Now'>\n
+						<input type='button' id='". $id_name ."' value='Generate New Schedule'>
+						<a href='".$this->path_to_root."templates/congregation_schedule.php'><input type='button' value='View Current Schedule'></a>
 					</div>";
 	}
 
@@ -283,15 +254,15 @@ class AdminFunctions{
 		if($_type == 'c'){
 			$congregation = $this->getCongregation($_id)[0];
 			$user = $this->getUser($congregation->getContactID())[0];
-			$this->db->updateUser($user->getID(),$user->getFirstName(), $user->getLastName(), $user->getRole(), $user->getEmail(), "rahin123");
+			$this->updateUser($user->getID(),$user->getFirstName(), $user->getLastName(), $user->getRole(), $user->getEmail(), "rahin123");
 			//echo "<script type='text/javascript'>alert('Password reset!');</script>";
 		}else if($_type == 'd'){
 			$driver = $this->getBusDriver($_id)[0];
-			$this->db->updateUser($driver->getID(),$driver->getFirstName(), $driver->getLastName(), $driver->getRole(), $driver->getEmail(), "rahin123");
+			$this->updateUser($driver->getID(),$driver->getFirstName(), $driver->getLastName(), $driver->getRole(), $driver->getEmail(), "rahin123");
 			//echo "<script type='text/javascript'>alert('Password reset!');</script>";
 		}else{
 			$user = $this->getUser($_id)[0];
-			$this->db->updateUser($user->getID(),$user->getFirstName(), $user->getLastName(), $user->getRole(), $user->getEmail(), "rahin123");
+			$this->updateUser($user->getID(),$user->getFirstName(), $user->getLastName(), $user->getRole(), $user->getEmail(), "rahin123");
 		}
 	}
 
@@ -306,11 +277,21 @@ class AdminFunctions{
 	 * @param  [string] $_password [pasword of the user to update]
 	 */
 	function updatePassword($_id, $_fName, $_lName, $_roleID, $_email, $_password){
-		$this->db->updateUser($_id,$_fName, $_lName, $_roleID, $_email, $_password);
+		$this->updateUser($_id,$_fName, $_lName, $_roleID, $_email, $_password);
 	}
 
-	function updateCongregation($_id, $_contactID, $_name){
-		$data = $this->db->updateCongregation($_id, $_contactID, $_name);
+	function updateCongregation($_id, $_contactID, $_name, $_userWholeName, $_blackoutDates){
+		//$user = $this->getUser($_contactID())[0];
+		//$data = $this->db->updateCongregation($_id, $_contactID, $_name);
+
+		foreach($_blackoutDates as $blackoutDate){
+			$date = explode(' ', $blackoutDate);
+			print_r($date);
+			// $date = $this->formatDate($fromDate, "m/d/Y - ") . $this->formatDate($toDate, "m/d/Y");
+			// //$paragraphDates .= "<p class='date-inputted' value='" . $date ."'>". $date . "</p>\n";
+			// $paragraphDates .=  $date ."\n";
+		}
+
 		return $data;
 	}
 
@@ -319,26 +300,394 @@ class AdminFunctions{
 		return $data;
 	}
 
-	function delete($_type, $_id){
+	function updateUser($_id, $_fName, $_lName, $_roleID, $_email, $_password){
+		$this->db->updateUser($_id,$_fName, $_lName, $_roleID, $_email, $_password);
+	}
+
+	function updateBlackoutDates($_congregationID, $_from_date, $_to_date){
+		$this->db->updateBlackoutDates($_congregationID, $_from_date, $_to_date);
+	}
+
+	function delete($_type, $_id, $_name){
 		switch($_type){
 			case 'c':
-				$data = $this->db->deleteCongregation($_id);
+				$this->db->deleteCongregation($_id);
 				break;
 			case 'd':
-				$data = $this->db->deleteBusDriver($_id);
+				$this->db->deleteBusDriver($_id);
 				break;
 			case 'u':
-				$data = $this->db->deleteUser($_id);
+				$this->db->deleteUser($_id);
 				break;
 			default:
-				$data = "Unable to delete";
+				return "Unable to delete";
 		}
 
-		return $data;
+		return "Deleted " + $_name;
 
 	}
 
+	function generateBusDriverSchedule(){
+		//$DB = new DB('');
 
+		//get all availability.
+		$availabilities = $this->db->getAllAvailability();
+
+		$dateStart = DateTime::createFromFormat('Y-m-d','2017-09-03'); //curDate
+		$dateEnd = DateTime::createFromFormat('Y-m-d','2017-09-03');	//curDate
+		date_add($dateEnd,date_interval_create_from_date_string("91 days")); //91 days
+
+		$interval = DateInterval::createFromDateString("1 days");
+		$period = new DatePeriod($dateStart,$interval,$dateEnd);
+
+		$rotDates = array();
+		$counter = 1;
+		foreach ($period as $date) {
+			$rotDates[$counter] = $date;
+			$counter++;
+		}
+
+		$rotDatesArr = array();
+		$possibilitiesArr = array();
+		for($i=1; $i<=count($rotDates);$i++){
+			$curDate = $rotDates[$i]->format('Y-m-d');
+			$rotDatesArr[$curDate] = array();
+			$congs = array("Any"=>"","Morning"=>"","Afternoon"=>"");
+			$possibilitiesArr[$curDate] = $congs;
+			foreach($availabilities as $availability){
+				if($availability->getAvailability() == $curDate){
+					$possibilitiesArr[$curDate][$availability->getTimeOfDay()] .= ",".$availability->getBusDriverID();
+					$possibilitiesArr[$curDate][$availability->getTimeOfDay()] = trim($possibilitiesArr[$curDate][$availability->getTimeOfDay()],",");
+				}
+			}
+		}
+
+		foreach($rotDatesArr as $date => $blah){
+			foreach ($possibilitiesArr as $possibilityDate => $possibilities) {
+				if($date == $possibilityDate){
+					if($possibilities["Any"] != "" && $possibilities["Morning"] != "" && $possibilities["Afternoon"] != ""){
+						$anyTime = explode(',',$possibilities["Any"]);
+						$morningOnly = explode(',',$possibilities["Morning"]);
+						$afternoonOnly = explode(',',$possibilities["Afternoon"]);
+
+						if(count($morningOnly) >= 2 && count($afternoonOnly) >= 2){
+							//Have enough drivers from morning and afternoon to fill
+							//primary and backup roles
+							$morningNum = count($morningOnly);
+							$morningRadomNumber1 = rand(0,($morningNum-1));
+							$morningRadomNumber2 = $morningRadomNumber1;
+							while($morningRadomNumber2 == $morningRadomNumber1){
+								$morningRadomNumber2 = rand(0,($morningNum-1));
+							}
+
+							$afternoonNum = count($afternoonOnly);
+							$afternoonRadomNumber1 = rand(0,($afternoonNum-1));
+							$afternoonRadomNumber2 = $afternoonRadomNumber1;
+							while($afternoonRadomNumber2 == $afternoonRadomNumber1){
+								$afternoonRadomNumber2 = rand(0,($afternoonNum-1));
+							}
+
+							$rotDatesArr[$date] = array("Morning"=>array(
+															"Primary"=>$morningOnly[$morningRadomNumber1],
+															"Backup"=>$morningOnly[$morningRadomNumber2]),
+														"Afternoon"=>array(
+															"Primary"=>$afternoonOnly[$afternoonRadomNumber1],
+															"Backup"=>$afternoonOnly[$afternoonRadomNumber2])
+														);
+							
+						}
+						else if(count($morningOnly) < 2 && count($afternoonOnly) >= 2){
+							//	Only enough afternoon drivers to fill primary and backup,
+							//morning should be aggregated with anytime drivers to compensate
+							$morningWithAnyTime = array_merge($morningOnly,$anyTime);
+
+							$morningNum = count($morningWithAnyTime);
+							$morningRadomNumber1 = rand(0,($morningNum-1));
+							$morningRadomNumber2 = $morningRadomNumber1;
+							while($morningRadomNumber2 == $morningRadomNumber1){
+								$morningRadomNumber2 = rand(0,($morningNum-1));
+							}
+
+							$afternoonNum = count($afternoonOnly);
+							$afternoonRadomNumber1 = rand(0,($afternoonNum-1));
+							$afternoonRadomNumber2 = $afternoonRadomNumber1;
+							while($afternoonRadomNumber2 == $afternoonRadomNumber1){
+								$afternoonRadomNumber2 = rand(0,($afternoonNum-1));
+							}
+
+							$rotDatesArr[$date] = array("Morning"=>array(
+															"Primary"=>$morningWithAnyTime[$morningRadomNumber1],
+															"Backup"=>$morningWithAnyTime[$morningRadomNumber2]),
+														"Afternoon"=>array(
+															"Primary"=>$afternoonOnly[$afternoonRadomNumber1],
+															"Backup"=>$afternoonOnly[$afternoonRadomNumber2])
+														);
+						}
+						else if(count($morningOnly) >= 2 && count($afternoonOnly) < 2){
+							//	Only enough morning drivers to fill primary and backup,
+							//afternoon should be aggregated with anytime drivers to compensate
+							$afternoonWithAnyTime = array_merge($afternoonOnly,$anyTime);
+							
+							$morningNum = count($morningOnly);
+							$morningRadomNumber1 = rand(0,($morningNum-1));
+							$morningRadomNumber2 = $morningRadomNumber1;
+							while($morningRadomNumber2 == $morningRadomNumber1){
+								$morningRadomNumber2 = rand(0,($morningNum-1));
+							}
+
+							$afternoonNum = count($afternoonWithAnyTime);
+							$afternoonRadomNumber1 = rand(0,($afternoonNum-1));
+							$afternoonRadomNumber2 = $afternoonRadomNumber1;
+							while($afternoonRadomNumber2 == $afternoonRadomNumber1){
+								$afternoonRadomNumber2 = rand(0,($afternoonNum-1));
+							}
+
+							$rotDatesArr[$date] = array("Morning"=>array(
+															"Primary"=>$morningOnly[$morningRadomNumber1],
+															"Backup"=>$morningOnly[$morningRadomNumber2]),
+														"Afternoon"=>array(
+															"Primary"=>$afternoonWithAnyTime[$afternoonRadomNumber1],
+															"Backup"=>$afternoonWithAnyTime[$afternoonRadomNumber2])
+														);
+						}
+						else if(count($morningOnly) < 2 && count($afternoonOnly) < 2 && count($anyTime) >= 2){
+							//both have less than 2, so anytime will be split between them
+							$alwaysNum = count($anyTime);
+
+							$firstHalf = array_splice($anyTime, 0, $alwaysNum / 2);
+							$secondHalf = array_splice($anyTime, $alwaysNum / 2);
+
+							$morningWithAnyTime = array_merge($morningOnly,$firstHalf);
+							$$afternoonWithAnyTime = array_merge($afternoonOnly,$secondHalf);
+
+							$morningNum = count($morningWithAnyTime);
+							$morningRadomNumber1 = rand(0,($morningNum-1));
+							$morningRadomNumber2 = $morningRadomNumber1;
+							while($morningRadomNumber2 == $morningRadomNumber1){
+								$morningRadomNumber2 = rand(0,($morningNum-1));
+							}
+
+							$afternoonNum = count($afternoonWithAnyTime);
+							$afternoonRadomNumber1 = rand(0,($afternoonNum-1));
+							$afternoonRadomNumber2 = $afternoonRadomNumber1;
+							while($afternoonRadomNumber2 == $afternoonRadomNumber1){
+								$afternoonRadomNumber2 = rand(0,($afternoonNum-1));
+							}
+
+							$rotDatesArr[$date] = array("Morning"=>array(
+															"Primary"=>$morningWithAnyTime[$morningRadomNumber1],
+															"Backup"=>$morningWithAnyTime[$morningRadomNumber2]),
+														"Afternoon"=>array(
+															"Primary"=>$afternoonWithAnyTime[$afternoonRadomNumber1],
+															"Backup"=>$afternoonWithAnyTime[$afternoonRadomNumber2])
+														);
+						}
+						else if(count($anyTime) >= 2 && count($morningOnly) < 1 && count($afternoonOnly) < 1){
+							$alwaysNum = count($anyTime);
+
+							$firstHalf = array_splice($anyTime, 0, $alwaysNum / 2);
+							$secondHalf = array_splice($anyTime, $alwaysNum / 2);
+
+							$morningNum = count($firstHalf);
+							$morningRadomNumber1 = rand(0,($morningNum-1));
+							$morningRadomNumber2 = $morningRadomNumber1;
+							while($morningRadomNumber2 == $morningRadomNumber1){
+								$morningRadomNumber2 = rand(0,($morningNum-1));
+							}
+
+							$afternoonNum = count($secondHalf);
+							$afternoonRadomNumber1 = rand(0,($afternoonNum-1));
+							$afternoonRadomNumber2 = $afternoonRadomNumber1;
+							while($afternoonRadomNumber2 == $afternoonRadomNumber1){
+								$afternoonRadomNumber2 = rand(0,($afternoonNum-1));
+							}
+
+							$rotDatesArr[$date] = array("Morning"=>array(
+															"Primary"=>$firstHalf[$morningRadomNumber1],
+															"Backup"=>$firstHalf[$morningRadomNumber2]),
+														"Afternoon"=>array(
+															"Primary"=>$secondHalf[$afternoonRadomNumber1],
+															"Backup"=>$secondHalf[$afternoonRadomNumber2])
+														);
+						}
+					}
+					else{
+						echo "availability missing to complete schedule";
+						break 2;
+					}
+				}
+			}
+		}
+	}// end generateBusDriver
+
+	function generateCongregationSchedule(){
+		//$DB = new DB("");
+
+		$lastRot = $this->db->getLastRotationID();
+		$lastRotID = $lastRot[0];
+
+		$lastDate = $this->db->getNextRotationDate();
+		$lastDateStr = $lastDate[0];
+
+		// get the blackout dates for the next rotattion period
+		$blackouts = $this->db->getAllBlackoutDates();
+		$blackoutArr = array();
+		foreach ($blackouts as $blackout) {
+			$blackoutArr[$blackout->getCongregationID()] = "{$blackout->getFromDate()}";
+		}
+
+		//get next rotation dates
+		$dateStart = DateTime::createFromFormat('Y-m-d',$lastDateStr);
+		date_add($dateStart,date_interval_create_from_date_string("7 days"));
+		$dateEnd = DateTime::createFromFormat('Y-m-d',$lastDateStr);
+		date_add($dateEnd,date_interval_create_from_date_string("280 days"));
+
+		$interval = DateInterval::createFromDateString("7 days");
+		$period = new DatePeriod($dateStart,$interval,$dateEnd);
+
+		$RotDatesArr = array();
+		$counter = 1;
+		foreach ($period as $date) {
+			$RotDatesArr[$counter] = $date;
+			$counter++;
+		}
+
+
+		$dateHolidayStart = $dateStart;
+		date_sub($dateHolidayStart,date_interval_create_from_date_string("1 year"));
+		$dateHolidayEnd = $dateEnd;
+		date_sub($dateHolidayEnd,date_interval_create_from_date_string("1 year"));
+
+		/**
+		 * get holidays.. should be calling a new method to be made getHolidays between dates to
+		 * get the holidays from the next rotation period from last year.
+		 */ 
+		$holidays = $this->db->getCongregationsHolidaysForDates(date_format($dateHolidayStart, 'Y-m-d'),date_format($dateHolidayEnd, 'Y-m-d'));
+		$holidayArr = array();
+		if(!empty($holidays)){
+			foreach ($holidays as $holiday) {
+				$holidayArr[$holiday['date']] = $holiday['last_congregation'];
+			}
+		}
+
+		//fill in posibility array(matrix)
+		// - it needs to take into consideration past rotations in order to create the array
+		$possibilitiesArr = array();
+		for($i=1; $i<=count($RotDatesArr);$i++){
+			$curDate = $RotDatesArr[$i]->format('Y-m-d');
+			$blackOutCongs = "";
+			foreach($blackoutArr as $blackoutCong => $date){
+				if($date != $curDate){
+					$blackOutCongs .= "$blackoutCong,";
+				}
+			}
+			$holidayCongs = array();
+			foreach ($holidayArr as $hDate => $hCong) {
+				if($curDate == $hDate){
+					$holidayCongs[] = $hCong;
+				}
+			}
+			print_r($holidayCongs);
+			if(!empty($holidayCongs)){
+				$newCongs = "";
+				foreach ($holidayCongs as $cong) {
+					$pattern = "/(^|\D)".$cong."(\D|$)/";
+					$newCongs = preg_replace($pattern,',',$blackOutCongs);
+					print_r($newCongs);
+				}
+				$newHolidayCongs = trim($newCongs,',');
+				$possibilitiesArr[$i] = $newHolidayCongs;
+			}
+			else{
+				$possibilitiesArr[$i] = $blackOutCongs;
+			}
+		}
+
+		$numberOfWeeks = 13;
+		$numberOfCongregations = 13;
+		$numberOfRotationsAtATime = 3;
+
+		$counter = 1;
+		// go through the possible schedule array and randomly select congregations for dates.
+		$possibilitiesArrCopy = $possibilitiesArr;
+		$possibleScheduleRot1 = array();
+		$possibleScheduleRot2 = array();
+		$possibleScheduleRot3 = array();
+		foreach ($possibilitiesArrCopy as $rotNumber => $congsAvailable) {
+			
+			$search = 0;
+			$num = 0;
+			$radomNumber = 0;
+			$randomSelection = 0;
+			while(getType($search) == "integer"){
+				$test = explode(',', $congsAvailable);
+				array_splice($test, 13); // removing the empty element
+				$num = count($test);
+				$radomNumber = rand(0,($num-1));
+				$randomSelection = $test[$radomNumber];
+				//check number is not repeating within possibleSchedule before deleting
+				if($counter == 1){
+					$search = array_search($randomSelection,array_column($possibleScheduleRot1,'congregation'));
+				}
+				else if ($counter == 2) {
+					$search = array_search($randomSelection,array_column($possibleScheduleRot2,'congregation'));
+				}
+				else{
+					$search = array_search($randomSelection,array_column($possibleScheduleRot3,'congregation'));
+				}
+			}
+
+				// add to possibilityArr
+			if($counter == 1){
+				$possibleScheduleRot1[$rotNumber] = array("date" => $RotDatesArr[$rotNumber],
+												  "congregation" => $randomSelection);
+			}
+			else if ($counter == 2) {
+				$possibleScheduleRot2[$rotNumber] = array("date" => $RotDatesArr[$rotNumber],
+												  "congregation" => $randomSelection);
+			}
+			else{
+				$possibleScheduleRot3[$rotNumber] = array("date" => $RotDatesArr[$rotNumber],
+												  "congregation" => $randomSelection);
+			}
+
+			//deleting selection
+			for ($i=1; $i <= ($numberOfWeeks*$counter); $i++) { 
+				$oldVal = $possibilitiesArrCopy[$i];
+				$pattern = "/(^|\D)".$randomSelection."(\D|$)/";
+				$newVal = preg_replace($pattern,',',$oldVal);
+				$possibilitiesArrCopy[$i] = trim($newVal,',');
+			}
+
+			if($rotNumber%13 == 0){
+				$counter ++;
+			}
+		}
+
+		$possibleSchedule = array(($lastRotID+1)=>$possibleScheduleRot1, ($lastRotID+2)=>$possibleScheduleRot2, ($lastRotID+3)=>$possibleScheduleRot3);
+
+		foreach ($possibleSchedule as $rotation => $rot) {
+			foreach ($rot as $r => $info) {
+
+				$rotationToDate = DateTime::createFromFormat('Y-m-d',date_format($info['date'], 'Y-m-d'));
+				date_add($rotationToDate,date_interval_create_from_date_string("6 days"));
+
+			
+
+				if($r > 13 && $r < 27){
+					$fixedR = $r-13;
+					$this->db->insertNewRotation($rotation,$fixedR,$info['congregation'],date_format($info['date'],'Y-m-d'),date_format($rotationToDate,'Y-m-d'));
+				}
+				else if($r >=27){
+					$fixedR = $r-26;
+					$this->db->insertNewRotation($rotation,$fixedR,$info['congregation'],date_format($info['date'],'Y-m-d'),date_format($rotationToDate,'Y-m-d'));
+				}
+				else{
+					$this->db->insertNewRotation($rotation,$r,$info['congregation'],date_format($info['date'],'Y-m-d'),date_format($rotationToDate,'Y-m-d'));
+				}
+			}
+		}
+	}
 
 	/**
 	 * Helper function used to get HTML for bus driver and 
@@ -351,12 +700,12 @@ class AdminFunctions{
 	 */
 	private function getHTMLSnippet($id, $name, $type){
 		return "<tr>
-					<td>" . $name ." <div class='tb-container'> <a class='anchor' href='admin_edit_". $this->getType($type, 'cong', 'bus','user') . ".php?" . $this->getType($type, 'congregation', 'driver', 'user') . "=" . $id ."'>\n
+					<td>" . $name ." <div class='tb-container'> <a href='admin_edit_". $this->getType($type, ['cong', 'bus','user']) . ".php?" . $this->getType($type, ['congregation', 'driver', 'user']) . "=" . $id ."'>\n
 									 	<input type='button' class='tb' name='" . $name . "' value='Edit'>\n
 									 </a>\n
 
-									 <a class='anchor' href='#'>\n
-									 	<input type='button' class='delete-btn tb tb-delete' data-id='".$id ."' data-type='". $type."' name='delete-".$name."' value='Delete'>\n
+									 <a class='anchor' href=''>\n
+									 	<input type='button' class='delete-btn tb tb-delete' data-id='".$id ."' data-type='". $type."' data-name='".$name."' name='delete-".$name."' value='Delete'>\n
 									 </a>\n
 
 									 <a href='../email.php?uid=".$id."'>\n
@@ -364,7 +713,7 @@ class AdminFunctions{
 
 									 </a>\n
 
-									 <a class='anchor' href='#'>\n
+									 <a class='anchor' href=''>\n
 									 	<input type='button' class='reset-btn tb' data-id='".$id ."' data-type='". $type."' value='Reset Password'>\n
 									 </a></div>\n
 					</td>
@@ -377,19 +726,18 @@ class AdminFunctions{
 	 * account.
 	 * 
 	 * @param  [string] $type [c, d, or u]
-	 * @param  [string] $cong ['cong']
-	 * @param  [string] $bus  ['bus']
-	 * @param  [string] $user ['user']
+	 * @param  [string array] [ cong, bus, user]
 	 * @return [string]       [returns cong, bus, or user]
 	 */
-	private function getType($type, $cong, $bus, $user){
+	private function getType($type, $stringType){
+
 		switch($type){
 			case 'c':
-				return $cong;
+				return $stringType[0];
 			case 'd':
-				return $bus;
+				return $stringType[1];
 			case 'u':
-				return $user;
+				return $stringType[2];
 		}
 	}
 
