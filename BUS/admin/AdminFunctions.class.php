@@ -117,11 +117,10 @@ class AdminFunctions{
 					<a href='#'>".$type."</a>\n
 				</div>\n
 				<h1>".$type."</h1>\n
-					<div id='form'>\n
-						<input type='text' class='text' name='" . $input_name . "_name' value='" . $input_value . " Name'> 
-						<input type='button' value='Add Now'>\n
-						<input type='button' id='genScheBut' value='Generate New Schedule'>
-						<a href='".$this->path_to_root."templates/congregation_schedule.php'><input type='button' value='View Current Schedule'></a>
+					<div id='form'>\n 
+						<a href='".$this->path_to_root."templates/admin/create_".$input_name.".php'><input type='button' id='createNew' value='Create New'></a>\n
+						<input type='button' id='genScheBut' value='Generate New Schedule'>\n
+						<a href='".$this->path_to_root."templates/congregation_schedule.php'><input type='button' value='View Current Schedule'></a>\n
 					</div>";
 	}
 
