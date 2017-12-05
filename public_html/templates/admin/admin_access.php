@@ -46,6 +46,17 @@ if(isset($_POST['action'])){
 				$data = "Delete this fool";
 				print_r($data);
 				break;
+
+			case 'email':
+				$uid = isset($_POST['uid']) ? $_POST['uid'] : null;
+				$type = isset($_POST['type']) ? $_POST['type'] : null;
+				$message = isset($_POST['message']) ? $_POST['message'] : null;
+				$data = $adminFunctions->emailUser($uid,$type,$message);
+				break;
+			case 'emailAdmin':
+				$message = isset($_POST['message']) ? $_POST['message'] : null;
+				$data = $adminFunctions->emailAdmin($uid,$type,$message);
+				break;
 		}
 	}
 

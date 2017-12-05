@@ -5,7 +5,7 @@
 			<br>
 			<a href="availability_dates_profile.php"><button>View/Request Availability Dates</button></a>
 			<br>
-			<button>Request Schedule Change</button>
+			<a href="email.php"><button >Request Schedule Change</button></a>>
 		</div>
 		<div align="right"> 
 			<table>

@@ -188,10 +188,6 @@ class GeneralTemplate {
 		$adminFunctions = new AdminFunctions($this->page, $this->path_to_root);
 		$adminFunctions->updatePassword($_id,$_fName, $_lName, $_roleID, $_email, $_password);
 	}
-
-	function emailUser($_email,$_subject,$_message){
-		mail($_email,$_subject,$_message);
-	}
 }
 
 ?>

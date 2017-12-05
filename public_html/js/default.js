@@ -18,17 +18,9 @@ $.urlParam = function(name){
 			type: "POST",
 			url: '../admin/admin_access.php',
 			data: $data
-			//  success: function(data){  
-   //              alert("success" + data );  
-   //          },
-   //          error: function(data) {
-   //          	//var err= eval("(" + xhr.responseText + ")");
-   //              alert("Something went wrong in the server"); 
-   //          }
 		}).done(function(msg){
-			//alert("Rotation Created");
+			alert("Rotation Created");
 			console.log(msg);
-			//location.reload();
 		});
 	})
 
@@ -41,9 +33,8 @@ $.urlParam = function(name){
 			url: '../admin/admin_access.php',
 			data: $data
 		}).done(function(msg){
-			//alert("Schedule Created");
+			alert(msg);
 			console.log(msg);
-			//location.reload();
 		});
 	})
 
@@ -64,20 +55,38 @@ $.urlParam = function(name){
     })
 
     $("#email-sender").click(function(){
-    	var $data = {
+    	if (window.location.href.indexOf("?") >= 0){
+    		var $data = {
     		uid: $.urlParam('uid'),
+    		type: $.urlParam('type'),
     		message: $('#email-content').val(),
 	 		action: 'email'
-	 	}
-    	console.log("Sending server: "+$data);
-  //   	$.ajax({
-		// 	type: 'POST',
-		// 	url: '../../../../BUS/schedule/generate_bus_driver_schedule.php',
-		// 	data: $data
-		// }).done(function(){
-		// 	alert("Schedule Created");
-		// 	//location.reload();
-		// });
+		 	}
+	    	$.ajax({
+				type: 'POST',
+				url: 'admin/admin_access.php',
+				data: $data
+			}).done(function(msg){
+				if(msg){
+					alert("Message was succesfully sent.")
+				}
+			});
+    	}
+    	else{
+    		var $data = {
+    		message: $('#email-content').val(),
+	 		action: 'emailAdmin'
+		 	}
+	    	$.ajax({
+				type: 'POST',
+				url: 'admin/admin_access.php',
+				data: $data
+			}).done(function(msg){
+				if(msg){
+					alert("Message was succesfully sent.")
+				}
+			});
+    	}
     })
 
 	$("#updateCongregation").click(function(){
@@ -147,11 +156,7 @@ $.urlParam = function(name){
             	//var err= eval("(" + xhr.responseText + ")");
                 alert("Something went wrong in the server"); 
             }
-<<<<<<< HEAD
-          });
-=======
         });
->>>>>>> 231233b6b8741d3511360350c5ce026f16df0935
 	})
 
 	$(".delete-btn").click(function(e){

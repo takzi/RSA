@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * AdminFunctions holds all of the logic for 
  * administrative functions.
@@ -304,6 +305,55 @@ class AdminFunctions{
 		$this->db->updateUser($_id,$_fName, $_lName, $_roleID, $_email, $_password);
 	}
 
+	function emailUser($_idTo,$_userType,$_message){
+		//mail($_email,$_subject,$_message);
+		$email_from = $_SESSION['email'];
+		$subject = "RAIHN System Message";
+		if($_userType == 'c'){
+			$_uid = $this->db->getCongregationContactID($_idTo);
+			$uid = $_uid["contact_ID"];
+		}
+		else{
+			$_uid = $this->db->getBusDriverContactID($_idTo);
+			$uid = $_uid["contact_ID"];
+		}
+		$_email_to = $this->db->getUserEmail($uid);
+		$email_to = $_email_to["email"];
+
+		$headers = "MIME-Version: 1.0" . "\r\n";
+		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+		$headers .= 'From: <'.$email_from.'>' . "\r\n";
+
+		mail($email_to,$subject,$_message,$headers);
+		return true;
+	}
+
+	function emailAdmin($_message){
+		$email_from = $_SESSION['email'];
+		$subject = "RAIHN System Message";
+		$userRole = $_SESSION['role'];
+
+		switch ($userRole) {
+			case 4:
+				# cong
+				$_email_to = $this->db->getCongregationSchedulerEmail();
+				$email_to = $_email_to["email"];
+				break;
+			
+			case 5:
+				# bus driver
+				$_email_to = $this->db->getCongregationSchedulerEmail();
+				$email_to = $_email_to["email"];
+				break;
+		}
+		$headers = "MIME-Version: 1.0" . "\r\n";
+		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+		$headers .= 'From: <'.$email_from.'>' . "\r\n";
+
+		mail($email_to,$subject,$_message,$headers);
+		return true;
+	}
+
 	function updateBlackoutDates($_congregationID, $_from_date, $_to_date){
 		$this->db->updateBlackoutDates($_congregationID, $_from_date, $_to_date);
 	}
@@ -333,9 +383,16 @@ class AdminFunctions{
 		//get all availability.
 		$availabilities = $this->db->getAllAvailability();
 
-		$dateStart = DateTime::createFromFormat('Y-m-d','2017-09-03'); //curDate
-		$dateEnd = DateTime::createFromFormat('Y-m-d','2017-09-03');	//curDate
-		date_add($dateEnd,date_interval_create_from_date_string("91 days")); //91 days
+		$lastRot = $this->db->getLastRotationID();
+		$lastRotID = $lastRot[0];
+
+		$lastDate = $this->db->getNextRotationDate();
+		$lastDateStr = $lastDate[0];
+
+		$dateStart = DateTime::createFromFormat('Y-m-d',$lastDateStr);
+		date_add($dateStart,date_interval_create_from_date_string("7 days"));
+		$dateEnd = DateTime::createFromFormat('Y-m-d',$lastDateStr);
+		date_add($dateEnd,date_interval_create_from_date_string("91 days"));
 
 		$interval = DateInterval::createFromDateString("1 days");
 		$period = new DatePeriod($dateStart,$interval,$dateEnd);
@@ -512,11 +569,24 @@ class AdminFunctions{
 						}
 					}
 					else{
-						echo "availability missing to complete schedule";
-						break 2;
+						return "availability missing to complete schedule.";
+						break 3;
 					}
 				}
 			}
+		}
+
+		if(!empty($rotDatesArr[date_format($dateStart, 'Y-m-d')])){
+			foreach ($rotDatesArr as $date => $day) {
+			 	foreach ($day as $timeOfDay => $driverStatus) {
+			 		foreach ($driverStatus as $time => $driver) {
+			 			$_time = ($time == "Primary"?1:2);
+				 		$_timeOfDay = ($timeOfDay == "Morning"?2:3);
+				 		$this->db->insertNewSchedule($date,$timeOfDay,$time,$driver,1);
+			 		}
+			 	}
+			}
+			return "Bus Driver Schedule Generation Complete.";
 		}
 	}// end generateBusDriver
 
@@ -666,13 +736,12 @@ class AdminFunctions{
 
 		$possibleSchedule = array(($lastRotID+1)=>$possibleScheduleRot1, ($lastRotID+2)=>$possibleScheduleRot2, ($lastRotID+3)=>$possibleScheduleRot3);
 
+
 		foreach ($possibleSchedule as $rotation => $rot) {
 			foreach ($rot as $r => $info) {
 
 				$rotationToDate = DateTime::createFromFormat('Y-m-d',date_format($info['date'], 'Y-m-d'));
 				date_add($rotationToDate,date_interval_create_from_date_string("6 days"));
-
-			
 
 				if($r > 13 && $r < 27){
 					$fixedR = $r-13;
@@ -708,7 +777,7 @@ class AdminFunctions{
 									 	<input type='button' class='delete-btn tb tb-delete' data-id='".$id ."' data-type='". $type."' data-name='".$name."' name='delete-".$name."' value='Delete'>\n
 									 </a>\n
 
-									 <a href='../email.php?uid=".$id."'>\n
+									 <a href='../email.php?uid=".$id."&type=".$type."'>\n
 									 	<input type='button' class='tb' id='email-btn' name='email-".$name."' value='Email'>\n
 
 									 </a>\n
@@ -771,6 +840,8 @@ class AdminFunctions{
 	function getCongregationByContactID($id){
 		return $this->db->getCongregationByContactID($id);
 	}
+
+
 
 	/**
 	 * Returns the bus driver object from an
