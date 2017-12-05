@@ -10,7 +10,7 @@
 		$("#date-input").val("");
 	}
 </script>
-
+<script src="../../js/default.js"></script>
 <?php
 	/**
 	 * Admin Edit Bus Driver page for RSA
@@ -41,6 +41,7 @@
 	// Gets Bus Driver ID
 	$busID = $_GET['driver']; 
 	$busDriverUser = $adminFunctions->getBusDriver($busID)[0];
+	$busDriver = $adminFunctions->getBusDriveryByContactID($busDriverUser->getID())[0];
 ?>
 	<div id="adminLink">
 		<a href="profile.php">Admin Home</a> > <a href="admin_bus.php">Bus Drivers</a> > <a href="#"><?php echo $busDriverUser->getWholeName(); ?></a>
@@ -49,20 +50,18 @@
 	<div id="admin_container">
 		<form id="edit-bus-form" align="middle">
 			<input id="edit-name" class="fulltext" type="text" name="congregation" value="<?php echo $busDriverUser->getWholeName(); ?>">
-
+			<input id="edit-number" class="fulltext" type="text" name="congregation" value="<?php echo $busDriver->getContactNumber(); ?>">
 			<br><br>Availability Dates<br><br>
 			<div id="date-container" class="clearfix">
 				<input id="date-input" class="text" type="date" name="date-input" value="">
-				<input id="dateArrowButton" type="button" value=">" onclick="insertDateValue()">
-				<div id="dateValues" class="heighttext">
-					<!-- INSERT CURRENT BLACKOUT DATES HERE FROM THE DB -->
+				<input id="dateArrowButton" class="availability" type="button" value=">" >
+				<textarea id="dateValues" class="heighttext">
 					<?php
 						echo $adminFunctions->insertAvailablityIntoEditDriver($busID);
 					?>
-					<!-- <p class="date-inputted" value="date string">date string</p> -->
-				</div>
+				</textarea>
 			</div>
-		
+			<input type="hidden" id="busDriverUID" name="busDriverUID" value="<?php echo $busID; ?>" />
 			<input class="editright" id="updateBusDriver" type="submit" value="Save">
 		</form>		
 	</div>

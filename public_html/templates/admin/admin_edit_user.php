@@ -36,7 +36,8 @@
 	<div id="admin_container">
 		<form id="edit-cong-form" align="middle">
 			<input id="edit-leader-name" class="fulltext" type="text" name="user" value="<?php echo $user->getWholeName(); ?>">		
-			<input class="editright" type="submit" value="Save">
+			<input id="save-btn" class="editright" type="submit" value="Save">
+			<input type="hidden" id="userID" name="userID" value="<?php echo $userID; ?>" />
 		</form>		
 	</div>
 <?php

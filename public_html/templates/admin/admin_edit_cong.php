@@ -1,11 +1,11 @@
-<script>
-	function insertDateValue(){
-		var date = $("#date-from-input").val() + " - " + $("#date-to-input").val();
-		var txt = document.createTextNode(date+"\n");
-		$("#dateValues").append(txt);
-		$("#date-from-input").val("");
-		$("#date-to-input").val("");
-	}
+<script src="../../js/default.js">
+	// function insertDateValue(){
+	// 	var date = $("#date-from-input").val() + " - " + $("#date-to-input").val();
+	// 	var txt = document.createTextNode(date+"\n");
+	// 	$("#dateValues").append(txt);
+	// 	$("#date-from-input").val("");
+	// 	$("#date-to-input").val("");
+	// }
 </script>
 
 <?php
@@ -54,15 +54,15 @@
 				<input id="date-from-input" class="text" type="date" name="date-from-input" value="">
 				<input id="date-to-input" class="text" type="date" name="date-to-input" value="">
 				<br><br>
-				<input id="dateArrowButton" type="button" value=">" onclick="insertDateValue()">
+				<input id="dateArrowButton" class="blackout" type="button" value=">" >
 				<textarea id="dateValues" name="dateValues" class="heighttext">
 					<?php 
 						echo $adminFunctions->insertBlackoutDatesIntoEditCongregation($congID);
 					?>						
 				</textarea> 
 			</div>
-			<input type="hidden" name="leaderUID" value="<?php echo $user->getID(); ?>"/>
-			<input type="hidden" name="congUID" value="<?php echo $cong->getID(); ?>" />
+			<input type="hidden" id="leaderUID" name="leaderUID" value="<?php echo $user->getID(); ?>"/>
+			<input type="hidden" id="congUID" name="congUID" value="<?php echo $cong->getID(); ?>" />
 			<input class="editright" id="updateCongregation" type="submit" value="Save">
 		</form>		
 	</div>
