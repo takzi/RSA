@@ -575,7 +575,7 @@ class AdminFunctions{
 						}
 					}
 					else{
-						return "availability missing to complete schedule.";
+						return false;
 						break 3;
 					}
 				}
@@ -592,7 +592,7 @@ class AdminFunctions{
 			 		}
 			 	}
 			}
-			return "Bus Driver Schedule Generation Complete.";
+			return true;
 		}
 	}// end generateBusDriver
 

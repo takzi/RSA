@@ -14,12 +14,10 @@ if(isset($_POST['action'])){
 		switch ($action) {
 			case 'generateCongregationSchedule':
 				$generalCongSchedule = $adminFunctions->generateCongregationSchedule();
-				print_r("generating schedule for congregation");
 				break;
 
 			case 'generateBusDriverSchedule':
 				$generalBusSchedule = $adminFunctions->generateBusDriverSchedule(); 
-				print_r("generating schedule for  bus drivers");
 				break;
 
 			case 'updateCongregation':

@@ -33,8 +33,12 @@ $.urlParam = function(name){
 			url: '../admin/admin_access.php',
 			data: $data
 		}).done(function(msg){
-			alert(msg);
-			console.log(msg);
+			if(msg == true){
+				alert("Bus Driver Schedule Generation Complete.");
+			}
+			else{
+				alert("availability missing to complete schedule.")
+			}
 		});
 	})
 
