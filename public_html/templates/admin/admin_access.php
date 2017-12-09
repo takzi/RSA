@@ -1,8 +1,8 @@
 <?php
-	//include('../../../BUS/admin/AdminFunctions.class.php');
 	$page='RAIHN Admin Access';
 	$path_to_root="./../../";
  	require_once($path_to_root.'../BUS/admin/AdminFunctions.class.php');
+ 	require_once($path_to_root.'../BUS/login/AccountCreator.class.php');
  	// require_once($path_to_root. '../BUS/schedule/generate_congregations_schedule.php');
  	// require_once($path_to_root. '../BUS/schedule/generate_bus_driver_schedule.php');
  	
@@ -34,6 +34,27 @@ if(isset($_POST['action'])){
 				print_r($data);
 				break;
 
+			case 'addBusDriver':
+				$fname = $_POST['fname'];
+				$lname = $_POST['lname'];
+				$email = $_POST['email'];
+				$password = "raihn123";
+				$role = 5;
+				$contactNum = $_POST['contact'];
+				$congName = "";
+
+				$accountCreator = new AccountCreator($path_to_root);
+
+				$responseMessage = $accountCreator->createNewAccount($fname, $lname, $role, $email, $password, $password, $contactNum, $congName);
+				if($responseMessage == "Account created"){
+					$responseMessage = "Added Driver";
+				}
+
+				print_r($responseMessage);
+				//$adminFunctions->updateBusDriver($_POST['id'], $_POST['name'], $_POST['contactNum']);
+
+				break;
+
 			case 'submitBlackoutDates':
 				// If action is selected for reset, loads admin function and proceeds with resetting password for user.
 				$adminFunctions->insertBlackoutDatesIntoDB($_POST['congID'], $_POST['from'], $_POST['to']);
@@ -53,6 +74,7 @@ if(isset($_POST['action'])){
 			case 'delete':
 				$data = $adminFunctions->delete($_POST['type'], $_POST['id'], $_POST['name']);
 				//$data = "Delete this fool";
+
 				print_r($data);
 				break;
 

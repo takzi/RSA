@@ -1,5 +1,4 @@
 <?php
-session_start();
 /**
  * AdminFunctions holds all of the logic for 
  * administrative functions.
@@ -217,7 +216,7 @@ class AdminFunctions{
 	function insertAvailablityIntoEditDriver($id){
 		$availabilities = $this->db->getAvailabilityForDriver($id);
 		if(empty($availabilities)){
-			return "<p class='date-inputted' value=''>No availability dates</p>";
+			return "";
 		}
 
 		$date = "";
@@ -378,7 +377,7 @@ class AdminFunctions{
 				return "Unable to delete";
 		}
 
-		return "Deleted " + $_name;
+		return "Deleted " . $_name;
 
 	}
 

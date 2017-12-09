@@ -56,7 +56,6 @@
 					</select>
 					<input id="dateArrowButton" class="availability" type="button" value=">" >
 					<textarea id="dateValues" class="heighttext">
-						<!-- INSERT CURRENT BLACKOUT DATES HERE FROM THE DB -->
 						<?php 
 							echo $adminFunctions->insertAvailablityIntoEditDriver($busID);
 						?>

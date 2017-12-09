@@ -152,6 +152,33 @@ $.urlParam = function(name){
 		});
 	})
 
+	$(".addBusDriver").click(function(){
+		$fname = $("#fname").val();
+		$lname = $("#lname").val();
+		$email = $("#email").val();
+		$contactNumber = $('#edit-number').val();
+		console.log("name: " + $fname + " " + $lname + "\t" + $email + "\t" + $contactNumber);
+		if($fname && $lname && $email && $contactNumber){
+			var $data = {
+		 		action: 'addBusDriver', fname: $fname, lname: $lname, email: $email, contact: $contactNumber
+		 	}
+			$.ajax({
+				type: 'POST',
+				url: '../admin/admin_access.php',
+				data: $data
+			}).done(function(msg){
+				// submitAvailabilityDates();
+				console.log(trim(msg));
+				//location.reload();
+			});
+		}
+	})
+
+	$('#addBusDriverBtn').click(function(e){
+		// preventing from refreshing
+		e.preventDefault();
+	})
+
 	$('a.anchor').click(function(e){
 		// preventing from refreshing
 		e.preventDefault();
@@ -209,6 +236,7 @@ $.urlParam = function(name){
            data: $data,
            success: function(data){  
                 alert( data );  
+                location.reload();
             },
             error: function(data) {
             	//var err= eval("(" + xhr.responseText + ")");
