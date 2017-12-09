@@ -1,5 +1,4 @@
 <?php
-session_start();
 /**
  * AdminFunctions holds all of the logic for 
  * administrative functions.
@@ -89,8 +88,7 @@ class AdminFunctions{
 				</div>\n
 				<h1>".$type."</h1>\n
 					<div id='form'>\n
-						<input type='text' class='text' name='" . $input_name . "_name' value='" . $input_value . " Name'> 
-						<input type='button' value='Add Now'>\n
+						<a href='".$this->path_to_root."templates/admin/admin_add_".$input_name."'><input type='button' value='Add New'></a>\n
 						<input type='button' id='". $id_name ."' value='Generate New Schedule'>
 						<a href='".$this->path_to_root."templates/congregation_schedule.php'><input type='button' value='View Current Schedule'></a>
 					</div>";
@@ -218,7 +216,7 @@ class AdminFunctions{
 	function insertAvailablityIntoEditDriver($id){
 		$availabilities = $this->db->getAvailabilityForDriver($id);
 		if(empty($availabilities)){
-			return "<p class='date-inputted' value=''>No availability dates</p>";
+			return "";
 		}
 
 		$date = "";
@@ -256,15 +254,15 @@ class AdminFunctions{
 		if($_type == 'c'){
 			$congregation = $this->getCongregation($_id)[0];
 			$user = $this->getUser($congregation->getContactID())[0];
-			$this->updateUser($user->getID(),$user->getFirstName(), $user->getLastName(), $user->getRole(), $user->getEmail(), "rahin123");
+			$this->updateUser($user->getID(),$user->getFirstName(), $user->getLastName(), $user->getRole(), $user->getEmail(), "raihn123");
 			//echo "<script type='text/javascript'>alert('Password reset!');</script>";
 		}else if($_type == 'd'){
 			$driver = $this->getBusDriver($_id)[0];
-			$this->updateUser($driver->getID(),$driver->getFirstName(), $driver->getLastName(), $driver->getRole(), $driver->getEmail(), "rahin123");
+			$this->updateUser($driver->getID(),$driver->getFirstName(), $driver->getLastName(), $driver->getRole(), $driver->getEmail(), "raihn123");
 			//echo "<script type='text/javascript'>alert('Password reset!');</script>";
 		}else{
 			$user = $this->getUser($_id)[0];
-			$this->updateUser($user->getID(),$user->getFirstName(), $user->getLastName(), $user->getRole(), $user->getEmail(), "rahin123");
+			$this->updateUser($user->getID(),$user->getFirstName(), $user->getLastName(), $user->getRole(), $user->getEmail(), "raihn123");
 		}
 	}
 
@@ -379,7 +377,7 @@ class AdminFunctions{
 				return "Unable to delete";
 		}
 
-		return "Deleted " + $_name;
+		return "Deleted " . $_name;
 
 	}
 

@@ -274,7 +274,7 @@
 			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "deleteUser - ".$e->getMessage();
@@ -402,7 +402,7 @@
 			$stmt->bindParam(":name",$_name,PDO::PARAM_STR);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "insertNewRole - ".$e->getMessage();
@@ -425,7 +425,7 @@
 			$stmt->bindParam(":name",$_name,PDO::PARAM_STR);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "updateRole - ".$e->getMessage();
@@ -446,7 +446,7 @@
 			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "deleteRole - ".$e->getMessage();
@@ -635,7 +635,7 @@
 			$stmt->bindParam(":name",$_name,PDO::PARAM_STR);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "insertNewCongregation - ".$e->getMessage();
@@ -661,7 +661,7 @@
 			$stmt->bindParam(":name",$_name,PDO::PARAM_STR);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "updateCongregation - ".$e->getMessage();
@@ -844,7 +844,7 @@
 			$stmt->bindParam(":contact_number",$_contactNumber,PDO::PARAM_STR);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "insertNewCongregation - ".$e->getMessage();
@@ -871,7 +871,7 @@
 			$stmt->bindParam(":contact_number",$_contactNumber,PDO::PARAM_STR);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "updateBusDriver - ".$e->getMessage();
@@ -891,7 +891,7 @@
 			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "deleteRole - ".$e->getMessage();
@@ -915,8 +915,8 @@
 			$stmt->execute();
 
 			$data = $stmt->fetchAll(PDO::FETCH_CLASS,'holiday');
-			var_dump("data()");
-			var_dump($data);
+			// var_dump("data()");
+			// var_dump($data);
 			return $data;
 		}
 		catch(PDOException $e){
@@ -1033,7 +1033,7 @@
 			return $data;
 		}
 		catch(PDOException $e){
-			echo "getHolidayName - ".$e->getMessage();
+			echo "getHolidayDatesForCongregation - ".$e->getMessage();
 			die();
 		}
 		return $data;
@@ -1054,7 +1054,7 @@
 			return $data;
 		}
 		catch(PDOException $e){
-			echo "getHolidayName - ".$e->getMessage();
+			echo "getCongregationsHolidaysForDates - ".$e->getMessage();
 			die();
 		}
 		return $data;
@@ -1089,10 +1089,10 @@
 			}
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
-			echo "insertNewCongregation - ".$e->getMessage();
+			echo "insertNewHoliday - ".$e->getMessage();
 			die();
 		}
 	}
@@ -1129,7 +1129,7 @@
 			}
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "updateHoliday - ".$e->getMessage();
@@ -1153,10 +1153,10 @@
 			$stmt->bindParam(":date",$_date,PDO::PARAM_STR);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
-			echo "deleteRole - ".$e->getMessage();
+			echo "deleteHoliday - ".$e->getMessage();
 			die();
 		}
 	}
@@ -1181,7 +1181,7 @@
 			return $data;
 		}
 		catch(PDOException $e){
-			echo "getAllHolidays - ".$e->getMessage();
+			echo "getAllBlackoutDates - ".$e->getMessage();
 			die();
 		}
 		return $data;
@@ -1288,7 +1288,7 @@
 			$stmt->bindParam(":blackout_date_to",$_blackoutDateTo,PDO::PARAM_STR);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "insertNewBlackoutdate - ".$e->getMessage();
@@ -1318,10 +1318,10 @@
 			$stmt->bindParam(":blackout_date_to",$_blackoutDateTo,PDO::PARAM_STR);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
-			echo "updateBusDriver - ".$e->getMessage();
+			echo "updateBlackoutdate - ".$e->getMessage();
 			die();
 		}
 	}
@@ -1345,10 +1345,10 @@
 			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
-			echo "deleteRole - ".$e->getMessage();
+			echo "deleteBlackoutdate - ".$e->getMessage();
 			die();
 		}
 	}
@@ -1526,7 +1526,7 @@
 			$stmt->bindParam(":rotation_date_to",$_rotationDateTo,PDO::PARAM_STR);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "insertNewRotation - ".$e->getMessage();
@@ -1561,7 +1561,7 @@
 			$stmt->bindParam(":rotation_date_to",$_rotationDateTo,PDO::PARAM_STR);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "updateRotation - ".$e->getMessage();
@@ -1590,7 +1590,7 @@
 			$stmt->bindParam(":congregation_ID",$_congregationID,PDO::PARAM_INT);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "deleteRotation - ".$e->getMessage();
@@ -1923,7 +1923,7 @@
 			$stmt->bindParam(":time_of_day",$_time_of_day,PDO::PARAM_INT);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "insertNewAvailability - ".$e->getMessage();
@@ -1956,10 +1956,10 @@
 			$stmt->bindParam(":time_of_day",$_time_of_day,PDO::PARAM_STR);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
-			echo "insertNewRotation - ".$e->getMessage();
+			echo "updateAvailability - ".$e->getMessage();
 			die();
 		}
 	}
@@ -1982,10 +1982,10 @@
 			$stmt->bindParam(":busDriverID",$_busDriverID,PDO::PARAM_INT);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
-			echo "deleteRole - ".$e->getMessage();
+			echo "deleteAvailability - ".$e->getMessage();
 			die();
 		}
 	}
@@ -2148,10 +2148,10 @@
 			$stmt->bindParam(":status",$_status,PDO::PARAM_INT);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
-			echo "insertNewAvailability - ".$e->getMessage();
+			echo "insertNewSchedule - ".$e->getMessage();
 			die();
 		}
 	}
@@ -2185,7 +2185,7 @@
 			$stmt->bindParam(":status",$_status,PDO::PARAM_INT);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "updateSchedule - ".$e->getMessage();
@@ -2206,7 +2206,7 @@
 			$stmt->bindParam(":id",$_id,PDO::PARAM_INT);
 			$stmt->execute();
 
-			print $this->db->lastInsertId();
+			return $this->db->lastInsertId();
 		}
 		catch(PDOException $e){
 			echo "deleteSchedule - ".$e->getMessage();
